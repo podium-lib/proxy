@@ -1,12 +1,20 @@
+# podium-express-resource-proxy
 
 
-- new middleware([clients...])
-- app.use(middleware)
-- sanity check på /path/adsf
-- events / logging
-- proxy / forward til samme path på resource server
-    HEADERS
-        - usertoken
-        - deviceType
-    - naming på query args vs token etc? kollisjoner?
-- Legge til .getLatestManifest() på client?
+```js
+
+    const ResourceProxy = require('podium-express-resource-proxy');
+    const PodiumClient = require('podium-client');
+
+    const resources = new ResourceProxy({
+        serverId: 'frontpage-layout-server', // app-name
+        clients: [
+            new PodiumClient(/*...*/),
+            new PodiumClient(/*...*/),
+        ],
+    });
+
+    app.use(resources.middleware());
+
+
+```
