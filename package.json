@@ -1,0 +1,25 @@
+{
+  "name": "podium-express-resource-proxy",
+  "version": "1.0.0",
+  "description": "- new middleware([clients...]) - app.use(middleware) - sanity check på /path/adsf - events / logging - proxy / forward til samme path på resource server     - usertoken     - naming på query args vs token etc? kollisjoner? - Legge til .getLatestManifest() på client?",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "ava",
+    "test:watch": "npm run test --  --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ava": "^0.18.2",
+    "express": "^4.14.1",
+    "nock": "^9.0.6",
+    "supertest": "^3.0.0"
+  },
+  "dependencies": {
+    "request": "^2.79.0"
+  }
+}

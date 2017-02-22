@@ -5,6 +5,8 @@
 - sanity check på /path/adsf
 - events / logging
 - proxy / forward til samme path på resource server
-    - usertoken
+    HEADERS
+        - usertoken
+        - deviceType
     - naming på query args vs token etc? kollisjoner?
 - Legge til .getLatestManifest() på client?
