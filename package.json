@@ -1,7 +1,7 @@
 {
   "name": "podium-express-resource-proxy",
   "version": "1.0.0",
-  "description": "- new middleware([clients...]) - app.use(middleware) - sanity check på /path/adsf - events / logging - proxy / forward til samme path på resource server     - usertoken     - naming på query args vs token etc? kollisjoner? - Legge til .getLatestManifest() på client?",
+  "description": "podium-express-resource-proxy",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -20,6 +20,7 @@
     "supertest": "^3.0.0"
   },
   "dependencies": {
+    "@finn-no/fiaas-logger": "^1.0.3",
     "request": "^2.79.0"
   }
 }
