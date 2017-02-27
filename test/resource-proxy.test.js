@@ -11,7 +11,8 @@ test('should throw on missing args', t => {
         new ResourceProxy({ serverId: 'server-id'}); // eslint-disable-line
     });
     t.throws(() => {
-        new ResourceProxy({ client: { id: 'podlet-id' } }); // eslint-disable-line
+        new ResourceProxy({ client: {
+            on: (eventName, cb) => cb({id: 'podlet-id'}),id: 'podlet-id' } }); // eslint-disable-line
     });
 });
 
@@ -21,7 +22,7 @@ test('hasProxyRoute should return true if match', t => {
     const proxy = new ResourceProxy({
         serverId: 'server-id',
         client: {
-            id: 'podlet-id',
+            on: (eventName, cb) => cb({ id: 'podlet-id' }),
             getMostRecentManifest () {
                 return {
                     resources: [{ path }],
@@ -37,7 +38,7 @@ test('hasProxyRoute should return false if if no match', t => {
     const proxy = new ResourceProxy({
         serverId: 'server-id',
         client: {
-            id: 'podlet-id',
+            on: (eventName, cb) => cb({ id: 'podlet-id' }),
             getMostRecentManifest () {
                 return {
                     resources: [{ path: 'other/path' }, { path: 'and/no/soup' }],
@@ -54,7 +55,7 @@ test('hasProxyRoute should return false if if no manifest', t => {
     const proxy = new ResourceProxy({
         serverId: 'server-id',
         client: {
-            id: 'podlet-id',
+            on: (eventName, cb) => cb({ id: 'podlet-id' }),
             getMostRecentManifest () {
                 return null;
             },
@@ -70,7 +71,7 @@ test('hasProxyRoute should return false if if no manifest resources', t => {
     const proxy = new ResourceProxy({
         serverId: 'server-id',
         client: {
-            id: 'podlet-id',
+            on: (eventName, cb) => cb({ id: 'podlet-id' }),
             getMostRecentManifest () {
                 return {
                     resources: [],
@@ -89,7 +90,7 @@ test('getFirstMatchingResource should select first matching resource path', t =>
     const proxy = new ResourceProxy({
         serverId: 'server-id',
         client: {
-            id: 'podlet-id',
+            on: (eventName, cb) => cb({ id: 'podlet-id' }),
             getMostRecentManifest () {
                 return {
                     resources: [{ path: 'asdf' }, resource, { path }, { path: 'asdf' }],

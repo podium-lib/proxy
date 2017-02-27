@@ -43,7 +43,8 @@ function getManifest () {
 test('should next(error) if manifest missing', async t => {
     const app = express();
     const clients = [
-        new PodletClient('test-crash-dummies', {
+        new PodletClient({
+            uri: 'http://test-crash-dummies',
             fallback: 'OFFLINE!',
         }),
     ];
@@ -60,8 +61,6 @@ test('should next(error) if manifest missing', async t => {
         next();
     });
 
-    t.true(errors.length === 0);
-
     await supertest(app)
         .get('/podlet/test-crash-dummies/some/path');
 
@@ -72,7 +71,8 @@ test('should next(error) if manifest missing', async t => {
 test.serial('should serve GET routes from manifest', async t => {
     const app = express();
     const clients = [
-        new PodletClient('test-crash-dummies', {
+        new PodletClient({
+            uri: 'http://test-crash-dummies',
             fallback: 'OFFLINE!',
         }),
     ];
@@ -115,7 +115,6 @@ test.serial('should serve GET routes from manifest', async t => {
     const result = await supertest(app)
         .get('/podlet/test-crash-dummies/some/path');
 
-
     const error = result.error;
     t.falsy(error, 'request for podlet resource should not fail');
     t.true(errors.length === 0);
@@ -126,7 +125,8 @@ test.serial('should serve GET routes from manifest', async t => {
 test.serial('should serve POST routes from manifest', async t => {
     const app = express();
     const clients = [
-        new PodletClient('test-crash-dummies', {
+        new PodletClient({
+            uri: 'http://test-crash-dummies',
             fallback: 'OFFLINE!',
         }),
     ];
@@ -174,7 +174,8 @@ test.serial('should serve GET with query routes from manifest', async t => {
 
     const app = express();
     const clients = [
-        new PodletClient('test-crash-dummies', {
+        new PodletClient({
+            uri: 'http://test-crash-dummies',
             fallback: 'OFFLINE!',
         }),
     ];
