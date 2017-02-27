@@ -40,7 +40,7 @@ function getManifest () {
     };
 }
 
-test('should next(error) if manifest missing', async t => {
+test('should 404 if manifest missing', async t => {
     const app = express();
     const clients = [
         new PodletClient({
@@ -61,11 +61,18 @@ test('should next(error) if manifest missing', async t => {
         next();
     });
 
+    const notFound = [];
+    app.use((req, res, next) => {
+        notFound.push(req.url);
+        next();
+    });
+
     await supertest(app)
         .get('/podlet/test-crash-dummies/some/path');
 
-    t.true(errors.length === 1);
-    t.regex(errors[0].message, /Cannot find manifest for test-crash-dummies/i);
+    t.true(errors.length === 0);
+    t.true(notFound.length === 1);
+    t.true(notFound[0] === '/podlet/test-crash-dummies/some/path');
 });
 
 test.serial('should serve GET routes from manifest', async t => {

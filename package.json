@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@finn-no/fiaas-logger": "^1.0.3",
-    "boom": "^4.2.0",
     "request": "^2.79.0"
   }
 }

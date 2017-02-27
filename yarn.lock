@@ -587,12 +587,6 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
-boom@^4.2.0:
-  version "4.2.0"
-  resolved "http://npm.finntech.no/boom/-/boom-4.2.0.tgz#c1a74174b11fbba223f6162d4fd8851a1b82a536"
-  dependencies:
-    hoek "4.x.x"
-
 boxen@^0.6.0:
   version "0.6.0"
   resolved "http://npm.finntech.no/boxen/-/boxen-0.6.0.tgz#8364d4248ac34ff0ef1b2f2bf49a6c60ce0d81b6"
@@ -1384,10 +1378,6 @@ hawk@~3.1.3:
 hoek@2.x.x:
   version "2.16.3"
   resolved "http://npm.finntech.no/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
-
-hoek@4.x.x:
-  version "4.1.0"
-  resolved "http://npm.finntech.no/hoek/-/hoek-4.1.0.tgz#4a4557460f69842ed463aa00628cc26d2683afa7"
 
 home-or-tmp@^2.0.0:
   version "2.0.0"
