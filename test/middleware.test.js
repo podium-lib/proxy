@@ -3,7 +3,7 @@
 const express = require('express');
 const test = require('ava');
 const ResourceProxy = require('../lib/index.js');
-const { PodletClient } = require('../../podium-client');
+const { PodiumClient } = require('../../podium-client');
 const supertest = require('supertest');
 const nock = require('nock');
 
@@ -43,7 +43,7 @@ function getManifest () {
 test('should 404 if manifest missing', async t => {
     const app = express();
     const clients = [
-        new PodletClient({
+        new PodiumClient({
             uri: 'http://test-crash-dummies',
             fallback: 'OFFLINE!',
         }),
@@ -78,7 +78,7 @@ test('should 404 if manifest missing', async t => {
 test.serial('should serve GET routes from manifest', async t => {
     const app = express();
     const clients = [
-        new PodletClient({
+        new PodiumClient({
             uri: 'http://test-crash-dummies',
             fallback: 'OFFLINE!',
         }),
@@ -132,7 +132,7 @@ test.serial('should serve GET routes from manifest', async t => {
 test.serial('should serve POST routes from manifest', async t => {
     const app = express();
     const clients = [
-        new PodletClient({
+        new PodiumClient({
             uri: 'http://test-crash-dummies',
             fallback: 'OFFLINE!',
         }),
@@ -181,7 +181,7 @@ test.serial('should serve GET with query routes from manifest', async t => {
 
     const app = express();
     const clients = [
-        new PodletClient({
+        new PodiumClient({
             uri: 'http://test-crash-dummies',
             fallback: 'OFFLINE!',
         }),
