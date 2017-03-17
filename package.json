@@ -10,6 +10,9 @@
     "test": "ava",
     "test:watch": "npm run test --  --watch"
   },
+  "publishConfig": {
+    "registry": "http://npm.finntech.no/"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
