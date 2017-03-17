@@ -44,6 +44,7 @@ test('should 404 if manifest missing', async t => {
     const app = express();
     const clients = [
         new PodiumClient({
+            consumerName: 'tests',
             uri: 'http://test-crash-dummies',
             fallback: 'OFFLINE!',
         }),
@@ -79,6 +80,7 @@ test.serial('should serve GET routes from manifest', async t => {
     const app = express();
     const clients = [
         new PodiumClient({
+            consumerName: 'tests',
             uri: 'http://test-crash-dummies',
             fallback: 'OFFLINE!',
         }),
@@ -133,6 +135,7 @@ test.serial('should serve POST routes from manifest', async t => {
     const app = express();
     const clients = [
         new PodiumClient({
+            consumerName: 'tests',
             uri: 'http://test-crash-dummies',
             fallback: 'OFFLINE!',
         }),
@@ -182,6 +185,7 @@ test.serial('should serve GET with query routes from manifest', async t => {
     const app = express();
     const clients = [
         new PodiumClient({
+            consumerName: 'tests',
             uri: 'http://test-crash-dummies',
             fallback: 'OFFLINE!',
         }),
