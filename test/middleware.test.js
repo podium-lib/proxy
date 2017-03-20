@@ -20,8 +20,10 @@ function getManifest () {
             assetId: `some-asset-id-1234-${Math.round(10000 * Math.random())}`,
         },
         metadata: {
-            fallback: {
-                html: 'some html fallback',
+            fallbacks: {
+                default: {
+                    html: 'some html fallback',
+                },
             },
             maxAge: 60,
             resources: [
