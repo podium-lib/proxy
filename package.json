@@ -1,5 +1,5 @@
 {
-  "name": "podium-express-resource-proxy",
+  "name": "@podium/express-resource-proxy",
   "version": "1.0.0",
   "description": "podium-express-resource-proxy",
   "main": "index.js",
