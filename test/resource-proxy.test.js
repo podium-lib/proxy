@@ -4,16 +4,18 @@ const test = require('ava');
 const ResourceProxy = require('../lib/resource-proxy.js');
 
 test('should throw on missing args', t => {
+    /* eslint-disable no-new */
     t.throws(() => {
-        new ResourceProxy(); // eslint-disable-line
+        new ResourceProxy();
     });
     t.throws(() => {
-        new ResourceProxy({ serverId: 'server-id'}); // eslint-disable-line
+        new ResourceProxy({ serverId: 'server-id' });
     });
     t.throws(() => {
         new ResourceProxy({ client: {
-            on: (eventName, cb) => cb({id: 'podlet-id'}),id: 'podlet-id' } }); // eslint-disable-line
+            on: (eventName, cb) => cb({ id: 'podlet-id' }), id: 'podlet-id' } });
     });
+    /* eslint-enable */
 });
 
 
