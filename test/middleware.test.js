@@ -237,5 +237,5 @@ test.serial('should serve GET with query routes from manifest', async t => {
     t.true(text === 'SUPPA ER FULL AV FLUER');
 });
 
-
 test.todo('should proxy valid resource routes');
+test.todo('should respect method as well as path for resources');
