@@ -22,6 +22,7 @@ test('should throw on missing args', t => {
 test('hasProxyRoute should return true if match', t => {
     const path = `/some/path${Math.round(Math.random() * 1000)}`;
     const proxy = new ResourceProxy({
+        logger: console,
         serverId: 'server-id',
         client: {
             on: (eventName, cb) => cb({ id: 'podlet-id' }),
@@ -38,6 +39,7 @@ test('hasProxyRoute should return true if match', t => {
 test('hasProxyRoute should return false if if no match', t => {
     const path = `/some/path${Math.round(Math.random() * 1000)}`;
     const proxy = new ResourceProxy({
+        logger: console,
         serverId: 'server-id',
         client: {
             on: (eventName, cb) => cb({ id: 'podlet-id' }),
@@ -55,6 +57,7 @@ test('hasProxyRoute should return false if if no match', t => {
 test('hasProxyRoute should return false if if no manifest', t => {
     const path = `/some/path${Math.round(Math.random() * 1000)}`;
     const proxy = new ResourceProxy({
+        logger: console,
         serverId: 'server-id',
         client: {
             on: (eventName, cb) => cb({ id: 'podlet-id' }),
@@ -71,6 +74,7 @@ test('hasProxyRoute should return false if if no manifest', t => {
 test('hasProxyRoute should return false if if no manifest resources', t => {
     const path = `/some/path${Math.round(Math.random() * 1000)}`;
     const proxy = new ResourceProxy({
+        logger: console,
         serverId: 'server-id',
         client: {
             on: (eventName, cb) => cb({ id: 'podlet-id' }),
@@ -90,12 +94,18 @@ test('getFirstMatchingResource should select first matching resource path', t =>
     const path = `/some/path${Math.round(Math.random() * 1000)}`;
     const resource = { path };
     const proxy = new ResourceProxy({
+        logger: console,
         serverId: 'server-id',
         client: {
             on: (eventName, cb) => cb({ id: 'podlet-id' }),
             getMostRecentManifest () {
                 return {
-                    resources: [{ path: 'asdf' }, resource, { path }, { path: 'asdf' }],
+                    resources: [
+                        { path: 'asdf' },
+                        resource,
+                        { path },
+                        { path: 'asdf' },
+                    ],
                 };
             },
         },
