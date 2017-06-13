@@ -114,21 +114,13 @@ test.serial('should serve GET routes from manifest', async t => {
         next();
     });
 
-    t.true(errors.length === 0);
-
-    // answer on a podlet resource url
-    nock(clients[0].uri)
-        .matchHeader('podium-server-id', 'supah-server-2')
-        .get('/podium-resource/test-crash-dummies/some/path')
-        .reply(200, 'SUPPA ER OK');
-
     // request the resource
     const result = await supertest(app)
         .get('/podium-resource/test-crash-dummies/some/path');
 
-    const error = result.error;
-    t.falsy(error, 'request for podlet resource should not fail');
     t.true(errors.length === 0);
+    const { error } = result;
+    t.falsy(error, 'request for podlet resource should not fail');
     const text = result.res.text;
     t.true(text === 'SUPPA ER OK');
 });
