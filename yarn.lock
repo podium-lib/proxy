@@ -46,20 +46,20 @@
     read-pkg-up "^2.0.0"
     verror "^1.8.1"
 
-"@podium/client@^1.0.0-alpha.2":
-  version "1.0.0-alpha.2"
-  resolved "http://npm.finntech.no/@podium/client/-/@podium/client-1.0.0-alpha.2.tgz#2ba5f1a8e7c70ff3ed47d5e75868dcf4f3df7aca"
+"@podium/client@^1.0.0-alpha.12":
+  version "1.0.0-alpha.12"
+  resolved "http://npm.finntech.no/@podium/client/-/@podium/client-1.0.0-alpha.12.tgz#0dbebc3b14ceccd155f0408abdb587b5b42c52e6"
   dependencies:
-    "@podium/schemas" "^1.0.0-alpha.1"
-    eventemitter2 "^3.0.1"
-    joi "^10.2.1"
+    "@podium/schemas" "^1.0.0-alpha.2"
+    eventemitter2 "^4.1.0"
+    joi "^10.3.0"
     qs "^6.3.1"
     request "^2.79.0"
     request-promise-native "^1.0.3"
 
-"@podium/schemas@^1.0.0-alpha.1":
-  version "1.0.0-alpha.1"
-  resolved "http://npm.finntech.no/@podium/schemas/-/@podium/schemas-1.0.0-alpha.1.tgz#1485c07a401a9572114f667ee45e844cb2c5e91a"
+"@podium/schemas@^1.0.0-alpha.2":
+  version "1.0.0-alpha.2"
+  resolved "http://npm.finntech.no/@podium/schemas/-/@podium/schemas-1.0.0-alpha.2.tgz#2381ce5c288ad78b7fb57abf3dfe4e4dbe26f34b"
   dependencies:
     joi "^10.2.2"
 
@@ -1049,9 +1049,9 @@ etag@~1.8.0:
   version "1.8.0"
   resolved "http://npm.finntech.no/etag/-/etag-1.8.0.tgz#6f631aef336d6c46362b51764044ce216be3c051"
 
-eventemitter2@^3.0.1:
-  version "3.0.2"
-  resolved "http://npm.finntech.no/eventemitter2/-/eventemitter2-3.0.2.tgz#81c0edb739ffa64fb9f21bbcb1d2b419a5133512"
+eventemitter2@^4.1.0:
+  version "4.1.0"
+  resolved "http://npm.finntech.no/eventemitter2/-/eventemitter2-4.1.0.tgz#b1fb8a1144e7dfcf80cecce9877ff6d68e7d8506"
 
 execa@^0.5.0:
   version "0.5.1"
@@ -1692,9 +1692,9 @@ jodid25519@^1.0.0:
   dependencies:
     jsbn "~0.1.0"
 
-joi@^10.2.1, joi@^10.2.2:
-  version "10.2.2"
-  resolved "http://npm.finntech.no/joi/-/joi-10.2.2.tgz#dc5a792b7b4c6fffa562242a95b55d9d3f077e24"
+joi@^10.2.2, joi@^10.3.0:
+  version "10.5.2"
+  resolved "http://npm.finntech.no/joi/-/joi-10.5.2.tgz#64f6853b080e9df0cf4cc9e204fa12cc8f792c48"
   dependencies:
     hoek "4.x.x"
     isemail "2.x.x"
