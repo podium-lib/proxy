@@ -11,7 +11,7 @@ test.afterEach(() => {
     nock.cleanAll();
 });
 
-function getManifest () {
+function getManifest() {
     return {
         id: 'test-crash-dummies',
         version: '0.0.0',
@@ -70,8 +70,7 @@ test('should 404 if manifest missing', async t => {
         next();
     });
 
-    await supertest(app)
-        .get('/podium-resource/test-crash-dummies/some/path');
+    await supertest(app).get('/podium-resource/test-crash-dummies/some/path');
 
     t.true(errors.length === 0);
     t.true(notFound.length === 1);
@@ -99,9 +98,7 @@ test.serial('should serve GET routes from manifest', async t => {
         .reply(200, 'SUPPA ER OK');
 
     // answer with the podlet manifest
-    nock(clients[0].uri)
-        .get('/')
-        .reply(200, getManifest());
+    nock(clients[0].uri).get('/').reply(200, getManifest());
 
     // trigger fetch of manifest / warm up
     await clients[0].fetch();
@@ -115,8 +112,7 @@ test.serial('should serve GET routes from manifest', async t => {
     });
 
     // request the resource
-    const result = await supertest(app)
-        .get('/podium-resource/test-crash-dummies/some/path');
+    const result = await supertest(app).get('/podium-resource/test-crash-dummies/some/path');
 
     t.true(errors.length === 0);
     const { error } = result;
@@ -140,9 +136,7 @@ test.serial('should serve POST routes from manifest', async t => {
     });
 
     // answer with the podlet manifest
-    nock(clients[0].uri)
-        .get('/')
-        .reply(200, getManifest());
+    nock(clients[0].uri).get('/').reply(200, getManifest());
 
     // trigger fetch of manifest / warm up
     await clients[0].fetch();
@@ -190,9 +184,7 @@ test.serial('should serve GET with query routes from manifest', async t => {
     });
 
     // answer with the podlet manifest
-    nock(clients[0].uri)
-        .get('/')
-        .reply(200, getManifest());
+    nock(clients[0].uri).get('/').reply(200, getManifest());
 
     // trigger fetch of manifest / warm up
     await clients[0].fetch();
@@ -221,8 +213,7 @@ test.serial('should serve GET with query routes from manifest', async t => {
         .reply(200, 'SUPPA ER FULL AV FLUER');
 
     // request the query param resource
-    const result3 = await supertest(app)
-        .get('/podium-resource/test-crash-dummies/some/path?super=4&foo=bar');
+    const result3 = await supertest(app).get('/podium-resource/test-crash-dummies/some/path?super=4&foo=bar');
 
     t.true(errors.length === 0);
     const text = result3.res.text;

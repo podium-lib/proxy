@@ -12,12 +12,15 @@ test('should throw on missing args', t => {
         new ResourceProxy({ serverId: 'server-id' });
     });
     t.throws(() => {
-        new ResourceProxy({ client: {
-            on: (eventName, cb) => cb({ id: 'podlet-id' }), id: 'podlet-id' } });
+        new ResourceProxy({
+            client: {
+                on: (eventName, cb) => cb({ id: 'podlet-id' }),
+                id: 'podlet-id',
+            },
+        });
     });
     /* eslint-enable */
 });
-
 
 test('hasProxyRoute should return true if match', t => {
     const path = `/some/path${Math.round(Math.random() * 1000)}`;
@@ -26,7 +29,7 @@ test('hasProxyRoute should return true if match', t => {
         serverId: 'server-id',
         client: {
             on: (eventName, cb) => cb({ id: 'podlet-id' }),
-            getMostRecentManifest () {
+            getMostRecentManifest() {
                 return {
                     resources: [{ path }],
                 };
@@ -43,7 +46,7 @@ test('hasProxyRoute should return false if if no match', t => {
         serverId: 'server-id',
         client: {
             on: (eventName, cb) => cb({ id: 'podlet-id' }),
-            getMostRecentManifest () {
+            getMostRecentManifest() {
                 return {
                     resources: [{ path: 'other/path' }, { path: 'and/no/soup' }],
                 };
@@ -61,7 +64,7 @@ test('hasProxyRoute should return false if if no manifest', t => {
         serverId: 'server-id',
         client: {
             on: (eventName, cb) => cb({ id: 'podlet-id' }),
-            getMostRecentManifest () {
+            getMostRecentManifest() {
                 return null;
             },
         },
@@ -70,7 +73,6 @@ test('hasProxyRoute should return false if if no manifest', t => {
     t.false(proxy.hasProxyRoute(path));
 });
 
-
 test('hasProxyRoute should return false if if no manifest resources', t => {
     const path = `/some/path${Math.round(Math.random() * 1000)}`;
     const proxy = new ResourceProxy({
@@ -78,7 +80,7 @@ test('hasProxyRoute should return false if if no manifest resources', t => {
         serverId: 'server-id',
         client: {
             on: (eventName, cb) => cb({ id: 'podlet-id' }),
-            getMostRecentManifest () {
+            getMostRecentManifest() {
                 return {
                     resources: [],
                 };
@@ -89,7 +91,6 @@ test('hasProxyRoute should return false if if no manifest resources', t => {
     t.false(proxy.hasProxyRoute(path));
 });
 
-
 test('getFirstMatchingResource should select first matching resource path', t => {
     const path = `/some/path${Math.round(Math.random() * 1000)}`;
     const resource = { path };
@@ -98,14 +99,9 @@ test('getFirstMatchingResource should select first matching resource path', t =>
         serverId: 'server-id',
         client: {
             on: (eventName, cb) => cb({ id: 'podlet-id' }),
-            getMostRecentManifest () {
+            getMostRecentManifest() {
                 return {
-                    resources: [
-                        { path: 'asdf' },
-                        resource,
-                        { path },
-                        { path: 'asdf' },
-                    ],
+                    resources: [{ path: 'asdf' }, resource, { path }, { path: 'asdf' }],
                 };
             },
         },
