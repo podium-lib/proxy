@@ -1,6 +1,6 @@
 {
   "name": "@podium/express-resource-proxy",
-  "version": "1.0.0-alpha.10",
+  "version": "1.0.0-alpha.11",
   "description": "podium-express-resource-proxy",
   "main": "./lib/index.js",
   "directories": {
@@ -20,7 +20,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@podium/client": "^1.0.0-alpha.12",
+    "@podium/client": "^1.0.0-alpha.13",
     "ava": "^0.18.2",
     "express": "^4.14.1",
     "nock": "^9.0.6",
