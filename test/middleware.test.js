@@ -15,6 +15,7 @@ function getManifest() {
     return {
         id: 'test-crash-dummies',
         version: '0.0.0',
+        hash: 'some-hash',
         data: {
             html: 'some html',
             assetId: `some-asset-id-1234-${Math.round(10000 * Math.random())}`,
