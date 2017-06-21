@@ -48,7 +48,10 @@ test('hasProxyRoute should return false if if no match', t => {
             on: (eventName, cb) => cb({ id: 'podlet-id' }),
             getMostRecentManifest() {
                 return {
-                    resources: [{ path: 'other/path' }, { path: 'and/no/soup' }],
+                    resources: [
+                        { path: 'other/path' },
+                        { path: 'and/no/soup' },
+                    ],
                 };
             },
         },
@@ -101,7 +104,12 @@ test('getFirstMatchingResource should select first matching resource path', t =>
             on: (eventName, cb) => cb({ id: 'podlet-id' }),
             getMostRecentManifest() {
                 return {
-                    resources: [{ path: 'asdf' }, resource, { path }, { path: 'asdf' }],
+                    resources: [
+                        { path: 'asdf' },
+                        resource,
+                        { path },
+                        { path: 'asdf' },
+                    ],
                 };
             },
         },
