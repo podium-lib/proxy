@@ -11,9 +11,9 @@ test.afterEach(() => {
     nock.cleanAll();
 });
 
-function getManifest() {
+function getManifest(id) {
     return {
-        id: 'test-crash-dummies',
+        id,
         version: '0.0.0',
         hash: 'some-hash',
         data: {
@@ -29,12 +29,12 @@ function getManifest() {
             maxAge: 60,
             resources: [
                 {
-                    path: '/podium-resource/test-crash-dummies/some/path',
+                    path: `/podium-resource/${id}/some/path`,
                     method: 'GET',
                     params: ['super'],
                 },
                 {
-                    path: '/podium-resource/test-crash-dummies/some/other/path',
+                    path: `/podium-resource/${id}/some/other/path`,
                     method: 'POST',
                     params: [],
                 },
@@ -80,10 +80,11 @@ test('should 404 if manifest missing', async t => {
 
 test.serial('should serve GET routes from manifest', async t => {
     const app = express();
+    const id = 'test-crash-idiots';
     const clients = [
         new PodiumClient({
             consumerName: 'tests',
-            uri: 'http://test-crash-dummies',
+            uri: `http://${id}`,
             fallback: 'OFFLINE!',
         }),
     ];
@@ -95,11 +96,11 @@ test.serial('should serve GET routes from manifest', async t => {
     // answer on a podlet resource url
     nock(clients[0].uri)
         .matchHeader('podium-server-id', 'supah-server-2')
-        .get('/podium-resource/test-crash-dummies/some/path')
+        .get(`/podium-resource/${id}/some/path`)
         .reply(200, 'SUPPA ER OK');
 
     // answer with the podlet manifest
-    nock(clients[0].uri).get('/').reply(200, getManifest());
+    nock(clients[0].uri).get('/').reply(200, getManifest(id));
 
     // trigger fetch of manifest / warm up
     await clients[0].fetch();
@@ -113,9 +114,7 @@ test.serial('should serve GET routes from manifest', async t => {
     });
 
     // request the resource
-    const result = await supertest(app).get(
-        '/podium-resource/test-crash-dummies/some/path'
-    );
+    const result = await supertest(app).get(`/podium-resource/${id}/some/path`);
 
     t.true(errors.length === 0);
     const { error } = result;
@@ -126,10 +125,11 @@ test.serial('should serve GET routes from manifest', async t => {
 
 test.serial('should serve POST routes from manifest', async t => {
     const app = express();
+    const id = 'test-crash-dummies-post';
     const clients = [
         new PodiumClient({
             consumerName: 'tests',
-            uri: 'http://test-crash-dummies',
+            uri: `http://${id}`,
             fallback: 'OFFLINE!',
         }),
     ];
@@ -139,7 +139,7 @@ test.serial('should serve POST routes from manifest', async t => {
     });
 
     // answer with the podlet manifest
-    nock(clients[0].uri).get('/').reply(200, getManifest());
+    nock(clients[0].uri).get('/').reply(200, getManifest(id));
 
     // trigger fetch of manifest / warm up
     await clients[0].fetch();
@@ -156,15 +156,12 @@ test.serial('should serve POST routes from manifest', async t => {
 
     nock(clients[0].uri)
         .matchHeader('podium-server-id', 'supah-server-3')
-        .post(
-            '/podium-resource/test-crash-dummies/some/other/path',
-            'ER SUPPA GREI?'
-        )
+        .post(`/podium-resource/${id}/some/other/path`, 'ER SUPPA GREI?')
         .reply(200, 'SUPPA ER OK');
 
     // request the POST resource
     const result2 = await supertest(app)
-        .post('/podium-resource/test-crash-dummies/some/other/path')
+        .post(`/podium-resource/${id}/some/other/path`)
         .type('form')
         .send('ER SUPPA GREI?');
 
@@ -175,12 +172,12 @@ test.serial('should serve POST routes from manifest', async t => {
 
 test.serial('should serve GET with query routes from manifest', async t => {
     t.plan(4);
-
+    const id = 'test-crash-smarties';
     const app = express();
     const clients = [
         new PodiumClient({
             consumerName: 'tests',
-            uri: 'http://test-crash-dummies',
+            uri: `http://${id}`,
             fallback: 'OFFLINE!',
         }),
     ];
@@ -190,7 +187,7 @@ test.serial('should serve GET with query routes from manifest', async t => {
     });
 
     // answer with the podlet manifest
-    nock(clients[0].uri).get('/').reply(200, getManifest());
+    nock(clients[0].uri).get('/').reply(200, getManifest(id));
 
     // trigger fetch of manifest / warm up
     await clients[0].fetch();
@@ -207,7 +204,7 @@ test.serial('should serve GET with query routes from manifest', async t => {
 
     // Bug in nock, it matches if _no_ query: https://github.com/node-nock/nock/pull/829
     nock(clients[0].uri)
-        .get('/podium-resource/test-crash-dummies/some/path')
+        .get(`/podium-resource/${id}/some/path`)
         .matchHeader('podium-server-id', 'supah-server-4')
         .query(query => {
             t.deepEqual(query, {
@@ -220,7 +217,7 @@ test.serial('should serve GET with query routes from manifest', async t => {
 
     // request the query param resource
     const result3 = await supertest(app).get(
-        '/podium-resource/test-crash-dummies/some/path?super=4&foo=bar'
+        `/podium-resource/${id}/some/path?super=4&foo=bar`
     );
 
     t.true(errors.length === 0);

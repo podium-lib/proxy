@@ -28,6 +28,6 @@
   },
   "dependencies": {
     "@finn-no/fiaas-logger": "^1.3.0",
-    "request": "^2.81.0"
+    "@finn-no/proxy-services": "^0.0.12"
   }
 }
