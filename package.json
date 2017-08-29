@@ -1,6 +1,6 @@
 {
   "name": "@podium/express-resource-proxy",
-  "version": "1.0.0-alpha.22",
+  "version": "1.0.0-alpha.23",
   "description": "podium-express-resource-proxy",
   "main": "./lib/index.js",
   "directories": {
@@ -28,6 +28,6 @@
   },
   "dependencies": {
     "@finn-no/fiaas-logger": "^1.4.2",
-    "@finn-no/proxy-services": "^0.3.1"
+    "@finn-no/proxy-services": "^0.4.0"
   }
 }
