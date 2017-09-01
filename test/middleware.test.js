@@ -58,7 +58,7 @@ test('should 404 if manifest missing', async t => {
         clients,
     });
 
-    app.use(browserMiddleware({ loginHosts: [] }));
+    app.use(browserMiddleware());
     app.use(resourceProxy.middleware());
 
     const errors = [];
