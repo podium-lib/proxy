@@ -4,6 +4,7 @@ const express = require('express');
 const test = require('ava');
 const ResourceProxy = require('../lib/index.js');
 const { PodiumClient } = require('@podium/client');
+const { browserMiddleware } = require('@podium/context');
 const supertest = require('supertest');
 const nock = require('nock');
 
@@ -57,6 +58,7 @@ test('should 404 if manifest missing', async t => {
         clients,
     });
 
+    app.use(browserMiddleware({ loginHosts: [] }));
     app.use(resourceProxy.middleware());
 
     const errors = [];
@@ -105,6 +107,7 @@ test.serial('should serve GET routes from manifest', async t => {
     // trigger fetch of manifest / warm up
     await clients[0].fetch();
 
+    app.use(browserMiddleware({ loginHosts: [] }));
     app.use(resourceProxy.middleware());
 
     const errors = [];
@@ -144,6 +147,7 @@ test.serial('should serve POST routes from manifest', async t => {
     // trigger fetch of manifest / warm up
     await clients[0].fetch();
 
+    app.use(browserMiddleware({ loginHosts: [] }));
     app.use(resourceProxy.middleware());
 
     const errors = [];
@@ -192,7 +196,7 @@ test.serial('should serve GET with query routes from manifest', async t => {
     // trigger fetch of manifest / warm up
     await clients[0].fetch();
 
-    app.use(resourceProxy.middleware());
+    app.use(browserMiddleware({ loginHosts: [] }));
     app.use(resourceProxy.middleware());
 
     const errors = [];
