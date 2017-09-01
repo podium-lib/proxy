@@ -193,6 +193,7 @@ test.serial('should serve GET with query routes from manifest', async t => {
     await clients[0].fetch();
 
     app.use(resourceProxy.middleware());
+    app.use(resourceProxy.middleware());
 
     const errors = [];
     app.use((err, req, res, next) => {
