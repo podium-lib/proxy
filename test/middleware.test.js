@@ -30,12 +30,12 @@ function getManifest(id) {
             maxAge: 60,
             resources: [
                 {
-                    path: `/podium-resource/${id}/some/path`,
+                    path: `/some/path`,
                     method: 'GET',
                     params: ['super'],
                 },
                 {
-                    path: `/podium-resource/${id}/some/other/path`,
+                    path: `/some/other/path`,
                     method: 'POST',
                     params: [],
                 },
@@ -98,7 +98,7 @@ test.serial('should serve GET routes from manifest', async t => {
     // answer on a podlet resource url
     nock(clients[0].uri)
         .matchHeader('podium-server-id', 'supah-server-2')
-        .get(`/podium-resource/${id}/some/path`)
+        .get('/some/path')
         .reply(200, 'SUPPA ER OK');
 
     // answer with the podlet manifest
@@ -117,7 +117,7 @@ test.serial('should serve GET routes from manifest', async t => {
     });
 
     // request the resource
-    const result = await supertest(app).get(`/podium-resource/${id}/some/path`);
+    const result = await supertest(app).get(`/podium-resource/some/path`);
 
     t.true(errors.length === 0);
     const { error } = result;
@@ -160,12 +160,12 @@ test.serial('should serve POST routes from manifest', async t => {
 
     nock(clients[0].uri)
         .matchHeader('podium-server-id', 'supah-server-3')
-        .post(`/podium-resource/${id}/some/other/path`, 'ER SUPPA GREI?')
+        .post('/some/other/path', 'ER SUPPA GREI?')
         .reply(200, 'SUPPA ER OK');
 
     // request the POST resource
     const result2 = await supertest(app)
-        .post(`/podium-resource/${id}/some/other/path`)
+        .post(`/podium-resource/some/other/path`)
         .type('form')
         .send('ER SUPPA GREI?');
 
@@ -176,6 +176,7 @@ test.serial('should serve POST routes from manifest', async t => {
 
 test.serial('should serve GET with query routes from manifest', async t => {
     t.plan(4);
+    const resourceMountPath = '/podium-resource-4';
     const id = 'test-crash-smarties';
     const app = express();
     const clients = [
@@ -187,6 +188,7 @@ test.serial('should serve GET with query routes from manifest', async t => {
     ];
     const resourceProxy = new ResourceProxy({
         serverId: 'supah-server-4',
+        resourceMountPath,
         clients,
     });
 
@@ -209,7 +211,7 @@ test.serial('should serve GET with query routes from manifest', async t => {
 
     // Bug in nock, it matches if _no_ query: https://github.com/node-nock/nock/pull/829
     nock(clients[0].uri)
-        .get(`/podium-resource/${id}/some/path`)
+        .get('/some/path')
         .matchHeader('podium-server-id', 'supah-server-4')
         .query(query => {
             t.deepEqual(query, {
@@ -222,12 +224,12 @@ test.serial('should serve GET with query routes from manifest', async t => {
 
     // request the query param resource
     const result3 = await supertest(app).get(
-        `/podium-resource/${id}/some/path?super=4&foo=bar`
+        `${resourceMountPath}/some/path?super=4&foo=bar`
     );
 
-    t.true(errors.length === 0);
+    t.is(errors.length, 0);
     const text = result3.res.text;
-    t.true(text === 'SUPPA ER FULL AV FLUER');
+    t.is(text, 'SUPPA ER FULL AV FLUER');
 });
 
 test.todo('should proxy valid resource routes');
