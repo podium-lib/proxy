@@ -13,5 +13,6 @@ try {
 }
 
 const pipeConfig = require('@finn-no/proxy-services/config');
+const contextConfig = require('@podium/context/config');
 
-module.exports = pipeConfig;
+module.exports = Object.assign({}, contextConfig, pipeConfig);

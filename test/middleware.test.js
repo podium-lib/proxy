@@ -1,5 +1,7 @@
 'use strict';
 
+const configLoader = require('@finn-no/config-loader');
+const envalid = require('envalid');
 const express = require('express');
 const test = require('ava');
 const ResourceProxy = require('../lib/index.js');
@@ -7,6 +9,18 @@ const { PodiumClient } = require('@podium/client');
 const { browserMiddleware } = require('@podium/context');
 const supertest = require('supertest');
 const nock = require('nock');
+const configDefs = require('../config');
+
+function getConfig(env = {}) {
+    return configLoader({
+        paths: [],
+        extraDefinitions: Object.assign(
+            { APP_NAME: envalid.str() },
+            configDefs
+        ),
+        env: Object.assign({}, env),
+    });
+}
 
 test.afterEach(() => {
     nock.cleanAll();
@@ -53,12 +67,12 @@ test('should 404 if manifest missing', async t => {
             fallback: 'OFFLINE!',
         }),
     ];
-    const resourceProxy = new ResourceProxy({
-        serverId: 'supah-server-1',
-        clients,
-    });
 
-    app.use(browserMiddleware());
+    const config = getConfig({ APP_NAME: 'supah-server-1' });
+
+    const resourceProxy = new ResourceProxy(clients, config);
+
+    app.use(browserMiddleware(config));
     app.use(resourceProxy.middleware());
 
     const errors = [];
@@ -90,10 +104,9 @@ test.serial('should serve GET routes from manifest', async t => {
             fallback: 'OFFLINE!',
         }),
     ];
-    const resourceProxy = new ResourceProxy({
-        serverId: 'supah-server-2',
-        clients,
-    });
+
+    const config = getConfig({ APP_NAME: 'supah-server-2' });
+    const resourceProxy = new ResourceProxy(clients, config);
 
     // answer on a podlet resource url
     nock(clients[0].uri)
@@ -107,7 +120,7 @@ test.serial('should serve GET routes from manifest', async t => {
     // trigger fetch of manifest / warm up
     await clients[0].fetch();
 
-    app.use(browserMiddleware({ loginHosts: [] }));
+    app.use(browserMiddleware(config));
     app.use(resourceProxy.middleware());
 
     const errors = [];
@@ -136,10 +149,8 @@ test.serial('should serve POST routes from manifest', async t => {
             fallback: 'OFFLINE!',
         }),
     ];
-    const resourceProxy = new ResourceProxy({
-        serverId: 'supah-server-3',
-        clients,
-    });
+    const config = getConfig({ APP_NAME: 'supah-server-3' });
+    const resourceProxy = new ResourceProxy(clients, config);
 
     // answer with the podlet manifest
     nock(clients[0].uri).get('/').reply(200, getManifest(id));
@@ -147,7 +158,7 @@ test.serial('should serve POST routes from manifest', async t => {
     // trigger fetch of manifest / warm up
     await clients[0].fetch();
 
-    app.use(browserMiddleware({ loginHosts: [] }));
+    app.use(browserMiddleware(config));
     app.use(resourceProxy.middleware());
 
     const errors = [];
@@ -186,11 +197,11 @@ test.serial('should serve GET with query routes from manifest', async t => {
             fallback: 'OFFLINE!',
         }),
     ];
-    const resourceProxy = new ResourceProxy({
-        serverId: 'supah-server-4',
-        resourceMountPath,
-        clients,
+    const config = getConfig({
+        APP_NAME: 'supah-server-4',
+        RESOURCE_MOUNT_PATH: resourceMountPath,
     });
+    const resourceProxy = new ResourceProxy(clients, config);
 
     // answer with the podlet manifest
     nock(clients[0].uri).get('/').reply(200, getManifest(id));
@@ -198,7 +209,7 @@ test.serial('should serve GET with query routes from manifest', async t => {
     // trigger fetch of manifest / warm up
     await clients[0].fetch();
 
-    app.use(browserMiddleware({ loginHosts: [] }));
+    app.use(browserMiddleware(config));
     app.use(resourceProxy.middleware());
 
     const errors = [];
