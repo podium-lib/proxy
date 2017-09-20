@@ -115,7 +115,9 @@ test.serial('should serve GET routes from manifest', async t => {
         .reply(200, 'SUPPA ER OK');
 
     // answer with the podlet manifest
-    nock(clients[0].uri).get('/').reply(200, getManifest(id));
+    nock(clients[0].uri)
+        .get('/')
+        .reply(200, getManifest(id));
 
     // trigger fetch of manifest / warm up
     await clients[0].fetch();
@@ -153,7 +155,9 @@ test.serial('should serve POST routes from manifest', async t => {
     const resourceProxy = new ResourceProxy(clients, config);
 
     // answer with the podlet manifest
-    nock(clients[0].uri).get('/').reply(200, getManifest(id));
+    nock(clients[0].uri)
+        .get('/')
+        .reply(200, getManifest(id));
 
     // trigger fetch of manifest / warm up
     await clients[0].fetch();
@@ -204,7 +208,9 @@ test.serial('should serve GET with query routes from manifest', async t => {
     const resourceProxy = new ResourceProxy(clients, config);
 
     // answer with the podlet manifest
-    nock(clients[0].uri).get('/').reply(200, getManifest(id));
+    nock(clients[0].uri)
+        .get('/')
+        .reply(200, getManifest(id));
 
     // trigger fetch of manifest / warm up
     await clients[0].fetch();
