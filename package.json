@@ -1,6 +1,6 @@
 {
   "name": "@podium/express-resource-proxy",
-  "version": "1.0.0-alpha.41",
+  "version": "1.0.0-alpha.42",
   "description": "podium-express-resource-proxy",
   "main": "./lib/index.js",
   "directories": {
@@ -22,8 +22,8 @@
   "license": "ISC",
   "devDependencies": {
     "@finn-no/config-loader": "^6.1.0",
-    "@podium/client": "^1.0.0-alpha.28",
-    "@podium/context": "^1.0.1-alpha.11",
+    "@podium/client": "^1.0.0-alpha.30",
+    "@podium/context": "^1.0.1-alpha.13",
     "ava": "^0.22.0",
     "express": "^4.15.3",
     "nock": "^9.0.14",
@@ -31,6 +31,6 @@
   },
   "dependencies": {
     "@finn-no/fiaas-logger": "^1.4.2",
-    "@finn-no/proxy-services": "^0.6.1"
+    "@finn-no/proxy-services": "^0.6.2"
   }
 }
