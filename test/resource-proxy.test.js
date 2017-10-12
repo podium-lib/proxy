@@ -1,125 +1,56 @@
 'use strict';
 
 const configLoader = require('@finn-no/config-loader');
-const test = require('ava');
-const ResourceProxy = require('../lib/resource-proxy.js');
+
 const configDefs = require('../config');
 
-function getConfig(env = {}) {
-    return configLoader({
-        paths: [],
-        extraDefinitions: configDefs,
-        env: Object.assign({ APP_NAME: 'server-id' }, env),
-    });
-}
+const mockPipe = jest.fn();
 
-test('should throw on missing args', t => {
+jest.mock('@finn-no/proxy-services', () => ({
+    pipeServiceFactory() {
+        return mockPipe;
+    },
+}));
+
+const ResourceProxy = require('../lib/resource-proxy.js');
+
+const config = configLoader({
+    paths: [],
+    extraDefinitions: configDefs,
+    env: { APP_NAME: 'server-id' },
+});
+
+test('should throw on missing args', () => {
     /* eslint-disable no-new */
-    t.throws(() => {
+    expect(() => {
         new ResourceProxy();
-    });
-    t.throws(() => {
-        new ResourceProxy(undefined, { serverId: 'server-id' });
-    });
-    t.throws(() => {
-        new ResourceProxy({
-            client: {
-                on: (eventName, cb) => cb({ id: 'podlet-id' }),
-                id: 'podlet-id',
-            },
-        });
-    });
+    }).toThrowError();
     /* eslint-enable */
 });
 
-test('hasProxyRoute should return true if match', t => {
-    const path = `/some/path${Math.round(Math.random() * 1000)}`;
-    const proxy = new ResourceProxy(
-        {
-            on: (eventName, cb) => cb({ id: 'podlet-id' }),
-            getMostRecentManifest() {
-                return {
-                    resources: [{ path }],
-                };
-            },
+test('should pass through correct arguments to pipeservce', () => {
+    const path = '/some/path';
+    const resourceUri = 'http://example.com/podlets';
+    const req = {
+        query: { foo: 'bar' },
+        method: 'GET',
+        podiumContext: {},
+    };
+    const res = {};
+    const proxy = new ResourceProxy(config);
+
+    proxy.request(resourceUri, path, req, res);
+
+    expect(mockPipe).toHaveBeenCalledTimes(1);
+    expect(mockPipe).toHaveBeenCalledWith({
+        headers: {
+            'podium-server-id': '@podium/express-resource-proxy',
         },
-        getConfig()
-    );
-
-    t.true(proxy.hasProxyRoute(path));
-});
-test('hasProxyRoute should return false if if no match', t => {
-    const path = `/some/path${Math.round(Math.random() * 1000)}`;
-    const proxy = new ResourceProxy(
-        {
-            on: (eventName, cb) => cb({ id: 'podlet-id' }),
-            getMostRecentManifest() {
-                return {
-                    resources: [
-                        { path: 'other/path' },
-                        { path: 'and/no/soup' },
-                    ],
-                };
-            },
-        },
-        getConfig()
-    );
-
-    t.false(proxy.hasProxyRoute(path));
-});
-
-test('hasProxyRoute should return false if if no manifest', t => {
-    const path = `/some/path${Math.round(Math.random() * 1000)}`;
-    const proxy = new ResourceProxy(
-        {
-            on: (eventName, cb) => cb({ id: 'podlet-id' }),
-            getMostRecentManifest() {
-                return null;
-            },
-        },
-        getConfig()
-    );
-
-    t.false(proxy.hasProxyRoute(path));
-});
-
-test('hasProxyRoute should return false if if no manifest resources', t => {
-    const path = `/some/path${Math.round(Math.random() * 1000)}`;
-    const proxy = new ResourceProxy(
-        {
-            on: (eventName, cb) => cb({ id: 'podlet-id' }),
-            getMostRecentManifest() {
-                return {
-                    resources: [],
-                };
-            },
-        },
-        getConfig()
-    );
-
-    t.false(proxy.hasProxyRoute(path));
-});
-
-test('getFirstMatchingResource should select first matching resource path', t => {
-    const path = `/some/path${Math.round(Math.random() * 1000)}`;
-    const resource = { path };
-    const proxy = new ResourceProxy(
-        {
-            on: (eventName, cb) => cb({ id: 'podlet-id' }),
-            getMostRecentManifest() {
-                return {
-                    resources: [
-                        { path: 'asdf' },
-                        resource,
-                        { path },
-                        { path: 'asdf' },
-                    ],
-                };
-            },
-        },
-        getConfig()
-    );
-
-    t.true(proxy.hasProxyRoute(path));
-    t.true(proxy.getFirstMatchingResource(path) === resource);
+        ignoreClientDisconnects: true,
+        method: 'GET',
+        query: { foo: 'bar' },
+        req,
+        res,
+        uri: resourceUri + path,
+    });
 });

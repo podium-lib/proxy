@@ -11,8 +11,8 @@
     "lib"
   ],
   "scripts": {
-    "test": "ava",
-    "test:watch": "npm run test --  --watch"
+    "test": "jest",
+    "test:watch": "npm run test -- --watch"
   },
   "publishConfig": {
     "registry": "http://npm.finntech.no/"
@@ -22,15 +22,18 @@
   "license": "ISC",
   "devDependencies": {
     "@finn-no/config-loader": "^6.1.0",
-    "@podium/client": "^1.0.0-alpha.30",
     "@podium/context": "^1.0.1-alpha.13",
-    "ava": "^0.22.0",
+    "@podium/podlet-client": "^1.0.0-alpha.6",
     "express": "^4.15.3",
-    "nock": "^9.0.14",
+    "jest": "^21.2.1",
     "supertest": "^3.0.0"
   },
   "dependencies": {
     "@finn-no/fiaas-logger": "^1.4.2",
     "@finn-no/proxy-services": "^0.6.2"
+  },
+  "jest": {
+    "clearMocks": true,
+    "testEnvironment": "node"
   }
 }
