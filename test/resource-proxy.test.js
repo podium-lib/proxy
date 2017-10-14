@@ -44,7 +44,7 @@ test('should pass through correct arguments to pipeservce', () => {
     expect(mockPipe).toHaveBeenCalledTimes(1);
     expect(mockPipe).toHaveBeenCalledWith({
         headers: {
-            'podium-server-id': '@podium/express-resource-proxy',
+            'podium-server-id': 'podium',
         },
         ignoreClientDisconnects: true,
         method: 'GET',
