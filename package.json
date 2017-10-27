@@ -1,6 +1,6 @@
 {
   "name": "@podium/express-resource-proxy",
-  "version": "1.0.0-alpha.45",
+  "version": "1.0.0-alpha.46",
   "description": "podium-express-resource-proxy",
   "main": "./lib/index.js",
   "directories": {
@@ -20,8 +20,8 @@
     "@finn-no/config-loader": "^6.1.0",
     "@podium/context": "^1.0.1-alpha.14",
     "@podium/podlet-client": "^1.0.0-alpha.6",
-    "http-proxy-middleware": "^0.17.4",
     "express": "^4.15.3",
+    "http-proxy-middleware": "^0.17.4",
     "nock": "^9.0.14",
     "supertest": "^3.0.0"
   },
