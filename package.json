@@ -21,12 +21,12 @@
     "@podium/context": "^1.0.1-alpha.14",
     "@podium/podlet-client": "^1.0.0-alpha.6",
     "express": "^4.15.3",
-    "http-proxy-middleware": "^0.17.4",
     "nock": "^9.0.14",
     "supertest": "^3.0.0"
   },
   "dependencies": {
     "@finn-no/fiaas-logger": "^1.4.2",
-    "@finn-no/proxy-services": "^0.6.5"
+    "@finn-no/proxy-services": "^0.6.5",
+    "http-proxy-middleware": "^0.17.4"
   }
 }
