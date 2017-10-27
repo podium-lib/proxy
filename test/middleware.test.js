@@ -5,21 +5,22 @@ const express = require('express');
 const PodletClient = require('@podium/podlet-client');
 const { browserMiddleware } = require('@podium/context');
 const supertest = require('supertest');
+const nock = require('nock');
 const configDefs = require('../config');
 
 const mockProxyImplementation = jest.fn();
 
-jest.mock(
-    '../lib/resource-proxy',
-    () =>
-        class MockResourceProxy {
-            request(resourceUri, path, req, res) {
-                mockProxyImplementation(resourceUri, path);
+jest.mock('../lib/resource-proxy', () => {
+    const ResourceProxy = jest.requireActual('../lib/resource-proxy');
 
-                res.end();
-            }
+    return class MockResourceProxy extends ResourceProxy {
+        request(resourceUri, path, req, res) {
+            mockProxyImplementation(resourceUri, path);
+
+            res.end();
         }
-);
+    };
+});
 
 const ResourceProxy = require('../lib/index');
 
@@ -85,4 +86,40 @@ test('should not proxy calls for unknown podlets', async () => {
 
     expect(errors).toHaveLength(0);
     expect(mockProxyImplementation).not.toHaveBeenCalled();
+});
+
+test('should not use custom proxy for last-searches', async () => {
+    const scope = nock('http://podlet-server')
+        .get('/public/some/path')
+        .reply(200);
+
+    const app = express();
+    const id = 'test-crash-idiots';
+
+    const client = new PodletClient();
+    client.register({ uri: `http://${id}`, name: 'lastSearches' });
+
+    const config = getConfig({ APP_NAME: 'supah-server-2' });
+    const resourceProxy = new ResourceProxy(client, config);
+
+    app.use((req, res, next) => {
+        req.unleash = { 'podium.use-express-proxy': true };
+
+        next();
+    });
+    app.use(browserMiddleware(config));
+    app.use(resourceProxy.middleware());
+
+    const errors = [];
+    app.use((err, req, res, next) => {
+        errors.push(err);
+        next();
+    });
+
+    // request the resource
+    await supertest(app).get('/podium-resource/last-searches/some/path');
+
+    expect(errors).toHaveLength(0);
+    expect(mockProxyImplementation).not.toHaveBeenCalled();
+    expect(scope.isDone()).toBe(true);
 });
