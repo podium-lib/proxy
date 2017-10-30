@@ -103,7 +103,7 @@ test('should not use custom proxy for last-searches', async () => {
     const resourceProxy = new ResourceProxy(client, config);
 
     app.use((req, res, next) => {
-        req.unleash = { 'podium.use-express-proxy': true };
+        req.unleash = { 'podium.useExpressProxy': true };
 
         next();
     });
@@ -117,9 +117,12 @@ test('should not use custom proxy for last-searches', async () => {
     });
 
     // request the resource
-    await supertest(app).get('/podium-resource/last-searches/some/path');
+    const res = await supertest(app).get(
+        '/podium-resource/last-searches/some/path'
+    );
 
     expect(errors).toHaveLength(0);
+    expect(res.status).toBe(200);
     expect(mockProxyImplementation).not.toHaveBeenCalled();
     expect(scope.isDone()).toBe(true);
 });
