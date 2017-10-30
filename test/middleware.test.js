@@ -89,8 +89,12 @@ test('should not proxy calls for unknown podlets', async () => {
 });
 
 test('should not use custom proxy for last-searches', async () => {
-    const scope = nock('http://podlet-server')
-        .get('/public/some/path')
+    const scope = nock('http://podlet-server', {
+        reqheaders: {
+            host: 'podlet-server',
+        },
+    })
+        .get('/user-searches/public/last-searches')
         .reply(200);
 
     const app = express();
@@ -118,7 +122,7 @@ test('should not use custom proxy for last-searches', async () => {
 
     // request the resource
     const res = await supertest(app).get(
-        '/podium-resource/last-searches/some/path'
+        '/podium-resource/userSearches/last-searches'
     );
 
     expect(errors).toHaveLength(0);
