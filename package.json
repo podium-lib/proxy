@@ -19,7 +19,7 @@
   "devDependencies": {
     "@finn-no/config-loader": "^6.1.0",
     "@podium/context": "^1.0.1-alpha.15",
-    "@podium/podlet-client": "^1.0.0-alpha.6",
+    "@podium/podlet-client": "^1.0.0-alpha.8",
     "express": "^4.15.3",
     "nock": "^9.0.14",
     "supertest": "^3.0.0"
