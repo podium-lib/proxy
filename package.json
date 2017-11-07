@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "@finn-no/fiaas-logger": "^1.4.2",
-    "@finn-no/proxy-services": "^0.6.8",
-    "http-proxy-middleware": "^0.17.4"
+    "@finn-no/proxy-services": "^0.6.8"
   }
 }
