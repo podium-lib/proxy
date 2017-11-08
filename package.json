@@ -6,10 +6,7 @@
   "directories": {
     "test": "test"
   },
-  "files": [
-    "config.js",
-    "lib"
-  ],
+  "files": ["config.js", "lib"],
   "publishConfig": {
     "registry": "http://npm.finntech.no/"
   },
