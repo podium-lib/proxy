@@ -57,7 +57,7 @@ test('should replace resource mount path and podlet name with /public', async ()
     expect(mockProxyImplementation).toHaveBeenCalledTimes(1);
     expect(mockProxyImplementation).toHaveBeenCalledWith(
         'http://test-crash-idiots',
-        '/public/some/path'
+        '/public/some/path',
     );
 });
 
