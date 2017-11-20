@@ -1,6 +1,6 @@
 {
   "name": "@podium/express-resource-proxy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "podium-express-resource-proxy",
   "main": "./lib/index.js",
   "directories": {
