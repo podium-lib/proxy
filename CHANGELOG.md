@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.0.7"></a>
+
+## [1.0.7](https://github.schibsted.io/finn/podium/compare/@podium/express-resource-proxy@1.0.6...@podium/express-resource-proxy@1.0.7) (2018-01-08)
+
+**Note:** Version bump only for package @podium/express-resource-proxy
+
 <a name="1.0.6"></a>
 
 ## [1.0.6](https://github.schibsted.io/finn/podium/compare/@podium/express-resource-proxy@1.0.5...@podium/express-resource-proxy@1.0.6) (2017-12-20)
