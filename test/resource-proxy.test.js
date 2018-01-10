@@ -51,6 +51,7 @@ test('should pass through correct arguments to pipeservce', () => {
         query: { foo: 'bar' },
         req,
         res,
+        timeout: 60000,
         uri: resourceUri + path,
     });
 });
