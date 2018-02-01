@@ -1,7 +1,15 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See
-[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+<a name="1.0.13"></a>
+## [1.0.13](https://github.schibsted.io/finn/podium/compare/@podium/express-resource-proxy@1.0.12...@podium/express-resource-proxy@1.0.13) (2018-02-01)
+
+
+
+
+**Note:** Version bump only for package @podium/express-resource-proxy
 
 <a name="1.0.12"></a>
 
