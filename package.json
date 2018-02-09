@@ -1,22 +1,35 @@
 {
-  "name": "@podium/express-resource-proxy",
-  "version": "1.0.13",
-  "description": "podium-express-resource-proxy",
-  "main": "./lib/index.js",
-  "directories": {
-    "test": "test"
+  "name": "@podium/proxy",
+  "version": "2.0.0-beta.1",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git@github.schibsted.io:Podium/proxy.git"
   },
   "files": [
-    "config.js",
     "lib"
   ],
+  "main": "./lib/index.js",
   "publishConfig": {
     "registry": "http://npm.finntech.no/"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "jest",
+    "test:verbose": "jest --verbose",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "@finn-no/fiaas-logger": "^1.4.2",
+    "@finn-no/proxy-services": "^0.6.19"
+  },
   "devDependencies": {
+    "jest": "^22.1.4",
+    "eslint": "^4.17.0",
+    "eslint-config-finn": "^3.0.0",
+    "eslint-config-finn-prettier": "^3.0.1",
+    "prettier": "^1.10.2",
     "@finn-no/config-loader": "^6.1.0",
     "@podium/context": "^1.0.5",
     "@podium/podlet-client": "^1.2.0",
@@ -24,8 +37,18 @@
     "nock": "^9.0.14",
     "supertest": "^3.0.0"
   },
-  "dependencies": {
-    "@finn-no/fiaas-logger": "^1.4.2",
-    "@finn-no/proxy-services": "^0.6.19"
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "test/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    },
+    "testEnvironment": "node"
   }
 }
