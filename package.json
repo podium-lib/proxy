@@ -21,8 +21,8 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "@finn-no/fiaas-logger": "^1.4.2",
     "@finn-no/zipkin": "^0.1.10",
+    "abslog": "^1.2.0",
     "brakes-prometheus": "^0.2.3",
     "make-fetch-happen": "^2.4.13",
     "pump": "^3.0.0",
@@ -35,6 +35,7 @@
     "eslint-config-finn": "^3.0.0",
     "eslint-config-finn-prettier": "^3.0.1",
     "prettier": "^1.10.2",
+    "@finn-no/fiaas-logger": "^1.4.2",
     "@finn-no/config-loader": "^6.1.0",
     "@finn-no/process-exception-handlers": "^2.0.3",
     "@podium/context": "^1.0.5",
