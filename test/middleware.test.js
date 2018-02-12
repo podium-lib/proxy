@@ -7,6 +7,7 @@ const { browserMiddleware } = require('@podium/context');
 const supertest = require('supertest');
 const configDefs = require('../config');
 
+
 const mockProxyImplementation = jest.fn();
 
 jest.mock('../lib/resource-proxy', () => {
@@ -84,5 +85,8 @@ test('should not proxy calls for unknown podlets', async () => {
     await supertest(app).get('/podium-resource/something-weird/some/path');
 
     expect(errors).toHaveLength(0);
-    expect(mockProxyImplementation).not.toHaveBeenCalled();
+    expect(mockProxyImplementation).not.toHaveBeenCalledWith(
+        'http://test-crash-idiots',
+        '/public/something-weird/some/path',
+    );
 });

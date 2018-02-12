@@ -12,7 +12,21 @@ try {
     throw e;
 }
 
-const pipeConfig = require('@finn-no/proxy-services/config');
+const { str } = require('envalid');
+const zipkinConfig = require('@finn-no/zipkin/config');
 const contextConfig = require('@podium/context/config');
 
-module.exports = Object.assign({}, contextConfig, pipeConfig);
+module.exports = Object.assign({}, contextConfig, zipkinConfig, {
+    BRAKES_GROUP: str({
+        desc: 'The group assigned to the circuit',
+        default: 'pipe-service',
+    }),
+    BRAKES_NAME: str({
+        desc: 'The name assigned to the circuit',
+        default: undefined,
+    }),
+    ZIPKIN_REMOTE_SERVICE_NAME: str({
+        desc: 'The name assigned to the Zipkin instrumentation',
+        default: undefined,
+    }),
+});

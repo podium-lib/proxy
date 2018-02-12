@@ -6,7 +6,7 @@ const configDefs = require('../config');
 
 const mockPipe = jest.fn();
 
-jest.mock('@finn-no/proxy-services', () => ({
+jest.mock('../lib/proxy-services', () => ({
     pipeServiceFactory() {
         return mockPipe;
     },
@@ -44,7 +44,7 @@ test('should pass through correct arguments to pipeservce', () => {
     expect(mockPipe).toHaveBeenCalledTimes(1);
     expect(mockPipe).toHaveBeenCalledWith({
         headers: {
-            'podium-server-id': 'podium',
+            'podium-server-id': '@podium/proxy',
         },
         ignoreClientDisconnects: true,
         method: 'GET',
