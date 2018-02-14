@@ -20,14 +20,6 @@ const config = configLoader({
     env: { APP_NAME: 'server-id' },
 });
 
-test('should throw on missing args', () => {
-    /* eslint-disable no-new */
-    expect(() => {
-        new ResourceProxy();
-    }).toThrowError();
-    /* eslint-enable */
-});
-
 test('should pass through correct arguments to pipeservce', () => {
     const path = '/some/path';
     const resourceUri = 'http://example.com/podlets';
@@ -45,7 +37,7 @@ test('should pass through correct arguments to pipeservce', () => {
             }
         }
     };
-    const proxy = new ResourceProxy(config);
+    const proxy = new ResourceProxy('someApp', config);
 
     proxy.request(resourceUri, path, req, res);
 
