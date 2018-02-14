@@ -21,6 +21,7 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "@podium/context": "^2.0.0-beta.3",
     "@finn-no/zipkin": "^0.1.10",
     "abslog": "^1.2.0",
     "brakes-prometheus": "^0.2.3",
@@ -38,8 +39,7 @@
     "@finn-no/fiaas-logger": "^1.4.2",
     "@finn-no/config-loader": "^6.1.0",
     "@finn-no/process-exception-handlers": "^2.0.3",
-    "@podium/context": "^1.0.5",
-    "@podium/podlet-client": "^1.2.0",
+    "@podium/podlet-client": "^2.0.0-beta.3",
     "express": "^4.15.3",
     "nock": "^9.0.14",
     "supertest": "^3.0.0",

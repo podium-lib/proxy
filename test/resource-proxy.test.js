@@ -34,18 +34,24 @@ test('should pass through correct arguments to pipeservce', () => {
     const req = {
         query: { foo: 'bar' },
         method: 'GET',
-        podiumContext: {},
+        params: {
+            podletName: 'resource'
+        }
     };
-    const res = {};
+    const res = {
+        locals: {
+            podium: {
+                context: {}
+            }
+        }
+    };
     const proxy = new ResourceProxy(config);
 
     proxy.request(resourceUri, path, req, res);
 
     expect(mockPipe).toHaveBeenCalledTimes(1);
     expect(mockPipe).toHaveBeenCalledWith({
-        headers: {
-            'podium-server-id': '@podium/proxy',
-        },
+        headers: {},
         ignoreClientDisconnects: true,
         method: 'GET',
         query: { foo: 'bar' },

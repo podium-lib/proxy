@@ -14,9 +14,8 @@ try {
 
 const { str } = require('envalid');
 const zipkinConfig = require('@finn-no/zipkin/config');
-const contextConfig = require('@podium/context/config');
 
-module.exports = Object.assign({}, contextConfig, zipkinConfig, {
+module.exports = Object.assign({}, zipkinConfig, {
     BRAKES_GROUP: str({
         desc: 'The group assigned to the circuit',
         default: 'pipe-service',

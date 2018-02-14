@@ -3,7 +3,8 @@
 const configLoader = require('@finn-no/config-loader');
 const express = require('express');
 const PodletClient = require('@podium/podlet-client');
-const { browserMiddleware } = require('@podium/context');
+// const { browserMiddleware } = require('@podium/context');
+const Context = require('@podium/context');
 const supertest = require('supertest');
 const configDefs = require('../config');
 
@@ -39,10 +40,12 @@ test('should replace resource mount path and podlet name with /public', async ()
     const client = new PodletClient();
     client.register({ uri: `http://${id}`, name: 'resource' });
 
+//    app.use(browserMiddleware(config));
+    const context = new Context('someApp');
+    app.use(context.middleware());
+
     const config = getConfig({ APP_NAME: 'supah-server-2' });
     const resourceProxy = new ResourceProxy(client, config);
-
-    app.use(browserMiddleware(config));
     app.use(resourceProxy.middleware());
 
     const errors = [];
@@ -69,10 +72,12 @@ test('should not proxy calls for unknown podlets', async () => {
     const client = new PodletClient();
     client.register({ uri: `http://${id}`, name: 'resource' });
 
+//    app.use(browserMiddleware(config));
+    const context = new Context('someApp');
+    app.use(context.middleware());
+
     const config = getConfig({ APP_NAME: 'supah-server-2' });
     const resourceProxy = new ResourceProxy(client, config);
-
-    app.use(browserMiddleware(config));
     app.use(resourceProxy.middleware());
 
     const errors = [];
