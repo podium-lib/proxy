@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@podium/context": "^2.0.0-beta.3",
+    "@podium/utils": "^2.0.0-beta.1",
     "@finn-no/zipkin": "^0.1.10",
     "abslog": "^1.2.0",
     "brakes-prometheus": "^0.2.3",
