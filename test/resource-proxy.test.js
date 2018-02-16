@@ -21,8 +21,7 @@ const config = configLoader({
 });
 
 test('should pass through correct arguments to pipeservce', () => {
-    const path = '/some/path';
-    const resourceUri = 'http://example.com/podlets';
+    const resourceUri = 'http://example.com/podlets/some/path';
     const req = {
         query: { foo: 'bar' },
         method: 'GET',
@@ -39,7 +38,7 @@ test('should pass through correct arguments to pipeservce', () => {
     };
     const proxy = new ResourceProxy('someApp', config);
 
-    proxy.request(resourceUri, path, req, res);
+    proxy.request(resourceUri, req, res);
 
     expect(mockPipe).toHaveBeenCalledTimes(1);
     expect(mockPipe).toHaveBeenCalledWith({
@@ -50,6 +49,6 @@ test('should pass through correct arguments to pipeservce', () => {
         req,
         res,
         timeout: 60000,
-        uri: resourceUri + path,
+        uri: resourceUri,
     });
 });
