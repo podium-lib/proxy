@@ -3,9 +3,10 @@
 const configLoader = require('@finn-no/config-loader');
 const express = require('express');
 const PodletClient = require('@podium/podlet-client');
-const { browserMiddleware } = require('@podium/context');
+const Context = require('@podium/context');
 const supertest = require('supertest');
 const configDefs = require('../config');
+
 
 const mockProxyImplementation = jest.fn();
 
@@ -13,8 +14,8 @@ jest.mock('../lib/resource-proxy', () => {
     const ResourceProxy = jest.requireActual('../lib/resource-proxy');
 
     return class MockResourceProxy extends ResourceProxy {
-        request(resourceUri, path, req, res) {
-            mockProxyImplementation(resourceUri, path);
+        request(resourceUri, req, res) {
+            mockProxyImplementation(resourceUri);
 
             res.end();
         }
@@ -38,10 +39,11 @@ test('should replace resource mount path and podlet name with /public', async ()
     const client = new PodletClient();
     client.register({ uri: `http://${id}`, name: 'resource' });
 
-    const config = getConfig({ APP_NAME: 'supah-server-2' });
-    const resourceProxy = new ResourceProxy(client, config);
+    const context = new Context('someApp');
+    app.use(context.middleware());
 
-    app.use(browserMiddleware(config));
+    const config = getConfig({ APP_NAME: 'supah-server-2' });
+    const resourceProxy = new ResourceProxy('someApp', client, config);
     app.use(resourceProxy.middleware());
 
     const errors = [];
@@ -56,8 +58,7 @@ test('should replace resource mount path and podlet name with /public', async ()
     expect(errors).toHaveLength(0);
     expect(mockProxyImplementation).toHaveBeenCalledTimes(1);
     expect(mockProxyImplementation).toHaveBeenCalledWith(
-        'http://test-crash-idiots',
-        '/public/some/path',
+        'http://test-crash-idiots/public/some/path',
     );
 });
 
@@ -68,10 +69,11 @@ test('should not proxy calls for unknown podlets', async () => {
     const client = new PodletClient();
     client.register({ uri: `http://${id}`, name: 'resource' });
 
-    const config = getConfig({ APP_NAME: 'supah-server-2' });
-    const resourceProxy = new ResourceProxy(client, config);
+    const context = new Context('someApp');
+    app.use(context.middleware());
 
-    app.use(browserMiddleware(config));
+    const config = getConfig({ APP_NAME: 'supah-server-2' });
+    const resourceProxy = new ResourceProxy('someApp', client, config);
     app.use(resourceProxy.middleware());
 
     const errors = [];
@@ -84,5 +86,7 @@ test('should not proxy calls for unknown podlets', async () => {
     await supertest(app).get('/podium-resource/something-weird/some/path');
 
     expect(errors).toHaveLength(0);
-    expect(mockProxyImplementation).not.toHaveBeenCalled();
+    expect(mockProxyImplementation).not.toHaveBeenCalledWith(
+        'http://test-crash-idiots/public/something-weird/some/path',
+    );
 });
