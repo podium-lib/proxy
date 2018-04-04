@@ -38,12 +38,25 @@ proxy.register({
         a: 'http://localhost:6001/',
         b: 'http://localhost:6002/some/other/path',
     },
+    version: '1.0.0',
+    content: '/foo',
 });
 proxy.register({
     name: 'bar',
     proxy: {
         b: 'http://localhost:6002/some/path',
     },
+    version: '1.0.0',
+    content: '/bar',
+});
+
+app.use((req, res, next) => {
+    res.locals = {};
+    res.locals.podium = {};
+    res.locals.podium.context = {
+        'podium-foo': 'bar',
+    };
+    next();
 });
 
 // Attach proxy middleware on a root namespace
