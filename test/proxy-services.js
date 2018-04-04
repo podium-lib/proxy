@@ -21,7 +21,10 @@ function getConfig(env = {}) {
     });
 }
 
-const { pipeServiceFactory, _SUPPRESSED_ERROR } = require('../lib/proxy-services');
+const {
+    pipeServiceFactory,
+    _SUPPRESSED_ERROR,
+} = require('../lib/proxy-services');
 
 beforeAll(() => {
     logger.setLogLevel(logger.logLevels.OFF);
@@ -64,7 +67,7 @@ beforeEach(async () => {
 
     endpointServer.get('/', (req, res) => res.json(req.query));
     endpointServer.get('/redirect', (req, res) =>
-        res.redirect(`/redirect-target-${randomUrl}`),
+        res.redirect(`/redirect-target-${randomUrl}`)
     );
     endpointServer.get('/boom', () => {
         throw new Error('This is planned!');
@@ -81,7 +84,7 @@ beforeEach(async () => {
     });
     // Random URL so it can't be guessed
     endpointServer.get(`/redirect-target-${randomUrl}`, (req, res) =>
-        res.json({ msg: 'you found me!' }),
+        res.json({ msg: 'you found me!' })
     );
     endpointServer.get('/headers', (req, res) => {
         res.set('X-SOME-HEADER', 'some value');
@@ -118,7 +121,7 @@ beforeEach(async () => {
                 res,
                 ignoreClientDisconnects: true,
                 uri: `${endpointServer.url}${req.baseUrl}`,
-            }),
+            })
         );
     });
 
@@ -129,7 +132,7 @@ beforeEach(async () => {
                 res,
                 timeout: 50,
                 uri: `${endpointServer.url}${req.baseUrl}`,
-            }),
+            })
         );
     });
 
@@ -151,7 +154,7 @@ beforeEach(async () => {
                     return new PassThrough();
                 },
                 uri: `${endpointServer.url}${req.baseUrl}`,
-            }),
+            })
         );
     });
 
@@ -168,14 +171,14 @@ beforeEach(async () => {
                             this.push(
                                 chunk
                                     .toString()
-                                    .replace(/replace/g, 'with-this'),
+                                    .replace(/replace/g, 'with-this')
                             );
                             next();
                         },
                     });
                 },
                 uri: `${endpointServer.url}${req.baseUrl}`,
-            }),
+            })
         );
     });
 
@@ -185,7 +188,7 @@ beforeEach(async () => {
                 req,
                 res,
                 uri: `${endpointServer.url}${req.baseUrl}`,
-            }),
+            })
         );
     });
 });
@@ -396,7 +399,7 @@ test('should ignore client disconnects if ignoreClientDisconnects = true and req
                 timeout: 100,
                 agent: false,
             },
-            reject,
+            reject
         ).on('error', e => {
             expect(e.message).toEqual('socket hang up');
             setTimeout(resolve, 150);
@@ -441,7 +444,7 @@ test('should ignore client disconnects if ignoreClientDisconnects = true and req
             },
             res => {
                 res.on('end', resolve);
-            },
+            }
         ).on('error', reject);
     });
 
@@ -506,7 +509,7 @@ test('should pass on wanted cookies when origin has a cookie', async () => {
     });
 
     expect(response.headers.cookie).toBe(
-        'USERID=2;SESSION=3;mfinn_jsession=1;',
+        'USERID=2;SESSION=3;mfinn_jsession=1;'
     );
 });
 

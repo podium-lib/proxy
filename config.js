@@ -5,7 +5,7 @@ try {
 } catch (e) {
     if (e.code === 'MODULE_NOT_FOUND') {
         throw new Error(
-            'Envalid package not found, you need to install it to use the definitions.',
+            'Envalid package not found, you need to install it to use the definitions.'
         );
     }
 
