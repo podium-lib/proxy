@@ -27,8 +27,7 @@ const app = express();
 
 // Set up proxy
 const proxy = new Proxy({
-    logger: console,
-    name: 'foo',
+    logger: console
 });
 
 // Register remote targets on their separate namespace
