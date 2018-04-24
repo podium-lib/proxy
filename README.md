@@ -109,7 +109,7 @@ http server.
 
 The method takes the following arguments:
 
- * mountPathname - `String` - Path to mount the proxy under. Default: 'podium-resource'
+ * mountPathname - `String` - Path to mount the proxy under. Default: `podium-resource`.
 
 
 ### .dump()
@@ -128,17 +128,143 @@ which `.dump()` exports, they will not be inserted into the cache.
 Returns and Array with the keys which was inserted into the cache.
 
 
+## Where are proxy targets mounted?
 
+To be able to have multible proxy targets in a http server we need to make
+sure that they do not collide with each other. To prevent so, each proxy
+target defined is mounted on their own separate namespace in a http server.
 
+The convention for these namespaces are as follow:
 
+`{mountPathname}/{podletName}/{proxyName}/`
 
-## A word on manifest to register proxys
+ * mountPathname - Defined by the value given to the `mountPathname` argument on the `.middleware()` method. Defaults to `podium-resource`.
+ * podletName - Defined by the value given to `name` in the manifest. Note: When the proxy module subscribe on manifests from the Podium Client, this name will be the name a Podlet is registered with in the Podium Client.
+ * proxyName - Defined by the property on the object on the `proxy` property for the target in the manifest.
 
-TODO
+### Example I
 
-## A word on route mounting
+If one have the following manifest appended to an express server:
 
-TODO
+```js
+const app = require('express')();
+const Proxy = require('@podium/proxy');
+const proxy = new Proxy();
+
+proxy.register({
+    name: 'bar',
+    proxy: {
+        api: 'http://www.external.com/some/path',
+    },
+    version: '1.0.0',
+    content: '/index.html',
+});
+
+app.use(proxy.middleware());
+
+app.listen(8000);
+```
+
+The following proxy targets will be mounted:
+
+ * http://localhost:8000/podium-resource/bar/api/
+
+### Example II
+
+If one have the following manifest and override the `mountPathname` on the
+`.middleware()` method:
+
+```js
+const app = require('express')();
+const Proxy = require('@podium/proxy');
+const proxy = new Proxy();
+
+proxy.register({
+    name: 'bar',
+    proxy: {
+        api: 'http://www.external.com/some/path',
+    },
+    version: '1.0.0',
+    content: '/index.html',
+});
+
+app.use(proxy.middleware('/my-proxy'));
+
+app.listen(8000);
+```
+
+The following proxy targets will be mounted:
+
+ * http://localhost:8000/my-proxy/bar/api/
+
+### Example III
+
+If one have the following manifest appended to an express server:
+
+```js
+const app = require('express')();
+const Proxy = require('@podium/proxy');
+const proxy = new Proxy();
+
+proxy.register({
+    name: 'bar',
+    proxy: {
+        api: 'http://www.external.com/some/path',
+        feed: '/feed',
+    },
+    version: '1.0.0',
+    content: '/index.html',
+});
+
+app.use(proxy.middleware());
+
+app.listen(8000);
+```
+
+The following proxy targets will be mounted:
+
+ * http://localhost:8000/podium-resource/bar/api/
+ * http://localhost:8000/podium-resource/bar/feed/
+
+### Example IV
+
+If one have the following manifests appended to an express server:
+
+```js
+const app = require('express')();
+const Proxy = require('@podium/proxy');
+const proxy = new Proxy();
+
+proxy.register({
+    name: 'bar',
+    proxy: {
+        api: 'http://www.external.com/some/path',
+        feed: '/feed',
+    },
+    version: '1.0.0',
+    content: '/index.html',
+});
+
+proxy.register({
+    name: 'foo',
+    proxy: {
+        users: 'http://www.anywhere.com/api',
+    },
+    version: '2.0.0',
+    content: '/index.html',
+});
+
+app.use(proxy.middleware());
+
+app.listen(8000);
+```
+
+The following proxy targets will be mounted:
+
+ * http://localhost:8000/podium-resource/bar/api/
+ * http://localhost:8000/podium-resource/bar/feed/
+ * http://localhost:8000/podium-resource/foo/users/
+
 
 ## A word on appending Podium context
 
