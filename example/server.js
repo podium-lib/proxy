@@ -76,3 +76,18 @@ app.use((req, res) => {
 
 // Start appserver where proxy is attached
 app.listen(9999);
+
+
+// GET example:
+// curl http://localhost:9999/prefix/foo/a/
+// curl http://localhost:9999/prefix/foo/b/
+// curl http://localhost:9999/prefix/bar/b/
+
+// POST example:
+// curl -d '{"key1":"value1", "key2":"value2"}' -H "Content-Type: application/json" -X POST http://localhost:9999/prefix/foo/b/
+
+// DELETE example:
+// curl -X DELETE http://localhost:9999/prefix/foo/b/
+
+// PUT example:
+// curl -d '{"key1":"value1", "key2":"value2"}' -H "Content-Type: application/json" -X PUT http://localhost:9999/prefix/foo/b/
