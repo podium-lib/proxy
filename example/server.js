@@ -5,7 +5,7 @@ const Proxy = require('../');
 
 // Dummy remote target servers
 const remoteA = express();
-remoteA.get('*', (req, res) => {
+remoteA.use((req, res) => {
     console.log('remote A server:', req.url);
     console.log('remote A server:', req.headers);
     setTimeout(() => {
@@ -15,7 +15,7 @@ remoteA.get('*', (req, res) => {
 remoteA.listen(6001);
 
 const remoteB = express();
-remoteB.get('*', (req, res) => {
+remoteB.use((req, res) => {
     console.log('remote B server:', req.url);
     console.log('remote B server:', req.headers);
     res.status(200).send('Remote B\n');
