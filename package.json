@@ -24,9 +24,9 @@
     "@podium/schemas": "^2.1.0-beta.5",
     "@podium/utils": "^2.0.0-beta.5",
     "abslog": "^2.0.0",
-    "http-proxy": "^1.16.2",
+    "http-proxy": "^1.17.0",
     "joi": "^13.2.0",
-    "path-to-regexp": "^2.2.0",
+    "path-to-regexp": "^2.2.1",
     "ttl-mem-cache": "^4.0.0"
   },
   "devDependencies": {
