@@ -7,7 +7,6 @@ const Context = require('@podium/context');
 const supertest = require('supertest');
 const configDefs = require('../config');
 
-
 const mockProxyImplementation = jest.fn();
 
 jest.mock('../lib/resource-proxy', () => {
@@ -58,7 +57,7 @@ test('should replace resource mount path and podlet name with /public', async ()
     expect(errors).toHaveLength(0);
     expect(mockProxyImplementation).toHaveBeenCalledTimes(1);
     expect(mockProxyImplementation).toHaveBeenCalledWith(
-        'http://test-crash-idiots/public/some/path',
+        'http://test-crash-idiots/public/some/path'
     );
 });
 
@@ -87,6 +86,6 @@ test('should not proxy calls for unknown podlets', async () => {
 
     expect(errors).toHaveLength(0);
     expect(mockProxyImplementation).not.toHaveBeenCalledWith(
-        'http://test-crash-idiots/public/something-weird/some/path',
+        'http://test-crash-idiots/public/something-weird/some/path'
     );
 });

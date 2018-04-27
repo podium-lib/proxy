@@ -26,15 +26,15 @@ test('should pass through correct arguments to pipeservce', () => {
         query: { foo: 'bar' },
         method: 'GET',
         params: {
-            podletName: 'resource'
-        }
+            podletName: 'resource',
+        },
     };
     const res = {
         locals: {
             podium: {
-                context: {}
-            }
-        }
+                context: {},
+            },
+        },
     };
     const proxy = new ResourceProxy('someApp', config);
 
