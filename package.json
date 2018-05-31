@@ -26,6 +26,7 @@
     "abslog": "^2.0.0",
     "http-proxy": "^1.17.0",
     "joi": "^13.2.0",
+    "original-url": "^1.2.1",
     "path-to-regexp": "^2.2.1",
     "ttl-mem-cache": "^4.0.0"
   },
