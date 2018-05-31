@@ -8,6 +8,7 @@ const remoteA = express();
 remoteA.use((req, res) => {
     console.log('remote A server:', req.url);
     console.log('remote A server:', req.headers);
+    console.log('remote A server:', req.query);
     setTimeout(() => {
         res.status(200).send('Remote A\n');
     }, 2000);
@@ -18,6 +19,7 @@ const remoteB = express();
 remoteB.use((req, res) => {
     console.log('remote B server:', req.url);
     console.log('remote B server:', req.headers);
+    console.log('remote A server:', req.query);
     res.status(200).send('Remote B\n');
 });
 remoteB.listen(6002);
@@ -82,6 +84,9 @@ app.listen(9999);
 // curl http://localhost:9999/prefix/foo/a/
 // curl http://localhost:9999/prefix/foo/b/
 // curl http://localhost:9999/prefix/bar/b/
+// curl http://localhost:9999/prefix/bar/b
+// curl http://localhost:9999/prefix/bar/b/?foo=bar
+// curl http://localhost:9999/prefix/bar/b?foo=bar
 
 // POST example:
 // curl -d '{"key1":"value1", "key2":"value2"}' -H "Content-Type: application/json" -X POST http://localhost:9999/prefix/foo/b/
