@@ -66,6 +66,7 @@ app.use(proxy.middleware('/prefix'));
 // General error handling
 app.use((error, req, res, next) => {
     if (error) {
+        console.log(error);
         res.status(500).send('Internal server error');
         return;
     }
