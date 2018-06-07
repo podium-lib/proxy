@@ -1,6 +1,6 @@
 {
   "name": "@podium/proxy",
-  "version": "2.1.0-beta.9",
+  "version": "2.1.0-beta.10",
   "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
@@ -21,14 +21,14 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "@podium/schemas": "^2.1.0-beta.5",
-    "@podium/utils": "^2.0.0-beta.5",
-    "abslog": "^2.0.0",
+    "@podium/schemas": "2.1.0-beta.5",
+    "@podium/utils": "2.0.0-beta.5",
+    "abslog": "2.0.0",
     "http-proxy": "^1.17.0",
     "joi": "^13.2.0",
     "original-url": "^1.2.1",
     "path-to-regexp": "^2.2.1",
-    "ttl-mem-cache": "^4.0.0"
+    "ttl-mem-cache": "4.0.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
