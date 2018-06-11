@@ -21,11 +21,11 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "@podium/schemas": "2.1.0-beta.5",
-    "@podium/utils": "2.0.0-beta.5",
+    "@podium/schemas": "2.1.0",
+    "@podium/utils": "2.0.0",
     "abslog": "2.0.0",
     "http-proxy": "^1.17.0",
-    "joi": "^13.2.0",
+    "joi": "^13.4.0",
     "original-url": "^1.2.1",
     "path-to-regexp": "^2.2.1",
     "ttl-mem-cache": "4.0.0"
@@ -35,8 +35,8 @@
     "eslint-config-finn": "^3.0.0",
     "eslint-config-finn-prettier": "^3.0.1",
     "express": "^4.16.3",
-    "jest": "^22.4.3",
-    "prettier": "^1.12.1"
+    "jest": "^23.1.0",
+    "prettier": "^1.13.5"
   },
   "jest": {
     "coveragePathIgnorePatterns": [
