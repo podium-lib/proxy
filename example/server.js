@@ -29,7 +29,9 @@ const app = express();
 
 // Set up proxy
 const proxy = new Proxy({
-    logger: console
+    logger: console,
+    pathname: '/my-layout/',
+    prefix: 'proxy'
 });
 
 // Register remote targets on their separate namespace
@@ -61,7 +63,7 @@ app.use((req, res, next) => {
 });
 
 // Attach proxy middleware on a root namespace
-app.use(proxy.middleware('/prefix'));
+app.use(proxy.middleware());
 
 // General error handling
 app.use((error, req, res, next) => {
@@ -82,18 +84,18 @@ app.listen(9999);
 
 
 // GET example:
-// curl http://localhost:9999/prefix/foo/a/
-// curl http://localhost:9999/prefix/foo/b/
-// curl http://localhost:9999/prefix/bar/b/
-// curl http://localhost:9999/prefix/bar/b
-// curl http://localhost:9999/prefix/bar/b/?foo=bar
-// curl http://localhost:9999/prefix/bar/b?foo=bar
+// curl http://localhost:9999/my-layout/proxy/foo/a/
+// curl http://localhost:9999/my-layout/proxy/foo/b/
+// curl http://localhost:9999/my-layout/proxy/bar/b/
+// curl http://localhost:9999/my-layout/proxy/bar/b
+// curl http://localhost:9999/my-layout/proxy/bar/b/?foo=bar
+// curl http://localhost:9999/my-layout/proxy/bar/b?foo=bar
 
 // POST example:
-// curl -d '{"key1":"value1", "key2":"value2"}' -H "Content-Type: application/json" -X POST http://localhost:9999/prefix/foo/b/
+// curl -d '{"key1":"value1", "key2":"value2"}' -H "Content-Type: application/json" -X POST http://localhost:9999/my-layout/proxy/foo/b/
 
 // DELETE example:
-// curl -X DELETE http://localhost:9999/prefix/foo/b/
+// curl -X DELETE http://localhost:9999/my-layout/proxy/foo/b/
 
 // PUT example:
-// curl -d '{"key1":"value1", "key2":"value2"}' -H "Content-Type: application/json" -X PUT http://localhost:9999/prefix/foo/b/
+// curl -d '{"key1":"value1", "key2":"value2"}' -H "Content-Type: application/json" -X PUT http://localhost:9999/my-layout/proxy/foo/b/
