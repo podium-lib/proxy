@@ -63,6 +63,8 @@ The constructor take the following arguments:
 
 An options object containing configuration. The following values can be provided:
 
+ * `pathname` - {String} - Pathname to the root of where the proxy is mounted. Default: `/`.
+ * `prefix` - {String} - Prefix used to namespace the proxy so its isolated from other routes in a http server. Appended after pathname. Default: `podium-resource`.
  * `timeout` - {Number} - Default value, in milliseconds, for how long a request should wait before connection is terminated. Default: 6000
  * `maxAge` - {Number} - Default value, in milliseconds, for how long manifests should be cached. Default: Infinity
  * `agent` - {HTTPAgent} - Default HTTP Agent used for all requests.
@@ -102,19 +104,16 @@ A Podium manifest where the `proxy` property is given. The `proxy`
 property is an object where the `key` identifies the target and the `property` is a URI to the target.
 
 
-### .middleware(mountPathname)
+### .middleware()
 
 Middleware that mounts the proxy on an Connect middleware compatible
 http server.
-
-The method takes the following arguments:
-
- * mountPathname - `String` - Path to mount the proxy under. Default: `podium-resource`.
 
 
 ### .dump()
 
 Returns an Array of all loaded manifests ready to be used by `.load()`.
+
 
 ### .load()
 
@@ -136,9 +135,10 @@ target defined is mounted on their own separate namespace in a http server.
 
 The convention for these namespaces are as follow:
 
-`{mountPathname}/{podletName}/{proxyName}/`
+`{pathname}/{prefix}/{podletName}/{proxyName}/`
 
- * mountPathname - Defined by the value given to the `mountPathname` argument on the `.middleware()` method. Defaults to `podium-resource`.
+ * pathname - Defined by the value given to the `pathname` argument on the constructor. Defaults to `/`.
+ * prefix - Defined by the value given to the `prefix` argument on the constructor. Defaults to `podium-resource`.
  * podletName - Defined by the value given to `name` in the manifest. Note: When the proxy module subscribe on manifests from the Podium Client, this name will be the name a Podlet is registered with in the Podium Client.
  * proxyName - Defined by the property on the object on the `proxy` property for the target in the manifest.
 
@@ -171,13 +171,14 @@ The following proxy targets will be mounted:
 
 ### Example II
 
-If one have the following manifest and override the `mountPathname` on the
-`.middleware()` method:
+If one have the following manifest and override the `prefix` on the constructor:
 
 ```js
 const app = require('express')();
 const Proxy = require('@podium/proxy');
-const proxy = new Proxy();
+const proxy = new Proxy({
+    prefix: '/my-proxy'
+});
 
 proxy.register({
     name: 'bar',
@@ -188,7 +189,7 @@ proxy.register({
     content: '/index.html',
 });
 
-app.use(proxy.middleware('/my-proxy'));
+app.use(proxy.middleware());
 
 app.listen(8000);
 ```
