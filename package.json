@@ -22,21 +22,21 @@
   },
   "dependencies": {
     "@podium/schemas": "2.1.1",
-    "@podium/utils": "2.0.0",
-    "abslog": "2.0.0",
+    "@podium/utils": "2.0.2",
+    "abslog": "2.2.0",
     "http-proxy": "^1.17.0",
-    "joi": "^13.4.0",
-    "original-url": "^1.2.1",
-    "path-to-regexp": "^2.2.1",
+    "joi": "^13.6.0",
+    "original-url": "^1.2.2",
+    "path-to-regexp": "^2.4.0",
     "ttl-mem-cache": "4.0.0"
   },
   "devDependencies": {
-    "eslint": "^5.1.0",
-    "eslint-config-finn": "^3.0.0",
-    "eslint-config-finn-prettier": "^3.0.1",
+    "eslint": "^5.5.0",
+    "eslint-config-finn": "^3.0.1",
+    "eslint-config-finn-prettier": "^3.0.2",
     "express": "^4.16.3",
-    "jest": "^23.1.0",
-    "prettier": "^1.13.5"
+    "jest": "^23.5.0",
+    "prettier": "^1.14.2"
   },
   "jest": {
     "coveragePathIgnorePatterns": [
