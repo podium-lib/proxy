@@ -31,7 +31,7 @@ const app = express();
 const proxy = new Proxy({
     logger: console,
     pathname: '/my-layout/',
-    prefix: 'proxy'
+    prefix: 'proxy',
 });
 
 // Register remote targets on their separate namespace
@@ -81,7 +81,6 @@ app.use((req, res) => {
 
 // Start appserver where proxy is attached
 app.listen(9999);
-
 
 // GET example:
 // curl http://localhost:9999/my-layout/proxy/foo/a/
