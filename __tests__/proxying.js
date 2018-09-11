@@ -3,6 +3,7 @@
 const express = require('express');
 const Proxy = require('../');
 const http = require('http');
+const { URL } = require('url');
 
 /**
  * Destination server utility
