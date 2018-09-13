@@ -13,7 +13,6 @@ test('Proxy() - object tag - should be PodiumProxy', () => {
     );
 });
 
-
 /**
  * .register()
  */
@@ -40,7 +39,7 @@ test('.register() - invalid value given to "manifest" argument - should throw', 
 
 test('.register() - valid value given to "manifest" argument - should set value in internal registry', () => {
     const proxy = new Proxy();
-    proxy.register(    {
+    proxy.register({
         name: 'bar',
         proxy: {
             a: `/some/path`,
