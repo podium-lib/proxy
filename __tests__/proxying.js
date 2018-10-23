@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
-const express = require("express");
-const http = require("http");
-const { URL } = require("url");
-const Proxy = require("../");
+const express = require('express');
+const http = require('http');
+const { URL } = require('url');
+const Proxy = require('../');
 
 /**
  * Destination server utility
@@ -14,7 +14,7 @@ const Proxy = require("../");
 class DestinationServer {
     constructor() {
         this.server = undefined;
-        this.address = "";
+        this.address = '';
 
         this.app = express();
         this.app.use((req, res) => {
@@ -22,15 +22,15 @@ class DestinationServer {
                 headers: req.headers,
                 method: req.method,
                 query: req.query,
-                type: "destination",
-                url: `${this.address}${req.url}`
+                type: 'destination',
+                url: `${this.address}${req.url}`,
             });
         });
     }
 
     listen() {
         return new Promise(resolve => {
-            this.server = this.app.listen(0, "localhost", () => {
+            this.server = this.app.listen(0, 'localhost', () => {
                 this.address = `http://${this.server.address().address}:${
                     this.server.address().port
                 }`;
@@ -63,8 +63,8 @@ class ProxyServer {
         this.app = express();
 
         this.proxy = new Proxy({
-            pathname: "/layout/",
-            prefix: "proxy"
+            pathname: '/layout/',
+            prefix: 'proxy',
         });
 
         manifests.forEach(manifest => {
@@ -75,7 +75,7 @@ class ProxyServer {
             res.locals = {};
             res.locals.podium = {};
             res.locals.podium.context = {
-                "podium-foo": "bar"
+                'podium-foo': 'bar',
             };
             next();
         });
@@ -84,19 +84,19 @@ class ProxyServer {
 
         this.app.use((req, res) => {
             res.status(404).json({
-                message: "not found",
+                message: 'not found',
                 status: 404,
-                type: "proxy"
+                type: 'proxy',
             });
         });
 
         this.server = undefined;
-        this.address = "";
+        this.address = '';
     }
 
     listen() {
         return new Promise(resolve => {
-            this.server = this.app.listen(0, "localhost", () => {
+            this.server = this.app.listen(0, 'localhost', () => {
                 this.address = `http://${this.server.address().address}:${
                     this.server.address().port
                 }`;
@@ -118,48 +118,48 @@ class ProxyServer {
         });
     }
 
-    get(pathname = "/") {
+    get(pathname = '/') {
         return new Promise((resolve, reject) => {
             const address = new URL(pathname, this.address);
             http.get(address, res => {
                 const chunks = [];
-                res.on("data", chunk => {
+                res.on('data', chunk => {
                     chunks.push(chunk);
                 });
-                res.on("end", () => {
-                    resolve(JSON.parse(chunks.join("")));
+                res.on('end', () => {
+                    resolve(JSON.parse(chunks.join('')));
                 });
-            }).on("error", error => {
+            }).on('error', error => {
                 reject(error);
             });
         });
     }
 
-    post(pathname = "/", payload = "") {
+    post(pathname = '/', payload = '') {
         return new Promise((resolve, reject) => {
             const address = new URL(pathname, this.address);
             const options = {
                 hostname: address.hostname,
                 port: address.port,
                 path: address.pathname,
-                method: "POST",
+                method: 'POST',
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                    "Content-Length": Buffer.byteLength(payload)
-                }
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Length': Buffer.byteLength(payload),
+                },
             };
 
             const req = http
                 .request(options, res => {
                     const chunks = [];
-                    res.on("data", chunk => {
+                    res.on('data', chunk => {
                         chunks.push(chunk);
                     });
-                    res.on("end", () => {
-                        resolve(JSON.parse(chunks.join("")));
+                    res.on('end', () => {
+                        resolve(JSON.parse(chunks.join('')));
                     });
                 })
-                .on("error", error => {
+                .on('error', error => {
                     reject(error);
                 });
 
@@ -175,19 +175,19 @@ test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyNam
 
     const proxy = new ProxyServer([
         {
-            name: "bar",
+            name: 'bar',
             proxy: {
-                a: `${serverAddr}/some/path`
+                a: `${serverAddr}/some/path`,
             },
-            version: "1.0.0",
-            content: "/"
-        }
+            version: '1.0.0',
+            content: '/',
+        },
     ]);
     await proxy.listen();
 
-    const result = await proxy.get("/layout/proxy/bar/a");
-    expect(result.type).toEqual("destination");
-    expect(result.method).toEqual("GET");
+    const result = await proxy.get('/layout/proxy/bar/a');
+    expect(result.type).toEqual('destination');
+    expect(result.method).toEqual('GET');
     expect(result.url).toEqual(`${serverAddr}/some/path`);
 
     await proxy.close();
@@ -200,19 +200,19 @@ test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyNam
 
     const proxy = new ProxyServer([
         {
-            name: "foo",
+            name: 'foo',
             proxy: {
-                b: `${serverAddr}/some/where/else`
+                b: `${serverAddr}/some/where/else`,
             },
-            version: "1.0.0",
-            content: "/"
-        }
+            version: '1.0.0',
+            content: '/',
+        },
     ]);
     await proxy.listen();
 
-    const result = await proxy.get("/layout/proxy/foo/b");
-    expect(result.type).toEqual("destination");
-    expect(result.method).toEqual("GET");
+    const result = await proxy.get('/layout/proxy/foo/b');
+    expect(result.type).toEqual('destination');
+    expect(result.method).toEqual('GET');
     expect(result.url).toEqual(`${serverAddr}/some/where/else`);
 
     await proxy.close();
@@ -225,32 +225,32 @@ test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifestName
 
     const proxy = new ProxyServer([
         {
-            name: "bar",
+            name: 'bar',
             proxy: {
-                a: `${serverAddr}/some/path`
+                a: `${serverAddr}/some/path`,
             },
-            version: "1.0.0",
-            content: "/"
+            version: '1.0.0',
+            content: '/',
         },
         {
-            name: "foo",
+            name: 'foo',
             proxy: {
-                b: `${serverAddr}/some/where/else`
+                b: `${serverAddr}/some/where/else`,
             },
-            version: "1.0.0",
-            content: "/"
-        }
+            version: '1.0.0',
+            content: '/',
+        },
     ]);
     await proxy.listen();
 
-    const resultBar = await proxy.get("/layout/proxy/bar/a");
-    expect(resultBar.type).toEqual("destination");
-    expect(resultBar.method).toEqual("GET");
+    const resultBar = await proxy.get('/layout/proxy/bar/a');
+    expect(resultBar.type).toEqual('destination');
+    expect(resultBar.method).toEqual('GET');
     expect(resultBar.url).toEqual(`${serverAddr}/some/path`);
 
-    const resultFoo = await proxy.get("/layout/proxy/foo/b");
-    expect(resultFoo.type).toEqual("destination");
-    expect(resultFoo.method).toEqual("GET");
+    const resultFoo = await proxy.get('/layout/proxy/foo/b');
+    expect(resultFoo.type).toEqual('destination');
+    expect(resultFoo.method).toEqual('GET');
     expect(resultFoo.url).toEqual(`${serverAddr}/some/where/else`);
 
     await proxy.close();
@@ -263,20 +263,20 @@ test('Proxying() - GET request with query params - should proxy query params to 
 
     const proxy = new ProxyServer([
         {
-            name: "bar",
+            name: 'bar',
             proxy: {
-                a: `${serverAddr}/some/path`
+                a: `${serverAddr}/some/path`,
             },
-            version: "1.0.0",
-            content: "/"
-        }
+            version: '1.0.0',
+            content: '/',
+        },
     ]);
     await proxy.listen();
 
-    const result = await proxy.get("/layout/proxy/bar/a?foo=bar");
-    expect(result.type).toEqual("destination");
-    expect(result.method).toEqual("GET");
-    expect(result.query).toEqual({ foo: "bar" });
+    const result = await proxy.get('/layout/proxy/bar/a?foo=bar');
+    expect(result.type).toEqual('destination');
+    expect(result.method).toEqual('GET');
+    expect(result.query).toEqual({ foo: 'bar' });
 
     await proxy.close();
     await server.close();
@@ -288,19 +288,19 @@ test('Proxying() - POST request - should proxy query params to "{destination}/so
 
     const proxy = new ProxyServer([
         {
-            name: "bar",
+            name: 'bar',
             proxy: {
-                a: `${serverAddr}/some/path`
+                a: `${serverAddr}/some/path`,
             },
-            version: "1.0.0",
-            content: "/"
-        }
+            version: '1.0.0',
+            content: '/',
+        },
     ]);
     await proxy.listen();
 
-    const result = await proxy.post("/layout/proxy/bar/a", "payload");
-    expect(result.type).toEqual("destination");
-    expect(result.method).toEqual("POST");
+    const result = await proxy.post('/layout/proxy/bar/a', 'payload');
+    expect(result.type).toEqual('destination');
+    expect(result.method).toEqual('POST');
 
     await proxy.close();
     await server.close();
