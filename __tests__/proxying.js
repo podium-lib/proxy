@@ -1,9 +1,9 @@
 'use strict';
 
 const express = require('express');
-const Proxy = require('../');
 const http = require('http');
 const { URL } = require('url');
+const Proxy = require('../');
 
 /**
  * Destination server utility
