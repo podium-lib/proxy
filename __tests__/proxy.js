@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
-const Proxy = require('../');
+const Proxy = require("../");
 
 /**
  * Constructor
  */
 
-test('Proxy() - object tag - should be PodiumProxy', () => {
+test("Proxy() - object tag - should be PodiumProxy", () => {
     const proxy = new Proxy();
     expect(Object.prototype.toString.call(proxy)).toEqual(
-        '[object PodiumProxy]'
+        "[object PodiumProxy]"
     );
 });
 
@@ -31,7 +31,7 @@ test('.register() - invalid value given to "manifest" argument - should throw', 
     expect.hasAssertions();
     const proxy = new Proxy();
     expect(() => {
-        proxy.register({ foo: 'bar', name: 'æøå - tada' });
+        proxy.register({ foo: "bar", name: "æøå - tada" });
     }).toThrowError(
         'The value for the required argument "manifest" not defined or not valid.'
     );
@@ -40,13 +40,13 @@ test('.register() - invalid value given to "manifest" argument - should throw', 
 test('.register() - valid value given to "manifest" argument - should set value in internal registry', () => {
     const proxy = new Proxy();
     proxy.register({
-        name: 'bar',
+        name: "bar",
         proxy: {
-            a: `/some/path`,
+            a: `/some/path`
         },
-        version: '1.0.0',
-        content: '/',
+        version: "1.0.0",
+        content: "/"
     });
     const result = proxy.dump();
-    expect(result[0][0]).toEqual('bar');
+    expect(result[0][0]).toEqual("bar");
 });

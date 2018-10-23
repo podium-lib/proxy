@@ -1,26 +1,26 @@
-'use strict';
+"use strict";
 
-const express = require('express');
-const Proxy = require('../');
+const express = require("express");
+const Proxy = require("../");
 
 // Dummy remote target servers
 const remoteA = express();
 remoteA.use((req, res) => {
-    console.log('remote A server:', req.url);
-    console.log('remote A server:', req.headers);
-    console.log('remote A server:', req.query);
+    console.log("remote A server:", req.url);
+    console.log("remote A server:", req.headers);
+    console.log("remote A server:", req.query);
     setTimeout(() => {
-        res.status(200).send('Remote A\n');
+        res.status(200).send("Remote A\n");
     }, 2000);
 });
 remoteA.listen(6001);
 
 const remoteB = express();
 remoteB.use((req, res) => {
-    console.log('remote B server:', req.url);
-    console.log('remote B server:', req.headers);
-    console.log('remote A server:', req.query);
-    res.status(200).send('Remote B\n');
+    console.log("remote B server:", req.url);
+    console.log("remote B server:", req.headers);
+    console.log("remote A server:", req.query);
+    res.status(200).send("Remote B\n");
 });
 remoteB.listen(6002);
 
@@ -30,34 +30,34 @@ const app = express();
 // Set up proxy
 const proxy = new Proxy({
     logger: console,
-    pathname: '/my-layout/',
-    prefix: 'proxy',
+    pathname: "/my-layout/",
+    prefix: "proxy"
 });
 
 // Register remote targets on their separate namespace
 proxy.register({
-    name: 'foo',
+    name: "foo",
     proxy: {
-        a: 'http://localhost:6001/',
-        b: 'http://localhost:6002/some/other/path',
+        a: "http://localhost:6001/",
+        b: "http://localhost:6002/some/other/path"
     },
-    version: '1.0.0',
-    content: '/foo',
+    version: "1.0.0",
+    content: "/foo"
 });
 proxy.register({
-    name: 'bar',
+    name: "bar",
     proxy: {
-        b: 'http://localhost:6002/some/path',
+        b: "http://localhost:6002/some/path"
     },
-    version: '1.0.0',
-    content: '/bar',
+    version: "1.0.0",
+    content: "/bar"
 });
 
 app.use((req, res, next) => {
     res.locals = {};
     res.locals.podium = {};
     res.locals.podium.context = {
-        'podium-foo': 'bar',
+        "podium-foo": "bar"
     };
     next();
 });
@@ -69,14 +69,14 @@ app.use(proxy.middleware());
 app.use((error, req, res, next) => {
     if (error) {
         console.log(error);
-        res.status(500).send('Internal server error');
+        res.status(500).send("Internal server error");
         return;
     }
     next();
 });
 
 app.use((req, res) => {
-    res.status(404).send('Not found');
+    res.status(404).send("Not found");
 });
 
 // Start appserver where proxy is attached
