@@ -9,7 +9,7 @@ const Proxy = require('../');
 test('Proxy() - object tag - should be PodiumProxy', () => {
     const proxy = new Proxy();
     expect(Object.prototype.toString.call(proxy)).toEqual(
-        '[object PodiumProxy]'
+        '[object PodiumProxy]',
     );
 });
 
@@ -23,7 +23,7 @@ test('.register() - no value given to "manifest" argument - should throw', () =>
     expect(() => {
         proxy.register();
     }).toThrowError(
-        'The value for the required argument "manifest" not defined or not valid.'
+        'The value for the required argument "manifest" not defined or not valid.',
     );
 });
 
@@ -33,7 +33,7 @@ test('.register() - invalid value given to "manifest" argument - should throw', 
     expect(() => {
         proxy.register({ foo: 'bar', name: 'æøå - tada' });
     }).toThrowError(
-        'The value for the required argument "manifest" not defined or not valid.'
+        'The value for the required argument "manifest" not defined or not valid.',
     );
 });
 
