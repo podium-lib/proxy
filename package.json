@@ -1,7 +1,8 @@
 {
   "name": "@podium/proxy",
-  "version": "2.3.0",
-  "license": "SEE LICENSE IN LICENSE",
+  "version": "3.0.0-beta.1",
+  "license": "MIT",
+  "description": "Transparent http proxy for Podium. Does dynamically mount proxy targets on a existing http server instance.",
   "repository": {
     "type": "git",
     "url": "git@github.schibsted.io:Podium/proxy.git"
@@ -10,9 +11,6 @@
     "lib"
   ],
   "main": "./lib/proxy.js",
-  "publishConfig": {
-    "registry": "http://npm.finntech.no/"
-  },
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
@@ -21,14 +19,14 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "@podium/schemas": "2.1.1",
-    "@podium/utils": "2.1.0",
-    "abslog": "2.2.1",
+    "@podium/schemas": "3.0.0-beta.1",
+    "@podium/utils": "3.0.0-beta.1",
+    "abslog": "2.2.2",
     "http-proxy": "^1.17.0",
     "joi": "^14.0.1",
     "original-url": "^1.2.2",
     "path-to-regexp": "^2.4.0",
-    "ttl-mem-cache": "4.0.0"
+    "ttl-mem-cache": "4.0.2"
   },
   "devDependencies": {
     "eslint": "^5.6.1",
