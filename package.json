@@ -21,6 +21,7 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "@metrics/client": "^2.2.0",
     "@podium/schemas": "2.1.1",
     "@podium/utils": "2.1.0",
     "abslog": "2.2.1",
@@ -36,9 +37,10 @@
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^3.0.0",
+    "express": "^4.16.4",
     "jest": "^23.6.0",
     "prettier": "^1.14.2",
-    "express": "^4.16.4"
+    "readable-stream": "^3.1.1"
   },
   "jest": {
     "coveragePathIgnorePatterns": [
