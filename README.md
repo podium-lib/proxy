@@ -59,12 +59,12 @@ The constructor takes the following arguments:
 
 An options object containing configuration. The following values can be provided:
 
-*   `pathname` - {String} - Pathname to the root of where the proxy is to be mounted. Default: `/`.
-*   `prefix` - {String} - Prefix used to namespace the proxy so its isolated from other routes in a HTTP server. Appended after pathname. Default: `podium-resource`.
-*   `timeout` - {Number} - Default value, in milliseconds, for how long a request should wait before the connection is terminated. Default: 6000
-*   `maxAge` - {Number} - Default value, in milliseconds, for how long manifests should be cached. Default: Infinity
-*   `agent` - {HTTPAgent} - Default HTTP Agent used for all requests.
-*   `logger` - {Object} - A logger which conforms to the log4j interface. See the docs for [abstract logger](https://www.npmjs.com/package/abslog) for more information.
+-   `pathname` - {String} - Pathname to the root of where the proxy is to be mounted. Default: `/`.
+-   `prefix` - {String} - Prefix used to namespace the proxy so its isolated from other routes in a HTTP server. Appended after pathname. Default: `podium-resource`.
+-   `timeout` - {Number} - Default value, in milliseconds, for how long a request should wait before the connection is terminated. Default: 6000
+-   `maxAge` - {Number} - Default value, in milliseconds, for how long manifests should be cached. Default: Infinity
+-   `agent` - {HTTPAgent} - Default HTTP Agent used for all requests.
+-   `logger` - {Object} - A logger which conforms to the log4j interface. See the docs for [abstract logger](https://www.npmjs.com/package/abslog) for more information.
 
 ## API
 
@@ -97,6 +97,14 @@ proxy.register({
 
 A Podium manifest where the `proxy` property is given. The `proxy` property is an object where the `key` identifies the target and the `property` is a URI to the target.
 
+### .metrics
+
+Property that exposes a metric stream.
+
+Exposes a single metric called `podium_proxy_request` which includes `podlet` and `proxy` meta fields.
+
+Please see the [@metrics/client](https://www.npmjs.com/package/@metrics/client) module for full documentation.
+
 ### .middleware()
 
 Middleware that mounts the proxy on a Connect middleware compatible
@@ -122,10 +130,10 @@ The convention for these namespaces is as follow:
 
 `{pathname}/{prefix}/{podletName}/{proxyName}/`
 
-*   pathname - Defined by the `pathname` argument in the constructor. Defaults to `/`.
-*   prefix - Defined by `prefix` argument in the constructor. Defaults to `podium-resource`.
-*   podletName - Defined by the `name` value in the manifest. Note: When the proxy module subscribes to receive manifest updates from the Podium Client, this name will be the name a Podlet is registered with in the Podium Client.
-*   proxyName - Defined by the `proxy.name` property defined in the manifest.
+-   pathname - Defined by the `pathname` argument in the constructor. Defaults to `/`.
+-   prefix - Defined by `prefix` argument in the constructor. Defaults to `podium-resource`.
+-   podletName - Defined by the `name` value in the manifest. Note: When the proxy module subscribes to receive manifest updates from the Podium Client, this name will be the name a Podlet is registered with in the Podium Client.
+-   proxyName - Defined by the `proxy.name` property defined in the manifest.
 
 ### Example I
 
@@ -152,7 +160,7 @@ app.listen(8000);
 
 The following proxy targets will be mounted:
 
-*   http://localhost:8000/podium-resource/bar/api/
+-   http://localhost:8000/podium-resource/bar/api/
 
 ### Example II
 
@@ -181,7 +189,7 @@ app.listen(8000);
 
 The following proxy targets will be mounted:
 
-*   http://localhost:8000/my-proxy/bar/api/
+-   http://localhost:8000/my-proxy/bar/api/
 
 ### Example III
 
@@ -209,8 +217,8 @@ app.listen(8000);
 
 The following proxy targets will be mounted:
 
-*   http://localhost:8000/podium-resource/bar/api/
-*   http://localhost:8000/podium-resource/bar/feed/
+-   http://localhost:8000/podium-resource/bar/api/
+-   http://localhost:8000/podium-resource/bar/feed/
 
 ### Example IV
 
@@ -247,6 +255,6 @@ app.listen(8000);
 
 The following proxy targets will be mounted:
 
-*   http://localhost:8000/podium-resource/bar/api/
-*   http://localhost:8000/podium-resource/bar/feed/
-*   http://localhost:8000/podium-resource/foo/users/
+-   http://localhost:8000/podium-resource/bar/api/
+-   http://localhost:8000/podium-resource/bar/feed/
+-   http://localhost:8000/podium-resource/foo/users/
