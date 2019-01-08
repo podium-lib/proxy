@@ -276,6 +276,32 @@ test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifestName
     await server.close();
 });
 
+test('Proxying() - GET request with additional path values - should proxy to "{destination}/some/path/extra?foo=bar"', async () => {
+    const server = new DestinationServer();
+    const serverAddr = await server.listen();
+
+    const proxy = new ProxyServer([
+        {
+            name: 'bar',
+            proxy: {
+                a: `${serverAddr}/some/path`,
+            },
+            version: '1.0.0',
+            content: '/',
+        },
+    ]);
+    await proxy.listen();
+
+    const result = await proxy.get('/layout/proxy/bar/a/extra?foo=bar');
+    expect(result.type).toEqual('destination');
+    expect(result.method).toEqual('GET');
+    expect(result.url).toEqual(`${serverAddr}/some/path/extra?foo=bar`);
+    expect(result.query).toEqual({ foo: 'bar' });
+
+    await proxy.close();
+    await server.close();
+});
+
 test('Proxying() - GET request with query params - should proxy query params to "{destination}/some/path"', async () => {
     const server = new DestinationServer();
     const serverAddr = await server.listen();
