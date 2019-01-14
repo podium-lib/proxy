@@ -21,12 +21,12 @@
         "@metrics/client": "^2.2.0",
         "@podium/schemas": "^3.0.0-beta.1",
         "@podium/utils": "^3.0.0-beta.1",
-        "abslog": "2.2.1",
+        "abslog": "2.2.3",
         "http-proxy": "^1.17.0",
         "joi": "^14.0.1",
         "original-url": "^1.2.2",
-        "path-to-regexp": "^2.4.0",
-        "ttl-mem-cache": "4.0.0"
+        "path-to-regexp": "^3.0.0",
+        "ttl-mem-cache": "4.0.2"
     },
     "devDependencies": {
         "eslint": "^5.6.1",
