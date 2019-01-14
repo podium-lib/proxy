@@ -1,59 +1,59 @@
 {
-  "name": "@podium/proxy",
-  "version": "2.4.1",
-  "license": "SEE LICENSE IN LICENSE",
-  "repository": {
-    "type": "git",
-    "url": "git@github.schibsted.io:Podium/proxy.git"
-  },
-  "files": [
-    "lib"
-  ],
-  "main": "./lib/proxy.js",
-  "publishConfig": {
-    "registry": "http://npm.finntech.no/"
-  },
-  "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "test": "jest",
-    "test:verbose": "jest --verbose",
-    "test:coverage": "jest --coverage"
-  },
-  "dependencies": {
-    "@metrics/client": "^2.2.0",
-    "@podium/schemas": "2.1.1",
-    "@podium/utils": "2.1.0",
-    "abslog": "2.2.1",
-    "http-proxy": "^1.17.0",
-    "joi": "^14.0.1",
-    "original-url": "^1.2.2",
-    "path-to-regexp": "^2.4.0",
-    "ttl-mem-cache": "4.0.0"
-  },
-  "devDependencies": {
-    "eslint": "^5.6.1",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^3.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-prettier": "^3.0.0",
-    "express": "^4.16.4",
-    "jest": "^23.6.0",
-    "prettier": "^1.14.2",
-    "readable-stream": "^3.1.1"
-  },
-  "jest": {
-    "coveragePathIgnorePatterns": [
-      "test/"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 60,
-        "functions": 60,
-        "lines": 60,
-        "statements": 60
-      }
+    "name": "@podium/proxy",
+    "version": "2.4.1",
+    "license": "SEE LICENSE IN LICENSE",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:podium-lib/proxy.git"
     },
-    "testEnvironment": "node"
-  }
+    "files": [
+        "lib"
+    ],
+    "main": "./lib/proxy.js",
+    "publishConfig": {
+        "registry": "http://npm.finntech.no/"
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint --fix .",
+        "test": "jest",
+        "test:verbose": "jest --verbose",
+        "test:coverage": "jest --coverage"
+    },
+    "dependencies": {
+        "@metrics/client": "^2.2.0",
+        "@podium/schemas": "2.1.1",
+        "@podium/utils": "2.1.0",
+        "abslog": "2.2.1",
+        "http-proxy": "^1.17.0",
+        "joi": "^14.0.1",
+        "original-url": "^1.2.2",
+        "path-to-regexp": "^2.4.0",
+        "ttl-mem-cache": "4.0.0"
+    },
+    "devDependencies": {
+        "eslint": "^5.6.1",
+        "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-config-prettier": "^3.1.0",
+        "eslint-plugin-import": "^2.14.0",
+        "eslint-plugin-prettier": "^3.0.0",
+        "express": "^4.16.4",
+        "jest": "^23.6.0",
+        "prettier": "^1.14.2",
+        "readable-stream": "^3.1.1"
+    },
+    "jest": {
+        "coveragePathIgnorePatterns": [
+            "test/"
+        ],
+        "coverageThreshold": {
+            "global": {
+                "branches": 60,
+                "functions": 60,
+                "lines": 60,
+                "statements": 60
+            }
+        },
+        "testEnvironment": "node"
+    }
 }

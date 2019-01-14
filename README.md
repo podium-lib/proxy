@@ -1,6 +1,6 @@
 # @podium/proxy
 
-[![Build Status](https://travis.schibsted.io/Podium/proxy.svg?token=qt273uGfEz64UyWuNHJ1&branch=master)](https://travis.schibsted.io/Podium/proxy)
+[![Build Status](https://travis-ci.org/podium-lib/proxy.svg?branch=master)](https://travis-ci.org/podium-lib/proxy)
 
 Transparent http proxy. Dynamically mounts proxy targets on an existing HTTP server instance.
 

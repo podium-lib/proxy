@@ -10,6 +10,6 @@ The latest version of this document is always available in [releases][releases-u
 
 -   Exposes proxy timing metric using @metrics/client
 
-[unreleased]: https://github.schibsted.io/Podium/proxy/compare/v2.4.0...HEAD
-[2.4.0]: https://github.schibsted.io/Podium/proxy/compare/v2.3.0...v2.4.0
-[releases-url]: https://github.schibsted.io/Podium/proxy/blob/master/CHANGELOG.md
+[unreleased]: https://github.com/podium-lib/proxy/compare/v2.4.0...HEAD
+[2.4.0]: https://github.com/podium-lib/proxy/compare/v2.3.0...v2.4.0
+[releases-url]: https://github.com/podium-lib/proxy/blob/master/CHANGELOG.md
