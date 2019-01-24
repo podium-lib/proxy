@@ -1,10 +1,10 @@
 # @podium/proxy
 
+Transparent http proxy. Dynamically mounts proxy targets on an existing HTTP server instance.
+
 [![Build Status](https://travis-ci.org/podium-lib/proxy.svg?branch=master)](https://travis-ci.org/podium-lib/proxy)
 [![Greenkeeper badge](https://badges.greenkeeper.io/podium-lib/proxy.svg)](https://greenkeeper.io/)
 [![Known Vulnerabilities](https://snyk.io/test/github/podium-lib/proxy/badge.svg)](https://snyk.io/test/github/podium-lib/proxy)
-
-Transparent http proxy. Dynamically mounts proxy targets on an existing HTTP server instance.
 
 ## Installation
 
