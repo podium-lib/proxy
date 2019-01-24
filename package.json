@@ -1,11 +1,23 @@
 {
     "name": "@podium/proxy",
     "version": "2.4.4",
-    "license": "SEE LICENSE IN LICENSE",
+    "description": "Transparent http proxy. Dynamically mounts proxy targets on an existing HTTP server instance.",
+    "license": "MIT",
+    "keywords": [
+        "micro services",
+        "micro frontend",
+        "components",
+        "podium",
+        "proxy"
+    ],
     "repository": {
         "type": "git",
         "url": "git@github.com:podium-lib/proxy.git"
     },
+    "bugs": {
+        "url": "https://github.com/podium-lib/issues"
+    },
+    "homepage": "https://podium-lib.io/",
     "files": [
         "lib"
     ],
@@ -18,9 +30,9 @@
         "test:coverage": "jest --coverage"
     },
     "dependencies": {
-        "@metrics/client": "^2.2.0",
-        "@podium/schemas": "^3.0.0-beta.1",
-        "@podium/utils": "^3.0.0-beta.1",
+        "@metrics/client": "2.3.0",
+        "@podium/schemas": "3.0.0",
+        "@podium/utils": "3.0.0",
         "abslog": "2.2.3",
         "http-proxy": "^1.17.0",
         "joi": "^14.0.1",
