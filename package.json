@@ -1,55 +1,68 @@
 {
-  "name": "@podium/proxy",
-  "version": "3.0.0-beta.1",
-  "license": "MIT",
-  "description": "Transparent http proxy for Podium. Does dynamically mount proxy targets on a existing http server instance.",
-  "repository": {
-    "type": "git",
-    "url": "git@github.schibsted.io:Podium/proxy.git"
-  },
-  "files": [
-    "lib"
-  ],
-  "main": "./lib/proxy.js",
-  "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "test": "jest",
-    "test:verbose": "jest --verbose",
-    "test:coverage": "jest --coverage"
-  },
-  "dependencies": {
-    "@podium/schemas": "3.0.0-beta.1",
-    "@podium/utils": "3.0.0-beta.1",
-    "abslog": "2.2.2",
-    "http-proxy": "^1.17.0",
-    "joi": "^14.0.1",
-    "original-url": "^1.2.2",
-    "path-to-regexp": "^2.4.0",
-    "ttl-mem-cache": "4.0.2"
-  },
-  "devDependencies": {
-    "eslint": "^5.6.1",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^3.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-prettier": "^3.0.0",
-    "jest": "^23.6.0",
-    "prettier": "^1.14.2",
-    "express": "^4.16.4"
-  },
-  "jest": {
-    "coveragePathIgnorePatterns": [
-      "test/"
+    "name": "@podium/proxy",
+    "version": "3.0.0-beta.1",
+    "description": "Transparent http proxy. Dynamically mounts proxy targets on an existing HTTP server instance.",
+    "license": "MIT",
+    "keywords": [
+        "micro services",
+        "micro frontend",
+        "components",
+        "podium",
+        "proxy"
     ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 60,
-        "functions": 60,
-        "lines": 60,
-        "statements": 60
-      }
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:podium-lib/proxy.git"
     },
-    "testEnvironment": "node"
-  }
+    "bugs": {
+        "url": "https://github.com/podium-lib/issues"
+    },
+    "homepage": "https://podium-lib.io/",
+    "files": [
+        "lib"
+    ],
+    "main": "./lib/proxy.js",
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint --fix .",
+        "test": "jest",
+        "test:verbose": "jest --verbose",
+        "test:coverage": "jest --coverage"
+    },
+    "dependencies": {
+        "@metrics/client": "2.3.0",
+        "@podium/schemas": "3.0.0",
+        "@podium/utils": "3.0.0",
+        "abslog": "2.2.3",
+        "http-proxy": "1.17.0",
+        "joi": "14.3.1",
+        "original-url": "1.2.2",
+        "path-to-regexp": "3.0.0",
+        "ttl-mem-cache": "4.0.2"
+    },
+    "devDependencies": {
+        "eslint": "^5.6.1",
+        "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-config-prettier": "^3.1.0",
+        "eslint-plugin-import": "^2.14.0",
+        "eslint-plugin-prettier": "^3.0.0",
+        "express": "^4.16.4",
+        "jest": "^23.6.0",
+        "prettier": "^1.14.2",
+        "readable-stream": "^3.1.1"
+    },
+    "jest": {
+        "coveragePathIgnorePatterns": [
+            "test/"
+        ],
+        "coverageThreshold": {
+            "global": {
+                "branches": 60,
+                "functions": 60,
+                "lines": 60,
+                "statements": 60
+            }
+        },
+        "testEnvironment": "node"
+    }
 }

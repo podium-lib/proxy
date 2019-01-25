@@ -3,7 +3,26 @@
 const express = require('express');
 const http = require('http');
 const { URL } = require('url');
+const { Writable } = require('readable-stream');
 const Proxy = require('../');
+
+const destObjectStream = done => {
+    const arr = [];
+
+    const dStream = new Writable({
+        objectMode: true,
+        write(chunk, encoding, callback) {
+            arr.push(chunk);
+            callback();
+        },
+    });
+
+    dStream.on('finish', () => {
+        done(arr);
+    });
+
+    return dStream;
+};
 
 /**
  * Destination server utility
@@ -194,7 +213,7 @@ test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyNam
     await server.close();
 });
 
-test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to "{destination}/some/path"', async () => {
+test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to "{destination}/some/where/else"', async () => {
     const server = new DestinationServer();
     const serverAddr = await server.listen();
 
@@ -257,6 +276,32 @@ test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifestName
     await server.close();
 });
 
+test('Proxying() - GET request with additional path values - should proxy to "{destination}/some/path/extra?foo=bar"', async () => {
+    const server = new DestinationServer();
+    const serverAddr = await server.listen();
+
+    const proxy = new ProxyServer([
+        {
+            name: 'bar',
+            proxy: {
+                a: `${serverAddr}/some/path`,
+            },
+            version: '1.0.0',
+            content: '/',
+        },
+    ]);
+    await proxy.listen();
+
+    const result = await proxy.get('/layout/proxy/bar/a/extra?foo=bar');
+    expect(result.type).toEqual('destination');
+    expect(result.method).toEqual('GET');
+    expect(result.url).toEqual(`${serverAddr}/some/path/extra?foo=bar`);
+    expect(result.query).toEqual({ foo: 'bar' });
+
+    await proxy.close();
+    await server.close();
+});
+
 test('Proxying() - GET request with query params - should proxy query params to "{destination}/some/path"', async () => {
     const server = new DestinationServer();
     const serverAddr = await server.listen();
@@ -304,4 +349,52 @@ test('Proxying() - POST request - should proxy query params to "{destination}/so
 
     await proxy.close();
     await server.close();
+});
+
+test('Proxying() - metrics collection', async done => {
+    const server = new DestinationServer();
+    const serverAddr = await server.listen();
+
+    const proxy = new ProxyServer([
+        {
+            name: 'foo',
+            proxy: {
+                a: '/foo',
+            },
+            version: '1.0.0',
+            content: '/',
+        },
+        {
+            name: 'bar',
+            proxy: {
+                a: `${serverAddr}/some/path`,
+            },
+            version: '1.0.0',
+            content: '/',
+        },
+    ]);
+
+    proxy.proxy.metrics.pipe(
+        destObjectStream(arr => {
+            expect(arr).toHaveLength(2);
+            /*
+            TODO: Commented out due to the way we get this info is wrong
+            expect(arr[0].meta.podlet).toBe('foo');
+            expect(arr[0].meta.proxy).toBe('a');
+            expect(arr[1].meta.podlet).toBe('bar');
+            expect(arr[1].meta.proxy).toBe('a');
+            */
+            done();
+        }),
+    );
+
+    await proxy.listen();
+
+    await proxy.get('/layout/proxy/foo/a');
+    await proxy.get('/layout/proxy/bar/a');
+
+    await proxy.close();
+    await server.close();
+
+    proxy.proxy.metrics.push(null);
 });

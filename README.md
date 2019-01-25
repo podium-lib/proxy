@@ -1,17 +1,16 @@
 # @podium/proxy
 
-[![Build Status](https://travis.schibsted.io/Podium/proxy.svg?token=qt273uGfEz64UyWuNHJ1&branch=master)](https://travis.schibsted.io/Podium/proxy)
+Transparent http proxy. Dynamically mounts proxy targets on an existing HTTP server instance.
 
-Transparent http proxy. Does dynamically mount proxy targets on a
-existing http server instance.
-
+[![Build Status](https://travis-ci.org/podium-lib/proxy.svg?branch=master)](https://travis-ci.org/podium-lib/proxy)
+[![Greenkeeper badge](https://badges.greenkeeper.io/podium-lib/proxy.svg)](https://greenkeeper.io/)
+[![Known Vulnerabilities](https://snyk.io/test/github/podium-lib/proxy/badge.svg)](https://snyk.io/test/github/podium-lib/proxy)
 
 ## Installation
 
 ```bash
-$ npm i @podium/proxy
+$ npm install @podium/proxy
 ```
-
 
 ## Simple usage
 
@@ -47,7 +46,6 @@ app.listen(9999);
 Proxy is now mounted on:
 http://localhost:9999/podium-resource/bar/api
 
-
 ## Constructor
 
 Create a new Proxy instance.
@@ -57,23 +55,22 @@ const Proxy = require('@podium/proxy');
 const proxy = new Proxy(options);
 ```
 
-The constructor take the following arguments:
+The constructor takes the following arguments:
 
 ### options (optional)
 
 An options object containing configuration. The following values can be provided:
 
- * `pathname` - {String} - Pathname to the root of where the proxy is mounted. Default: `/`.
- * `prefix` - {String} - Prefix used to namespace the proxy so its isolated from other routes in a http server. Appended after pathname. Default: `podium-resource`.
- * `timeout` - {Number} - Default value, in milliseconds, for how long a request should wait before connection is terminated. Default: 6000
- * `maxAge` - {Number} - Default value, in milliseconds, for how long manifests should be cached. Default: Infinity
- * `agent` - {HTTPAgent} - Default HTTP Agent used for all requests.
- * `logger` - {Object} - A logger which conform to a log4j interface. See the doc for the internal [abstract logger](https://www.npmjs.com/package/abslog) for more information.
-
+-   `pathname` - {String} - Pathname to the root of where the proxy is to be mounted. Default: `/`.
+-   `prefix` - {String} - Prefix used to namespace the proxy so its isolated from other routes in a HTTP server. Appended after pathname. Default: `podium-resource`.
+-   `timeout` - {Number} - Default value, in milliseconds, for how long a request should wait before the connection is terminated. Default: 6000
+-   `maxAge` - {Number} - Default value, in milliseconds, for how long manifests should be cached. Default: Infinity
+-   `agent` - {HTTPAgent} - Default HTTP Agent used for all requests.
+-   `logger` - {Object} - A logger which conforms to the log4j interface. See the docs for [abstract logger](https://www.npmjs.com/package/abslog) for more information.
 
 ## API
 
-The Proxy instance have the following API:
+The Proxy instance havs the following API:
 
 ### .register(manifest)
 
@@ -100,51 +97,49 @@ proxy.register({
 
 #### manifest (required)
 
-A Podium manifest where the `proxy` property is given. The `proxy`
-property is an object where the `key` identifies the target and the `property` is a URI to the target.
+A Podium manifest where the `proxy` property is given. The `proxy` property is an object where the `key` identifies the target and the `property` is a URI to the target.
 
+### .metrics
+
+Property that exposes a metric stream.
+
+Exposes a single metric called `podium_proxy_request` which includes `podlet` and `proxy` meta fields.
+
+Please see the [@metrics/client](https://www.npmjs.com/package/@metrics/client) module for full documentation.
 
 ### .middleware()
 
-Middleware that mounts the proxy on an Connect middleware compatible
-http server.
-
+Middleware that mounts the proxy on a Connect middleware compatible
+HTTP server.
 
 ### .dump()
 
 Returns an Array of all loaded manifests ready to be used by `.load()`.
 
-
 ### .load()
 
-Loads an Array of manifests, provided by `.dump()`, into the proxy. If any of
-the items in the loaded Array contains a key which already are in the cache
-the entry in the cache will be overwritten.
+Loads an Array of manifests (provided by `.dump()`) into the proxy. If any of the items in the loaded Array contains a key which is already in the cache, the entry in the cache will be overwritten.
 
-If any of the entries in the loaded Array are not compatible with the format
-which `.dump()` exports, they will not be inserted into the cache.
+If any of the entries in the loaded Array are not compatible with the format which `.dump()` exports, they will not be inserted into the cache.
 
-Returns and Array with the keys which was inserted into the cache.
-
+Returns an Array with the keys which were inserted into the cache.
 
 ## Where are proxy targets mounted?
 
-To be able to have multible proxy targets in a http server we need to make
-sure that they do not collide with each other. To prevent so, each proxy
-target defined is mounted on their own separate namespace in a http server.
+To be able to have multible proxy targets in an HTTP server we need to make sure that they do not collide with each other. To prevent so, each proxy target defined is mounted on their own separate namespace in an HTTP server.
 
-The convention for these namespaces are as follow:
+The convention for these namespaces is as follow:
 
 `{pathname}/{prefix}/{podletName}/{proxyName}/`
 
- * pathname - Defined by the value given to the `pathname` argument on the constructor. Defaults to `/`.
- * prefix - Defined by the value given to the `prefix` argument on the constructor. Defaults to `podium-resource`.
- * podletName - Defined by the value given to `name` in the manifest. Note: When the proxy module subscribe on manifests from the Podium Client, this name will be the name a Podlet is registered with in the Podium Client.
- * proxyName - Defined by the property on the object on the `proxy` property for the target in the manifest.
+-   pathname - Defined by the `pathname` argument in the constructor. Defaults to `/`.
+-   prefix - Defined by `prefix` argument in the constructor. Defaults to `podium-resource`.
+-   podletName - Defined by the `name` value in the manifest. Note: When the proxy module subscribes to receive manifest updates from the Podium Client, this name will be the name a Podlet is registered with in the Podium Client.
+-   proxyName - Defined by the `proxy.name` property defined in the manifest.
 
 ### Example I
 
-If one have the following manifest appended to an express server:
+If one has the following manifest defined in an express server:
 
 ```js
 const app = require('express')();
@@ -167,17 +162,17 @@ app.listen(8000);
 
 The following proxy targets will be mounted:
 
- * http://localhost:8000/podium-resource/bar/api/
+-   http://localhost:8000/podium-resource/bar/api/
 
 ### Example II
 
-If one have the following manifest and override the `prefix` on the constructor:
+If one has the following manifest and overrides the `prefix` on the constructor:
 
 ```js
 const app = require('express')();
 const Proxy = require('@podium/proxy');
 const proxy = new Proxy({
-    prefix: '/my-proxy'
+    prefix: '/my-proxy',
 });
 
 proxy.register({
@@ -196,11 +191,11 @@ app.listen(8000);
 
 The following proxy targets will be mounted:
 
- * http://localhost:8000/my-proxy/bar/api/
+-   http://localhost:8000/my-proxy/bar/api/
 
 ### Example III
 
-If one have the following manifest appended to an express server:
+If one has the following manifest defined in an express server:
 
 ```js
 const app = require('express')();
@@ -224,12 +219,12 @@ app.listen(8000);
 
 The following proxy targets will be mounted:
 
- * http://localhost:8000/podium-resource/bar/api/
- * http://localhost:8000/podium-resource/bar/feed/
+-   http://localhost:8000/podium-resource/bar/api/
+-   http://localhost:8000/podium-resource/bar/feed/
 
 ### Example IV
 
-If one have the following manifests appended to an express server:
+If one has the following manifests defined in an express server:
 
 ```js
 const app = require('express')();
@@ -262,11 +257,6 @@ app.listen(8000);
 
 The following proxy targets will be mounted:
 
- * http://localhost:8000/podium-resource/bar/api/
- * http://localhost:8000/podium-resource/bar/feed/
- * http://localhost:8000/podium-resource/foo/users/
-
-
-## A word on appending Podium context
-
-TODO
+-   http://localhost:8000/podium-resource/bar/api/
+-   http://localhost:8000/podium-resource/bar/feed/
+-   http://localhost:8000/podium-resource/foo/users/
