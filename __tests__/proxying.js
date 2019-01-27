@@ -1,6 +1,5 @@
 'use strict';
 
-const express = require('express');
 const http = require('http');
 const { URL } = require('url');
 const { Writable } = require('readable-stream');
@@ -34,16 +33,16 @@ class DestinationServer {
     constructor() {
         this.server = undefined;
         this.address = '';
-
-        this.app = express();
-        this.app.use((req, res) => {
-            res.status(200).json({
-                headers: req.headers,
-                method: req.method,
-                query: req.query,
-                type: 'destination',
-                url: `${this.address}${req.url}`,
-            });
+        this.app = http.createServer((req, res) => {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(
+                JSON.stringify({
+                    method: req.method,
+                    type: 'destination',
+                    url: `${this.address}${req.url}`,
+                }),
+            );
         });
     }
 
@@ -79,7 +78,8 @@ class DestinationServer {
 
 class ProxyServer {
     constructor(manifests = []) {
-        this.app = express();
+        this.server = undefined;
+        this.address = '';
 
         this.proxy = new Proxy({
             pathname: '/layout/',
@@ -90,27 +90,40 @@ class ProxyServer {
             this.proxy.register(manifest);
         });
 
-        this.app.use((req, res, next) => {
+        this.app = http.createServer((req, res) => {
             res.locals = {};
             res.locals.podium = {};
             res.locals.podium.context = {
                 'podium-foo': 'bar',
             };
-            next();
+
+            this.proxy
+                .process(req, res)
+                .then(state => {
+                    if (state) {
+                        res.statusCode = 200;
+                        res.setHeader('Content-Type', 'application/json');
+                        res.end(
+                            JSON.stringify({
+                                message: 'ok',
+                                status: 200,
+                                type: 'proxy',
+                            }),
+                        );
+                    }
+                })
+                .catch(() => {
+                    res.statusCode = 404;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.end(
+                        JSON.stringify({
+                            message: 'not found',
+                            status: 404,
+                            type: 'proxy',
+                        }),
+                    );
+                });
         });
-
-        this.app.use(this.proxy.middleware());
-
-        this.app.use((req, res) => {
-            res.status(404).json({
-                message: 'not found',
-                status: 404,
-                type: 'proxy',
-            });
-        });
-
-        this.server = undefined;
-        this.address = '';
     }
 
     listen() {
@@ -296,7 +309,6 @@ test('Proxying() - GET request with additional path values - should proxy to "{d
     expect(result.type).toEqual('destination');
     expect(result.method).toEqual('GET');
     expect(result.url).toEqual(`${serverAddr}/some/path/extra?foo=bar`);
-    expect(result.query).toEqual({ foo: 'bar' });
 
     await proxy.close();
     await server.close();
@@ -321,7 +333,7 @@ test('Proxying() - GET request with query params - should proxy query params to 
     const result = await proxy.get('/layout/proxy/bar/a?foo=bar');
     expect(result.type).toEqual('destination');
     expect(result.method).toEqual('GET');
-    expect(result.query).toEqual({ foo: 'bar' });
+    expect(result.url).toEqual(`${serverAddr}/some/path?foo=bar`);
 
     await proxy.close();
     await server.close();
