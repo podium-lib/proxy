@@ -3,6 +3,7 @@
 const http = require('http');
 const { URL } = require('url');
 const { Writable } = require('readable-stream');
+const State = require('../lib/state');
 const Proxy = require('../');
 
 const destObjectStream = done => {
@@ -96,11 +97,11 @@ class ProxyServer {
             res.locals.podium.context = {
                 'podium-foo': 'bar',
             };
-
+            const state = new State(req, res, res.locals);
             this.proxy
-                .process(req, res)
-                .then(state => {
-                    if (state) {
+                .process(state)
+                .then(result => {
+                    if (result) {
                         res.statusCode = 200;
                         res.setHeader('Content-Type', 'application/json');
                         res.end(
