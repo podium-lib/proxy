@@ -32,11 +32,10 @@
     "dependencies": {
         "@metrics/client": "2.3.0",
         "@podium/schemas": "3.0.0",
-        "@podium/utils": "3.0.0",
+        "@podium/utils": "3.1.0",
         "abslog": "2.2.3",
         "http-proxy": "1.17.0",
         "joi": "14.3.1",
-        "original-url": "1.2.2",
         "path-to-regexp": "3.0.0",
         "ttl-mem-cache": "4.0.2"
     },
