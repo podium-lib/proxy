@@ -14,14 +14,12 @@ $ npm install @podium/proxy
 
 ## Simple usage
 
-Attach a proxy target to an existing Express server.
+Attach a proxy target to an http server.
 
 ```js
-const express = require('express');
+const { HttpIncoming } = require('@podium/utils');
 const Proxy = require('@podium/proxy');
-
-// Set up express server
-const app = express();
+const http = require('http');
 
 // Set up proxy
 const proxy = new Proxy();
@@ -36,8 +34,17 @@ proxy.register({
     content: '/bar',
 });
 
-// Attach proxy middleware
-app.use(proxy.middleware());
+// Attach proxy to http server
+const app = http.createServer(async (req, res) => {
+    const incoming = new HttpIncoming(req, res);
+    const result = await this.proxy.process(incoming);
+
+    // The proxy did return "undefined" so nothing matched out proxy
+    if (!result) {
+        res.statusCode = 404;
+        res.end('404 - Not found);
+    }
+});
 
 // Start appserver where proxy is attached
 app.listen(9999);
@@ -99,6 +106,41 @@ proxy.register({
 
 A Podium manifest where the `proxy` property is given. The `proxy` property is an object where the `key` identifies the target and the `property` is a URI to the target.
 
+### .process(HttpIncoming)
+
+Metod for processing a incomming http request. Matches the request against the registered routing targets and
+proxies the request if a match is found.
+
+Returns a Promise. If the inbound request does match a proxy endpoint the returned Promise will resolve with
+`undefined`. If the inbound request does not match a proxy endpoint the returned Promise will resolve with the
+passed in `HttpIncoming` object.
+
+The method take the following arguments:
+
+#### HttpIncoming (required)
+
+An instance of a [HttpIncoming object](https://github.com/podium-lib/utils/blob/master/lib/http-incoming.js).
+
+```js
+const { HttpIncoming } = require('@podium/utils');
+const Proxy = require('@podium/proxy');
+const http = require('http');
+
+const proxy = new Proxy();
+
+proxy.register({ ...[snip]... });
+
+const app = http.createServer(async (req, res) => {
+    const incoming = new HttpIncoming(req, res);
+    const result = await this.proxy.process(incoming);
+
+    if (!result) {
+        res.statusCode = 404;
+        res.end('404 - Not found);
+    }
+});
+```
+
 ### .metrics
 
 Property that exposes a metric stream.
@@ -106,11 +148,6 @@ Property that exposes a metric stream.
 Exposes a single metric called `podium_proxy_request` which includes `podlet` and `proxy` meta fields.
 
 Please see the [@metrics/client](https://www.npmjs.com/package/@metrics/client) module for full documentation.
-
-### .middleware()
-
-Middleware that mounts the proxy on a Connect middleware compatible
-HTTP server.
 
 ### .dump()
 
@@ -142,8 +179,10 @@ The convention for these namespaces is as follow:
 If one has the following manifest defined in an express server:
 
 ```js
-const app = require('express')();
+const { HttpIncoming } = require('@podium/utils');
 const Proxy = require('@podium/proxy');
+const http = require('http');
+
 const proxy = new Proxy();
 
 proxy.register({
@@ -155,7 +194,9 @@ proxy.register({
     content: '/index.html',
 });
 
-app.use(proxy.middleware());
+const app = http.createServer(async (req, res) => {
+    ...[snip]...
+});
 
 app.listen(8000);
 ```
@@ -169,8 +210,10 @@ The following proxy targets will be mounted:
 If one has the following manifest and overrides the `prefix` on the constructor:
 
 ```js
-const app = require('express')();
+const { HttpIncoming } = require('@podium/utils');
 const Proxy = require('@podium/proxy');
+const http = require('http');
+
 const proxy = new Proxy({
     prefix: '/my-proxy',
 });
@@ -184,7 +227,9 @@ proxy.register({
     content: '/index.html',
 });
 
-app.use(proxy.middleware());
+const app = http.createServer(async (req, res) => {
+    ...[snip]...
+});
 
 app.listen(8000);
 ```
@@ -198,8 +243,10 @@ The following proxy targets will be mounted:
 If one has the following manifest defined in an express server:
 
 ```js
-const app = require('express')();
+const { HttpIncoming } = require('@podium/utils');
 const Proxy = require('@podium/proxy');
+const http = require('http');
+
 const proxy = new Proxy();
 
 proxy.register({
@@ -212,7 +259,9 @@ proxy.register({
     content: '/index.html',
 });
 
-app.use(proxy.middleware());
+const app = http.createServer(async (req, res) => {
+    ...[snip]...
+});
 
 app.listen(8000);
 ```
@@ -227,8 +276,10 @@ The following proxy targets will be mounted:
 If one has the following manifests defined in an express server:
 
 ```js
-const app = require('express')();
+const { HttpIncoming } = require('@podium/utils');
 const Proxy = require('@podium/proxy');
+const http = require('http');
+
 const proxy = new Proxy();
 
 proxy.register({
@@ -250,7 +301,9 @@ proxy.register({
     content: '/index.html',
 });
 
-app.use(proxy.middleware());
+const app = http.createServer(async (req, res) => {
+    ...[snip]...
+});
 
 app.listen(8000);
 ```
