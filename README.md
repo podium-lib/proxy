@@ -42,7 +42,7 @@ const app = http.createServer(async (req, res) => {
     // The proxy did return "undefined" so nothing matched out proxy
     if (!result) {
         res.statusCode = 404;
-        res.end('404 - Not found);
+        res.end('404 - Not found');
     }
 });
 
@@ -136,7 +136,7 @@ const app = http.createServer(async (req, res) => {
 
     if (!result) {
         res.statusCode = 404;
-        res.end('404 - Not found);
+        res.end('404 - Not found');
     }
 });
 ```
