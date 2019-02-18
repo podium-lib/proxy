@@ -33,7 +33,7 @@
         "@metrics/client": "2.3.1",
         "@podium/schemas": "3.0.0",
         "@podium/utils": "3.1.1",
-        "abslog": "2.2.3",
+        "abslog": "2.3.0",
         "http-proxy": "^1.17.0",
         "joi": "^14.0.1",
         "original-url": "^1.2.2",
