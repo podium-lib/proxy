@@ -43,9 +43,9 @@ proxy.register({
 // Attach proxy to http server
 const app = http.createServer(async (req, res) => {
     const incoming = new HttpIncoming(req, res);
-    const result = await this.proxy.process(incoming);
+    const result = await proxy.process(incoming);
 
-    // The proxy did return "undefined" so nothing matched out proxy
+    // The proxy did return "undefined" so nothing matched our proxy
     if (!result) {
         res.statusCode = 404;
         res.end('404 - Not found');
@@ -141,7 +141,7 @@ proxy.register({ ...[snip]... });
 
 const app = http.createServer(async (req, res) => {
     const incoming = new HttpIncoming(req, res);
-    const result = await this.proxy.process(incoming);
+    const result = await proxy.process(incoming);
 
     if (!result) {
         res.statusCode = 404;
