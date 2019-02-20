@@ -1,10 +1,16 @@
 # @podium/proxy
 
-Transparent http proxy. Dynamically mounts proxy targets on an existing HTTP server instance.
+Transparent HTTP proxy. Dynamically mounts proxy targets on an existing HTTP
+server instance.
 
 [![Build Status](https://travis-ci.org/podium-lib/proxy.svg?branch=master)](https://travis-ci.org/podium-lib/proxy)
 [![Greenkeeper badge](https://badges.greenkeeper.io/podium-lib/proxy.svg)](https://greenkeeper.io/)
 [![Known Vulnerabilities](https://snyk.io/test/github/podium-lib/proxy/badge.svg)](https://snyk.io/test/github/podium-lib/proxy)
+
+This module is intended for internal use in Podium and is not a module an end
+user would use directly. End users will typically interact with this module
+through higher level modules such as the [@podium/layout] and [@podium/podlet]
+modules.
 
 ## Installation
 
@@ -14,14 +20,12 @@ $ npm install @podium/proxy
 
 ## Simple usage
 
-Attach a proxy target to an existing Express server.
+Attach a proxy target to an HTTP server.
 
 ```js
-const express = require('express');
+const { HttpIncoming } = require('@podium/utils');
 const Proxy = require('@podium/proxy');
-
-// Set up express server
-const app = express();
+const http = require('http');
 
 // Set up proxy
 const proxy = new Proxy();
@@ -36,8 +40,17 @@ proxy.register({
     content: '/bar',
 });
 
-// Attach proxy middleware
-app.use(proxy.middleware());
+// Attach proxy to http server
+const app = http.createServer(async (req, res) => {
+    const incoming = new HttpIncoming(req, res);
+    const result = await proxy.process(incoming);
+
+    // The proxy did return "undefined" so nothing matched our proxy
+    if (!result) {
+        res.statusCode = 404;
+        res.end('404 - Not found');
+    }
+});
 
 // Start appserver where proxy is attached
 app.listen(9999);
@@ -97,20 +110,55 @@ proxy.register({
 
 #### manifest (required)
 
-A Podium manifest where the `proxy` property is given. The `proxy` property is an object where the `key` identifies the target and the `property` is a URI to the target.
+A Podium manifest where the `proxy` property is given. The `proxy` property is
+an object where the `key` identifies the target and the `property` is a URI to
+the target.
+
+### .process(HttpIncoming)
+
+Metod for processing a incoming HTTP request. Matches the request against the
+registered routing targets and proxies the request if a match is found.
+
+Returns a promise. If the inbound request matches a proxy endpoint the returned
+Promise will resolve with `undefined`. If the inbound request does not match a
+proxy endpoint the returned promise will resolve with the passed in
+[HttpIncoming] object.
+
+The method takes the following arguments:
+
+#### HttpIncoming (required)
+
+An instance of an [HttpIncoming] class.
+
+```js
+const { HttpIncoming } = require('@podium/utils');
+const Proxy = require('@podium/proxy');
+const http = require('http');
+
+const proxy = new Proxy();
+
+proxy.register({ ...[snip]... });
+
+const app = http.createServer(async (req, res) => {
+    const incoming = new HttpIncoming(req, res);
+    const result = await proxy.process(incoming);
+
+    if (!result) {
+        res.statusCode = 404;
+        res.end('404 - Not found');
+    }
+});
+```
 
 ### .metrics
 
 Property that exposes a metric stream.
 
-Exposes a single metric called `podium_proxy_request` which includes `podlet` and `proxy` meta fields.
+Exposes a single metric called `podium_proxy_request` which includes `podlet`
+and `proxy` meta fields.
 
-Please see the [@metrics/client](https://www.npmjs.com/package/@metrics/client) module for full documentation.
-
-### .middleware()
-
-Middleware that mounts the proxy on a Connect middleware compatible
-HTTP server.
+Please see the [@metrics/client](https://www.npmjs.com/package/@metrics/client)
+module for full documentation.
 
 ### .dump()
 
@@ -118,15 +166,20 @@ Returns an Array of all loaded manifests ready to be used by `.load()`.
 
 ### .load()
 
-Loads an Array of manifests (provided by `.dump()`) into the proxy. If any of the items in the loaded Array contains a key which is already in the cache, the entry in the cache will be overwritten.
+Loads an Array of manifests (provided by `.dump()`) into the proxy. If any of
+the items in the loaded Array contains a key which is already in the cache, the
+entry in the cache will be overwritten.
 
-If any of the entries in the loaded Array are not compatible with the format which `.dump()` exports, they will not be inserted into the cache.
+If any of the entries in the loaded Array are not compatible with the format
+which `.dump()` exports, they will not be inserted into the cache.
 
 Returns an Array with the keys which were inserted into the cache.
 
 ## Where are proxy targets mounted?
 
-To be able to have multible proxy targets in an HTTP server we need to make sure that they do not collide with each other. To prevent so, each proxy target defined is mounted on their own separate namespace in an HTTP server.
+To be able to have multiple proxy targets in an HTTP server we need to make sure
+that they do not collide with each other. To prevent this, each proxy target
+defined is mounted on its own separate namespace in an HTTP server.
 
 The convention for these namespaces is as follow:
 
@@ -142,8 +195,10 @@ The convention for these namespaces is as follow:
 If one has the following manifest defined in an express server:
 
 ```js
-const app = require('express')();
+const { HttpIncoming } = require('@podium/utils');
 const Proxy = require('@podium/proxy');
+const http = require('http');
+
 const proxy = new Proxy();
 
 proxy.register({
@@ -155,7 +210,9 @@ proxy.register({
     content: '/index.html',
 });
 
-app.use(proxy.middleware());
+const app = http.createServer(async (req, res) => {
+    ...[snip]...
+});
 
 app.listen(8000);
 ```
@@ -169,8 +226,10 @@ The following proxy targets will be mounted:
 If one has the following manifest and overrides the `prefix` on the constructor:
 
 ```js
-const app = require('express')();
+const { HttpIncoming } = require('@podium/utils');
 const Proxy = require('@podium/proxy');
+const http = require('http');
+
 const proxy = new Proxy({
     prefix: '/my-proxy',
 });
@@ -184,7 +243,9 @@ proxy.register({
     content: '/index.html',
 });
 
-app.use(proxy.middleware());
+const app = http.createServer(async (req, res) => {
+    ...[snip]...
+});
 
 app.listen(8000);
 ```
@@ -198,8 +259,10 @@ The following proxy targets will be mounted:
 If one has the following manifest defined in an express server:
 
 ```js
-const app = require('express')();
+const { HttpIncoming } = require('@podium/utils');
 const Proxy = require('@podium/proxy');
+const http = require('http');
+
 const proxy = new Proxy();
 
 proxy.register({
@@ -212,7 +275,9 @@ proxy.register({
     content: '/index.html',
 });
 
-app.use(proxy.middleware());
+const app = http.createServer(async (req, res) => {
+    ...[snip]...
+});
 
 app.listen(8000);
 ```
@@ -227,8 +292,10 @@ The following proxy targets will be mounted:
 If one has the following manifests defined in an express server:
 
 ```js
-const app = require('express')();
+const { HttpIncoming } = require('@podium/utils');
 const Proxy = require('@podium/proxy');
+const http = require('http');
+
 const proxy = new Proxy();
 
 proxy.register({
@@ -250,7 +317,9 @@ proxy.register({
     content: '/index.html',
 });
 
-app.use(proxy.middleware());
+const app = http.createServer(async (req, res) => {
+    ...[snip]...
+});
 
 app.listen(8000);
 ```
@@ -260,3 +329,31 @@ The following proxy targets will be mounted:
 -   http://localhost:8000/podium-resource/bar/api/
 -   http://localhost:8000/podium-resource/bar/feed/
 -   http://localhost:8000/podium-resource/foo/users/
+
+## License
+
+Copyright (c) 2019 FINN.no
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+
+[@podium/layout]: https://github.com/podium-lib/layout "@podium/layout"
+[@podium/podlet]: https://github.com/podium-lib/podlet "@podium/podlet"
+[HttpIncoming]: https://github.com/podium-lib/utils/blob/master/lib/http-incoming.js "HttpIncoming"

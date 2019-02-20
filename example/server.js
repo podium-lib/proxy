@@ -1,31 +1,30 @@
 "use strict";
 
-const express = require("express");
+const { HttpIncoming } = require('@podium/utils');
 const Proxy = require("../");
+const http = require('http');
 
 // Dummy remote target servers
-const remoteA = express();
-remoteA.use((req, res) => {
+const remoteA = http.createServer((req, res) => {
     console.log("remote A server:", req.url);
     console.log("remote A server:", req.headers);
     console.log("remote A server:", req.query);
     setTimeout(() => {
-        res.status(200).send("Remote A\n");
+        res.statusCode = 200;
+        res.end('Remote A\n');
     }, 2000);
 });
 remoteA.listen(6001);
 
-const remoteB = express();
-remoteB.use((req, res) => {
+const remoteB = http.createServer((req, res) => {
     console.log("remote B server:", req.url);
     console.log("remote B server:", req.headers);
-    console.log("remote A server:", req.query);
-    res.status(200).send("Remote B\n");
+    console.log("remote B server:", req.query);
+    res.statusCode = 200;
+    res.end('Remote B\n');
 });
 remoteB.listen(6002);
 
-// Set up express server
-const app = express();
 
 // Set up proxy
 const proxy = new Proxy({
@@ -53,30 +52,13 @@ proxy.register({
     content: "/bar"
 });
 
-app.use((req, res, next) => {
-    res.locals = {};
-    res.locals.podium = {};
-    res.locals.podium.context = {
-        "podium-foo": "bar"
-    };
-    next();
-});
-
-// Attach proxy middleware on a root namespace
-app.use(proxy.middleware());
-
-// General error handling
-app.use((error, req, res, next) => {
-    if (error) {
-        console.log(error);
-        res.status(500).send("Internal server error");
-        return;
+const app = http.createServer(async (req, res) => {
+    const incoming = new HttpIncoming(req, res);
+    const result = await proxy.process(incoming);
+    if (!result) {
+        res.statusCode = 404;
+        res.end('404 - Not found');
     }
-    next();
-});
-
-app.use((req, res) => {
-    res.status(404).send("Not found");
 });
 
 // Start appserver where proxy is attached
