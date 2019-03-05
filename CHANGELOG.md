@@ -8,7 +8,7 @@ The latest version of this document is always available in [releases][releases-u
 
 ## [3.0.1] - 2019-02-20
 
-- Add error event listeners on all metric streams - [#10]
+- Add error event listeners on all metric streams - https://github.com/podium-lib/proxy/pull/10
 
 ## [3.0.0] - 2019-02-20
 
