@@ -40,12 +40,12 @@
         "ttl-mem-cache": "4.0.2"
     },
     "devDependencies": {
-        "eslint": "^5.15.0",
+        "eslint": "^5.15.3",
         "eslint-config-airbnb-base": "^13.1.0",
         "eslint-config-prettier": "^4.1.0",
         "eslint-plugin-import": "^2.14.0",
         "eslint-plugin-prettier": "^3.0.0",
-        "jest": "^24.1.0",
+        "jest": "^24.5.0",
         "prettier": "^1.14.2",
         "readable-stream": "^3.2.0"
     },
