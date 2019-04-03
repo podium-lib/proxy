@@ -101,17 +101,16 @@ class ProxyServer {
             this.proxy
                 .process(incoming)
                 .then(result => {
-                    if (result) {
-                        res.statusCode = 200;
-                        res.setHeader('Content-Type', 'application/json');
-                        res.end(
-                            JSON.stringify({
-                                message: 'ok',
-                                status: 200,
-                                type: 'proxy',
-                            }),
-                        );
-                    }
+                    if (result.proxy) return;
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.end(
+                        JSON.stringify({
+                            message: 'ok',
+                            status: 200,
+                            type: 'proxy',
+                        }),
+                    );
                 })
                 .catch(() => {
                     res.statusCode = 404;

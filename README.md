@@ -120,10 +120,13 @@ the target.
 Metod for processing a incoming HTTP request. Matches the request against the
 registered routing targets and proxies the request if a match is found.
 
-Returns a promise. If the inbound request matches a proxy endpoint the returned
-Promise will resolve with `undefined`. If the inbound request does not match a
-proxy endpoint the returned promise will resolve with the passed in
-[HttpIncoming] object.
+Returns a promise. When resolving the passed in [HttpIncoming] object will be
+returned.
+
+If the inbound request matches a proxy endpoint and a proxy request was
+successfully performed, the `.proxy` property on the returned [HttpIncoming]
+object will be `true`. If the inbound request did not yeld a proxy request, the
+`.proxy` property on the returned [HttpIncoming]  object will be `false`.
 
 The method takes the following arguments:
 
@@ -144,10 +147,10 @@ const app = http.createServer(async (req, res) => {
     const incoming = new HttpIncoming(req, res);
     const result = await proxy.process(incoming);
 
-    if (!result) {
-        res.statusCode = 404;
-        res.end('404 - Not found');
-    }
+    if (result.proxy) return;
+
+    res.statusCode = 404;
+    res.end('404 - Not found');
 });
 ```
 
