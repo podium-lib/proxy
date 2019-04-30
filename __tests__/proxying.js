@@ -388,14 +388,24 @@ test('Proxying() - metrics collection', async done => {
 
     proxy.proxy.metrics.pipe(
         destObjectStream(arr => {
-            expect(arr).toHaveLength(2);
-            /*
-            TODO: Commented out due to the way we get this info is wrong
-            expect(arr[0].meta.podlet).toBe('foo');
-            expect(arr[0].meta.proxy).toBe('a');
-            expect(arr[1].meta.podlet).toBe('bar');
-            expect(arr[1].meta.proxy).toBe('a');
-            */
+            expect(arr).toHaveLength(3);
+            expect(arr[0].name).toBe('podium_proxy_process');
+            expect(arr[0].type).toBe(5);
+            expect(arr[0].labels).toEqual([
+                { name: 'podlet', value: null },
+                { name: 'proxy', value: false },
+                { name: 'error', value: false },
+            ]);
+            expect(arr[1].labels).toEqual([
+                { name: 'podlet', value: 'foo' },
+                { name: 'proxy', value: true },
+                { name: 'error', value: false },
+            ]);
+            expect(arr[2].labels).toEqual([
+                { name: 'podlet', value: 'bar' },
+                { name: 'proxy', value: true },
+                { name: 'error', value: false },
+            ]);
             done();
         }),
     );
