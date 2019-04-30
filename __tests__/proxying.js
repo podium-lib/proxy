@@ -392,16 +392,19 @@ test('Proxying() - metrics collection', async done => {
             expect(arr[0].name).toBe('podium_proxy_process');
             expect(arr[0].type).toBe(5);
             expect(arr[0].labels).toEqual([
+                { name: 'name', value: '' },
                 { name: 'podlet', value: null },
                 { name: 'proxy', value: false },
                 { name: 'error', value: false },
             ]);
             expect(arr[1].labels).toEqual([
+                { name: 'name', value: '' },
                 { name: 'podlet', value: 'foo' },
                 { name: 'proxy', value: true },
                 { name: 'error', value: false },
             ]);
             expect(arr[2].labels).toEqual([
+                { name: 'name', value: '' },
                 { name: 'podlet', value: 'bar' },
                 { name: 'proxy', value: true },
                 { name: 'error', value: false },
