@@ -1,28 +1,11 @@
 'use strict';
 
-const http = require('http');
-const { URL } = require('url');
-const { Writable } = require('readable-stream');
+const { destinationObjectStream } = require('@podium/test-utils');
 const { HttpIncoming } = require('@podium/utils');
+const { URL } = require('url');
+const http = require('http');
+
 const Proxy = require('../');
-
-const destObjectStream = done => {
-    const arr = [];
-
-    const dStream = new Writable({
-        objectMode: true,
-        write(chunk, encoding, callback) {
-            arr.push(chunk);
-            callback();
-        },
-    });
-
-    dStream.on('finish', () => {
-        done(arr);
-    });
-
-    return dStream;
-};
 
 /**
  * Destination server utility
@@ -387,7 +370,7 @@ test('Proxying() - metrics collection', async done => {
     ]);
 
     proxy.proxy.metrics.pipe(
-        destObjectStream(arr => {
+        destinationObjectStream(arr => {
             expect(arr).toHaveLength(3);
             expect(arr[0].name).toBe('podium_proxy_process');
             expect(arr[0].type).toBe(5);
