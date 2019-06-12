@@ -1,28 +1,11 @@
 'use strict';
 
-const http = require('http');
-const { URL } = require('url');
-const { Writable } = require('readable-stream');
+const { destinationObjectStream } = require('@podium/test-utils');
 const { HttpIncoming } = require('@podium/utils');
+const { URL } = require('url');
+const http = require('http');
+
 const Proxy = require('../');
-
-const destObjectStream = done => {
-    const arr = [];
-
-    const dStream = new Writable({
-        objectMode: true,
-        write(chunk, encoding, callback) {
-            arr.push(chunk);
-            callback();
-        },
-    });
-
-    dStream.on('finish', () => {
-        done(arr);
-    });
-
-    return dStream;
-};
 
 /**
  * Destination server utility
@@ -101,17 +84,16 @@ class ProxyServer {
             this.proxy
                 .process(incoming)
                 .then(result => {
-                    if (result) {
-                        res.statusCode = 200;
-                        res.setHeader('Content-Type', 'application/json');
-                        res.end(
-                            JSON.stringify({
-                                message: 'ok',
-                                status: 200,
-                                type: 'proxy',
-                            }),
-                        );
-                    }
+                    if (result.proxy) return;
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.end(
+                        JSON.stringify({
+                            message: 'ok',
+                            status: 200,
+                            type: 'proxy',
+                        }),
+                    );
                 })
                 .catch(() => {
                     res.statusCode = 404;
@@ -388,15 +370,28 @@ test('Proxying() - metrics collection', async done => {
     ]);
 
     proxy.proxy.metrics.pipe(
-        destObjectStream(arr => {
-            expect(arr).toHaveLength(2);
-            /*
-            TODO: Commented out due to the way we get this info is wrong
-            expect(arr[0].meta.podlet).toBe('foo');
-            expect(arr[0].meta.proxy).toBe('a');
-            expect(arr[1].meta.podlet).toBe('bar');
-            expect(arr[1].meta.proxy).toBe('a');
-            */
+        destinationObjectStream(arr => {
+            expect(arr).toHaveLength(3);
+            expect(arr[0].name).toBe('podium_proxy_process');
+            expect(arr[0].type).toBe(5);
+            expect(arr[0].labels).toEqual([
+                { name: 'name', value: '' },
+                { name: 'podlet', value: null },
+                { name: 'proxy', value: false },
+                { name: 'error', value: false },
+            ]);
+            expect(arr[1].labels).toEqual([
+                { name: 'name', value: '' },
+                { name: 'podlet', value: 'foo' },
+                { name: 'proxy', value: true },
+                { name: 'error', value: false },
+            ]);
+            expect(arr[2].labels).toEqual([
+                { name: 'name', value: '' },
+                { name: 'podlet', value: 'bar' },
+                { name: 'proxy', value: true },
+                { name: 'error', value: false },
+            ]);
             done();
         }),
     );

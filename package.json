@@ -1,6 +1,6 @@
 {
     "name": "@podium/proxy",
-    "version": "3.0.4",
+    "version": "4.0.0-next.3",
     "description": "Transparent http proxy. Dynamically mounts proxy targets on an existing HTTP server instance.",
     "license": "MIT",
     "keywords": [
@@ -31,23 +31,22 @@
     },
     "dependencies": {
         "@metrics/client": "2.4.1",
-        "@podium/schemas": "3.0.0",
-        "@podium/utils": "3.1.2",
+        "@podium/schemas": "4.0.0",
+        "@podium/utils": "4.0.0",
         "abslog": "2.4.0",
         "http-proxy": "1.17.0",
-        "joi": "14.3.1",
         "path-to-regexp": "3.0.0",
         "ttl-mem-cache": "4.1.0"
     },
     "devDependencies": {
+        "@podium/test-utils": "1.4.0",
         "eslint": "^5.15.3",
         "eslint-config-airbnb-base": "^13.1.0",
         "eslint-config-prettier": "^4.1.0",
         "eslint-plugin-import": "^2.14.0",
         "eslint-plugin-prettier": "^3.0.0",
         "jest": "^24.5.0",
-        "prettier": "^1.14.2",
-        "readable-stream": "^3.2.0"
+        "prettier": "^1.14.2"
     },
     "jest": {
         "coveragePathIgnorePatterns": [
