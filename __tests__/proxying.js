@@ -406,3 +406,40 @@ test('Proxying() - metrics collection', async done => {
 
     proxy.proxy.metrics.push(null);
 });
+
+test('Proxying() - proxy to a non existing server - GET request will error - should collect error metric', async done => {
+    const serverAddr = 'http://localhost:9854';
+
+    const proxy = new ProxyServer([
+        {
+            name: 'bar',
+            proxy: {
+                a: `${serverAddr}/some/path`,
+            },
+            version: '1.0.0',
+            content: '/',
+        },
+    ]);
+    await proxy.listen();
+
+    proxy.proxy.metrics.pipe(
+        destinationObjectStream(arr => {
+            expect(arr).toHaveLength(1);
+            expect(arr[0].name).toBe('podium_proxy_process');
+            expect(arr[0].type).toBe(5);
+            expect(arr[0].labels).toEqual([
+                { name: 'name', value: '' },
+                { name: 'podlet', value: 'bar' },
+                { name: 'proxy', value: true },
+                { name: 'error', value: true },
+            ]);
+
+            done();
+        }),
+    );
+    await proxy.get('/layout/proxy/bar/a');
+
+    await proxy.close();
+
+    proxy.proxy.metrics.push(null);
+});
