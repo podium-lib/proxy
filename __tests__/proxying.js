@@ -1,8 +1,11 @@
 'use strict';
 
-const { destinationObjectStream, HttpServer } = require('@podium/test-utils');
+const {
+    destinationObjectStream,
+    HttpServer,
+    request
+} = require('@podium/test-utils');
 const { HttpIncoming } = require('@podium/utils');
-const { URL } = require('url');
 const http = require('http');
 
 const Proxy = require('../');
@@ -17,50 +20,6 @@ const reqFn = (req, res) => {
             url: `http://${req.headers.host}${req.url}`,
         }),
     );
-};
-
-const request = (
-    { pathname = '/', address = '', headers = {}, method = 'GET' } = {},
-    payload,
-) => {
-    return new Promise((resolve, reject) => {
-        const url = new URL(pathname, address);
-
-        if (method === 'POST' || method === 'PUT' || method === 'DELETE') {
-            headers = Object.assign(headers, {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Content-Length': Buffer.byteLength(payload),
-            });
-        }
-
-        const options = {
-            headers,
-            method,
-        };
-
-        const req = http
-            .request(url, options, res => {
-                const chunks = [];
-                res.on('data', chunk => {
-                    chunks.push(chunk);
-                });
-                res.on('end', () => {
-                    resolve({
-                        headers: res.headers,
-                        body: chunks.join(''),
-                    });
-                });
-            })
-            .on('error', error => {
-                reject(error);
-            });
-
-        if (method === 'POST' || method === 'PUT' || method === 'DELETE') {
-            req.write(payload);
-        }
-
-        req.end();
-    });
 };
 
 /**
@@ -160,8 +119,7 @@ test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyNam
     ]);
     const proxyAddr = await proxy.listen();
 
-    const result = await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a' });
-    const body = JSON.parse(result.body);
+    const { body } = await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a', json: true });
 
     expect(body.type).toEqual('destination');
     expect(body.method).toEqual('GET');
@@ -189,8 +147,7 @@ test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyNam
     ]);
     const proxyAddr = await proxy.listen();
 
-    const result = await request({ address: proxyAddr, pathname: '/layout/proxy/foo/b' });
-    const body = JSON.parse(result.body);
+    const { body } = await request({ address: proxyAddr, pathname: '/layout/proxy/foo/b', json: true });
 
     expect(body.type).toEqual('destination');
     expect(body.method).toEqual('GET');
@@ -226,17 +183,15 @@ test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifestName
     ]);
     const proxyAddr = await proxy.listen();
 
-    const resultA = await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a' });
-    const bodyA = JSON.parse(resultA.body);
-    expect(bodyA.type).toEqual('destination');
-    expect(bodyA.method).toEqual('GET');
-    expect(bodyA.url).toEqual(`${serverAddr}/some/path`);
+    const resultA = await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a', json: true });
+    expect(resultA.body.type).toEqual('destination');
+    expect(resultA.body.method).toEqual('GET');
+    expect(resultA.body.url).toEqual(`${serverAddr}/some/path`);
 
-    const resultB = await request({ address: proxyAddr, pathname: '/layout/proxy/foo/b' });
-    const bodyB = JSON.parse(resultB.body);
-    expect(bodyB.type).toEqual('destination');
-    expect(bodyB.method).toEqual('GET');
-    expect(bodyB.url).toEqual(`${serverAddr}/some/where/else`);
+    const resultB = await request({ address: proxyAddr, pathname: '/layout/proxy/foo/b', json: true });
+    expect(resultB.body.type).toEqual('destination');
+    expect(resultB.body.method).toEqual('GET');
+    expect(resultB.body.url).toEqual(`${serverAddr}/some/where/else`);
 
     await proxy.close();
     await server.close();
@@ -260,8 +215,7 @@ test('Proxying() - GET request with additional path values - should proxy to "{d
     ]);
     const proxyAddr = await proxy.listen();
 
-    const result = await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a/extra?foo=bar' });
-    const body = JSON.parse(result.body);
+    const { body } = await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a/extra?foo=bar', json: true });
 
     expect(body.type).toEqual('destination');
     expect(body.method).toEqual('GET');
@@ -289,8 +243,7 @@ test('Proxying() - GET request with query params - should proxy query params to 
     ]);
     const proxyAddr = await proxy.listen();
 
-    const result = await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a?foo=bar' });
-    const body = JSON.parse(result.body);
+    const { body } = await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a?foo=bar', json: true });
 
     expect(body.type).toEqual('destination');
     expect(body.method).toEqual('GET');
@@ -318,8 +271,7 @@ test('Proxying() - POST request - should proxy query params to "{destination}/so
     ]);
     const proxyAddr = await proxy.listen();
 
-    const result = await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a', method: 'POST' }, 'payload');
-    const body = JSON.parse(result.body);
+    const { body } = await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a', method: 'POST', json: true }, 'payload');
 
     expect(body.type).toEqual('destination');
     expect(body.method).toEqual('POST');
