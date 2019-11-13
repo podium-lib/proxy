@@ -1,14 +1,14 @@
-"use strict";
+'use strict';
 
 const { HttpIncoming } = require('@podium/utils');
-const Proxy = require("../");
+const Proxy = require('../');
 const http = require('http');
 
 // Dummy remote target servers
 const remoteA = http.createServer((req, res) => {
-    console.log("remote A server:", req.url);
-    console.log("remote A server:", req.headers);
-    console.log("remote A server:", req.query);
+    console.log('remote A server:', req.url);
+    console.log('remote A server:', req.headers);
+    console.log('remote A server:', req.query);
     setTimeout(() => {
         res.statusCode = 200;
         res.end('Remote A\n');
@@ -17,39 +17,38 @@ const remoteA = http.createServer((req, res) => {
 remoteA.listen(6001);
 
 const remoteB = http.createServer((req, res) => {
-    console.log("remote B server:", req.url);
-    console.log("remote B server:", req.headers);
-    console.log("remote B server:", req.query);
+    console.log('remote B server:', req.url);
+    console.log('remote B server:', req.headers);
+    console.log('remote B server:', req.query);
     res.statusCode = 200;
     res.end('Remote B\n');
 });
 remoteB.listen(6002);
 
-
 // Set up proxy
 const proxy = new Proxy({
     logger: console,
-    pathname: "/my-layout/",
-    prefix: "proxy"
+    pathname: '/my-layout/',
+    prefix: 'proxy',
 });
 
 // Register remote targets on their separate namespace
 proxy.register({
-    name: "foo",
+    name: 'foo',
     proxy: {
-        a: "http://localhost:6001/",
-        b: "http://localhost:6002/some/other/path"
+        a: 'http://localhost:6001/',
+        b: 'http://localhost:6002/some/other/path',
     },
-    version: "1.0.0",
-    content: "/foo"
+    version: '1.0.0',
+    content: '/foo',
 });
 proxy.register({
-    name: "bar",
+    name: 'bar',
     proxy: {
-        b: "http://localhost:6002/some/path"
+        b: 'http://localhost:6002/some/path',
     },
-    version: "1.0.0",
-    content: "/bar"
+    version: '1.0.0',
+    content: '/bar',
 });
 
 const app = http.createServer(async (req, res) => {
