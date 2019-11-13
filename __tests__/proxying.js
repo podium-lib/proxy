@@ -3,7 +3,7 @@
 const {
     destinationObjectStream,
     HttpServer,
-    request
+    request,
 } = require('@podium/test-utils');
 const { HttpIncoming } = require('@podium/utils');
 const http = require('http');
@@ -119,7 +119,11 @@ test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyNam
     ]);
     const proxyAddr = await proxy.listen();
 
-    const { body } = await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a', json: true });
+    const { body } = await request({
+        address: proxyAddr,
+        pathname: '/layout/proxy/bar/a',
+        json: true,
+    });
 
     expect(body.type).toEqual('destination');
     expect(body.method).toEqual('GET');
@@ -147,7 +151,11 @@ test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyNam
     ]);
     const proxyAddr = await proxy.listen();
 
-    const { body } = await request({ address: proxyAddr, pathname: '/layout/proxy/foo/b', json: true });
+    const { body } = await request({
+        address: proxyAddr,
+        pathname: '/layout/proxy/foo/b',
+        json: true,
+    });
 
     expect(body.type).toEqual('destination');
     expect(body.method).toEqual('GET');
@@ -183,12 +191,20 @@ test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifestName
     ]);
     const proxyAddr = await proxy.listen();
 
-    const resultA = await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a', json: true });
+    const resultA = await request({
+        address: proxyAddr,
+        pathname: '/layout/proxy/bar/a',
+        json: true,
+    });
     expect(resultA.body.type).toEqual('destination');
     expect(resultA.body.method).toEqual('GET');
     expect(resultA.body.url).toEqual(`${serverAddr}/some/path`);
 
-    const resultB = await request({ address: proxyAddr, pathname: '/layout/proxy/foo/b', json: true });
+    const resultB = await request({
+        address: proxyAddr,
+        pathname: '/layout/proxy/foo/b',
+        json: true,
+    });
     expect(resultB.body.type).toEqual('destination');
     expect(resultB.body.method).toEqual('GET');
     expect(resultB.body.url).toEqual(`${serverAddr}/some/where/else`);
@@ -215,7 +231,11 @@ test('Proxying() - GET request with additional path values - should proxy to "{d
     ]);
     const proxyAddr = await proxy.listen();
 
-    const { body } = await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a/extra?foo=bar', json: true });
+    const { body } = await request({
+        address: proxyAddr,
+        pathname: '/layout/proxy/bar/a/extra?foo=bar',
+        json: true,
+    });
 
     expect(body.type).toEqual('destination');
     expect(body.method).toEqual('GET');
@@ -243,7 +263,11 @@ test('Proxying() - GET request with query params - should proxy query params to 
     ]);
     const proxyAddr = await proxy.listen();
 
-    const { body } = await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a?foo=bar', json: true });
+    const { body } = await request({
+        address: proxyAddr,
+        pathname: '/layout/proxy/bar/a?foo=bar',
+        json: true,
+    });
 
     expect(body.type).toEqual('destination');
     expect(body.method).toEqual('GET');
@@ -271,7 +295,15 @@ test('Proxying() - POST request - should proxy query params to "{destination}/so
     ]);
     const proxyAddr = await proxy.listen();
 
-    const { body } = await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a', method: 'POST', json: true }, 'payload');
+    const { body } = await request(
+        {
+            address: proxyAddr,
+            pathname: '/layout/proxy/bar/a',
+            method: 'POST',
+            json: true,
+        },
+        'payload',
+    );
 
     expect(body.type).toEqual('destination');
     expect(body.method).toEqual('POST');
