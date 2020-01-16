@@ -3,9 +3,8 @@
 Transparent HTTP proxy. Dynamically mounts proxy targets on an existing HTTP
 server instance.
 
-[![Dependencies](https://img.shields.io/david/podium-lib/proxy.svg?style=flat-square)](https://david-dm.org/podium-lib/proxy)
-[![Build Status](http://img.shields.io/travis/podium-lib/proxy/master.svg?style=flat-square)](https://travis-ci.org/podium-lib/proxy)
-[![Greenkeeper badge](https://badges.greenkeeper.io/podium-lib/proxy.svg?style=flat-square)](https://greenkeeper.io/)
+[![Dependencies](https://img.shields.io/david/podium-lib/proxy.svg)](https://david-dm.org/podium-lib/client)
+![GitHub Actions status](https://github.com/podium-lib/proxy/workflows/Run%20Lint%20and%20Tests/badge.svg)
 [![Known Vulnerabilities](https://snyk.io/test/github/podium-lib/proxy/badge.svg?targetFile=package.json&style=flat-square)](https://snyk.io/test/github/podium-lib/proxy?targetFile=package.json)
 
 This module is intended for internal use in Podium and is not a module an end
