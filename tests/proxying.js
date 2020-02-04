@@ -1,5 +1,6 @@
 'use strict';
 
+const { test } = require('tap');
 const {
     destinationObjectStream,
     HttpServer,
@@ -101,7 +102,7 @@ class ProxyServer {
     }
 }
 
-test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to "{destination}/some/path"', async () => {
+test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to "{destination}/some/path"', async t => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -125,15 +126,17 @@ test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyNam
         json: true,
     });
 
-    expect(body.type).toEqual('destination');
-    expect(body.method).toEqual('GET');
-    expect(body.url).toEqual(`${serverAddr}/some/path`);
+    t.equal(body.type, 'destination');
+    t.equal(body.method, 'GET');
+    t.equal(body.url, `${serverAddr}/some/path`);
 
     await proxy.close();
     await server.close();
+
+    t.end();
 });
 
-test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to "{destination}/some/where/else"', async () => {
+test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to "{destination}/some/where/else"', async t => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -157,15 +160,17 @@ test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyNam
         json: true,
     });
 
-    expect(body.type).toEqual('destination');
-    expect(body.method).toEqual('GET');
-    expect(body.url).toEqual(`${serverAddr}/some/where/else`);
+    t.equal(body.type, 'destination');
+    t.equal(body.method, 'GET');
+    t.equal(body.url, `${serverAddr}/some/where/else`);
 
     await proxy.close();
     await server.close();
+
+    t.end();
 });
 
-test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to destinations', async () => {
+test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to destinations', async t => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -196,24 +201,28 @@ test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifestName
         pathname: '/layout/proxy/bar/a',
         json: true,
     });
-    expect(resultA.body.type).toEqual('destination');
-    expect(resultA.body.method).toEqual('GET');
-    expect(resultA.body.url).toEqual(`${serverAddr}/some/path`);
+
+    t.equal(resultA.body.type, 'destination');
+    t.equal(resultA.body.method, 'GET');
+    t.equal(resultA.body.url, `${serverAddr}/some/path`);
 
     const resultB = await request({
         address: proxyAddr,
         pathname: '/layout/proxy/foo/b',
         json: true,
     });
-    expect(resultB.body.type).toEqual('destination');
-    expect(resultB.body.method).toEqual('GET');
-    expect(resultB.body.url).toEqual(`${serverAddr}/some/where/else`);
+
+    t.equal(resultB.body.type, 'destination');
+    t.equal(resultB.body.method, 'GET');
+    t.equal(resultB.body.url, `${serverAddr}/some/where/else`);
 
     await proxy.close();
     await server.close();
+
+    t.end();
 });
 
-test('Proxying() - GET request with additional path values - should proxy to "{destination}/some/path/extra?foo=bar"', async () => {
+test('Proxying() - GET request with additional path values - should proxy to "{destination}/some/path/extra?foo=bar"', async t => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -237,15 +246,17 @@ test('Proxying() - GET request with additional path values - should proxy to "{d
         json: true,
     });
 
-    expect(body.type).toEqual('destination');
-    expect(body.method).toEqual('GET');
-    expect(body.url).toEqual(`${serverAddr}/some/path/extra?foo=bar`);
+    t.equal(body.type, 'destination');
+    t.equal(body.method, 'GET');
+    t.equal(body.url, `${serverAddr}/some/path/extra?foo=bar`);
 
     await proxy.close();
     await server.close();
+
+    t.end();
 });
 
-test('Proxying() - GET request with query params - should proxy query params to "{destination}/some/path"', async () => {
+test('Proxying() - GET request with query params - should proxy query params to "{destination}/some/path"', async t => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -269,15 +280,17 @@ test('Proxying() - GET request with query params - should proxy query params to 
         json: true,
     });
 
-    expect(body.type).toEqual('destination');
-    expect(body.method).toEqual('GET');
-    expect(body.url).toEqual(`${serverAddr}/some/path?foo=bar`);
+    t.equal(body.type, 'destination');
+    t.equal(body.method, 'GET');
+    t.equal(body.url, `${serverAddr}/some/path?foo=bar`);
 
     await proxy.close();
     await server.close();
+
+    t.end();
 });
 
-test('Proxying() - POST request - should proxy query params to "{destination}/some/path"', async () => {
+test('Proxying() - POST request - should proxy query params to "{destination}/some/path"', async t => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -305,15 +318,17 @@ test('Proxying() - POST request - should proxy query params to "{destination}/so
         'payload',
     );
 
-    expect(body.type).toEqual('destination');
-    expect(body.method).toEqual('POST');
-    expect(body.url).toEqual(`${serverAddr}/some/path`);
+    t.equal(body.type, 'destination');
+    t.equal(body.method, 'POST');
+    t.equal(body.url, `${serverAddr}/some/path`);
 
     await proxy.close();
     await server.close();
+
+    t.end();
 });
 
-test('Proxying() - metrics collection', async done => {
+test('Proxying() - metrics collection', async t => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -340,28 +355,27 @@ test('Proxying() - metrics collection', async done => {
 
     proxy.proxy.metrics.pipe(
         destinationObjectStream(arr => {
-            expect(arr).toHaveLength(3);
-            expect(arr[0].name).toBe('podium_proxy_process');
-            expect(arr[0].type).toBe(5);
-            expect(arr[0].labels).toEqual([
+            t.equal(arr.length, 3);
+            t.equal(arr[0].name, 'podium_proxy_process');
+            t.equal(arr[0].type, 5);
+            t.match(arr[0].labels, [
                 { name: 'name', value: '' },
                 { name: 'podlet', value: null },
                 { name: 'proxy', value: false },
                 { name: 'error', value: false },
             ]);
-            expect(arr[1].labels).toEqual([
+            t.match(arr[1].labels, [
                 { name: 'name', value: '' },
                 { name: 'podlet', value: 'foo' },
                 { name: 'proxy', value: true },
                 { name: 'error', value: false },
             ]);
-            expect(arr[2].labels).toEqual([
+            t.match(arr[2].labels, [
                 { name: 'name', value: '' },
                 { name: 'podlet', value: 'bar' },
                 { name: 'proxy', value: true },
                 { name: 'error', value: false },
             ]);
-            done();
         }),
     );
 
@@ -370,13 +384,15 @@ test('Proxying() - metrics collection', async done => {
     await request({ address: proxyAddr, pathname: '/layout/proxy/foo/a' });
     await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a' });
 
+    proxy.proxy.metrics.push(null);
+
     await proxy.close();
     await server.close();
 
-    proxy.proxy.metrics.push(null);
+    t.end();
 });
 
-test('Proxying() - proxy to a non existing server - GET request will error - should collect error metric', async done => {
+test('Proxying() - proxy to a non existing server - GET request will error - should collect error metric', async t => {
     const serverAddr = 'http://localhost:9854';
 
     const proxy = new ProxyServer([
@@ -393,23 +409,23 @@ test('Proxying() - proxy to a non existing server - GET request will error - sho
 
     proxy.proxy.metrics.pipe(
         destinationObjectStream(arr => {
-            expect(arr).toHaveLength(1);
-            expect(arr[0].name).toBe('podium_proxy_process');
-            expect(arr[0].type).toBe(5);
-            expect(arr[0].labels).toEqual([
+            t.equal(arr.length, 1);
+            t.equal(arr[0].name, 'podium_proxy_process');
+            t.equal(arr[0].type, 5);
+            t.match(arr[0].labels, [
                 { name: 'name', value: '' },
                 { name: 'podlet', value: 'bar' },
                 { name: 'proxy', value: true },
                 { name: 'error', value: true },
             ]);
-
-            done();
         }),
     );
 
     await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a' });
 
+    proxy.proxy.metrics.push(null);
+
     await proxy.close();
 
-    proxy.proxy.metrics.push(null);
+    t.end();
 });
