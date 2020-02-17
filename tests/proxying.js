@@ -29,7 +29,7 @@ const reqFn = (req, res) => {
  */
 
 class ProxyServer {
-    constructor(manifests = []) {
+    constructor(manifests = [], options = {}) {
         this.server = undefined;
         this.address = '';
 
@@ -49,6 +49,7 @@ class ProxyServer {
                 'podium-foo': 'bar',
             };
             const incoming = new HttpIncoming(req, res, res.locals);
+            if (options.name) incoming.name = options.name;
             this.proxy
                 .process(incoming)
                 .then(result => {
@@ -334,24 +335,27 @@ test('Proxying() - metrics collection', async t => {
 
     const serverAddr = await server.listen();
 
-    const proxy = new ProxyServer([
-        {
-            name: 'foo',
-            proxy: {
-                a: '/foo',
+    const proxy = new ProxyServer(
+        [
+            {
+                name: 'foo',
+                proxy: {
+                    a: '/foo',
+                },
+                version: '1.0.0',
+                content: '/',
             },
-            version: '1.0.0',
-            content: '/',
-        },
-        {
-            name: 'bar',
-            proxy: {
-                a: `${serverAddr}/some/path`,
+            {
+                name: 'bar',
+                proxy: {
+                    a: `${serverAddr}/some/path`,
+                },
+                version: '1.0.0',
+                content: '/',
             },
-            version: '1.0.0',
-            content: '/',
-        },
-    ]);
+        ],
+        { name: 'mylayout' },
+    );
 
     proxy.proxy.metrics.pipe(
         destinationObjectStream(arr => {
@@ -359,7 +363,7 @@ test('Proxying() - metrics collection', async t => {
             t.equal(arr[0].name, 'podium_proxy_process');
             t.equal(arr[0].type, 5);
             t.match(arr[0].labels, [
-                { name: 'name', value: '' },
+                { name: 'name', value: 'mylayout' },
                 { name: 'podlet', value: null },
                 { name: 'proxy', value: false },
                 { name: 'error', value: false },
@@ -368,7 +372,7 @@ test('Proxying() - metrics collection', async t => {
                 buckets: [0.001, 0.01, 0.1, 0.5, 1, 2, 10],
             });
             t.match(arr[1].labels, [
-                { name: 'name', value: '' },
+                { name: 'name', value: 'mylayout' },
                 { name: 'podlet', value: 'foo' },
                 { name: 'proxy', value: true },
                 { name: 'error', value: false },
@@ -377,7 +381,7 @@ test('Proxying() - metrics collection', async t => {
                 buckets: [0.001, 0.01, 0.1, 0.5, 1, 2, 10],
             });
             t.match(arr[2].labels, [
-                { name: 'name', value: '' },
+                { name: 'name', value: 'mylayout' },
                 { name: 'podlet', value: 'bar' },
                 { name: 'proxy', value: true },
                 { name: 'error', value: false },
