@@ -364,18 +364,27 @@ test('Proxying() - metrics collection', async t => {
                 { name: 'proxy', value: false },
                 { name: 'error', value: false },
             ]);
+            t.match(arr[0].meta, {
+                buckets: [0.001, 0.01, 0.1, 0.5, 1, 2, 10],
+            });
             t.match(arr[1].labels, [
                 { name: 'name', value: '' },
                 { name: 'podlet', value: 'foo' },
                 { name: 'proxy', value: true },
                 { name: 'error', value: false },
             ]);
+            t.match(arr[1].meta, {
+                buckets: [0.001, 0.01, 0.1, 0.5, 1, 2, 10],
+            });
             t.match(arr[2].labels, [
                 { name: 'name', value: '' },
                 { name: 'podlet', value: 'bar' },
                 { name: 'proxy', value: true },
                 { name: 'error', value: false },
             ]);
+            t.match(arr[2].meta, {
+                buckets: [0.001, 0.01, 0.1, 0.5, 1, 2, 10],
+            });
         }),
     );
 
