@@ -32,7 +32,7 @@
         "@podium/schemas": "4.0.1",
         "@podium/utils": "4.2.5",
         "abslog": "2.4.0",
-        "http-proxy": "1.18.0",
+        "http-proxy": "1.18.1",
         "path-to-regexp": "6.1.0",
         "ttl-mem-cache": "4.1.0"
     },
