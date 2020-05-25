@@ -9,7 +9,7 @@ const {
 const { HttpIncoming } = require('@podium/utils');
 const http = require('http');
 
-const Proxy = require('../');
+const Proxy = require('..');
 
 const reqFn = (req, res) => {
     res.statusCode = 200;
