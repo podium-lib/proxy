@@ -38,7 +38,7 @@ class ProxyServer {
             prefix: 'proxy',
         });
 
-        manifests.forEach(manifest => {
+        manifests.forEach((manifest) => {
             this.proxy.register(manifest);
         });
 
@@ -52,7 +52,7 @@ class ProxyServer {
             if (options.name) incoming.name = options.name;
             this.proxy
                 .process(incoming)
-                .then(result => {
+                .then((result) => {
                     if (result.proxy) return;
                     res.statusCode = 200;
                     res.setHeader('Content-Type', 'application/json');
@@ -79,7 +79,7 @@ class ProxyServer {
     }
 
     listen() {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             this.server = this.app.listen(0, 'localhost', () => {
                 this.address = `http://${this.server.address().address}:${
                     this.server.address().port
@@ -92,7 +92,7 @@ class ProxyServer {
 
     close() {
         return new Promise((resolve, reject) => {
-            this.server.close(err => {
+            this.server.close((err) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -103,7 +103,7 @@ class ProxyServer {
     }
 }
 
-test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to "{destination}/some/path"', async t => {
+test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to "{destination}/some/path"', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -137,7 +137,7 @@ test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyNam
     t.end();
 });
 
-test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to "{destination}/some/where/else"', async t => {
+test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to "{destination}/some/where/else"', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -171,7 +171,7 @@ test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyNam
     t.end();
 });
 
-test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to destinations', async t => {
+test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to destinations', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -223,7 +223,7 @@ test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifestName
     t.end();
 });
 
-test('Proxying() - GET request with additional path values - should proxy to "{destination}/some/path/extra?foo=bar"', async t => {
+test('Proxying() - GET request with additional path values - should proxy to "{destination}/some/path/extra?foo=bar"', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -257,7 +257,7 @@ test('Proxying() - GET request with additional path values - should proxy to "{d
     t.end();
 });
 
-test('Proxying() - GET request with query params - should proxy query params to "{destination}/some/path"', async t => {
+test('Proxying() - GET request with query params - should proxy query params to "{destination}/some/path"', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -291,7 +291,7 @@ test('Proxying() - GET request with query params - should proxy query params to 
     t.end();
 });
 
-test('Proxying() - POST request - should proxy query params to "{destination}/some/path"', async t => {
+test('Proxying() - POST request - should proxy query params to "{destination}/some/path"', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -329,7 +329,7 @@ test('Proxying() - POST request - should proxy query params to "{destination}/so
     t.end();
 });
 
-test('Proxying() - metrics collection', async t => {
+test('Proxying() - metrics collection', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -358,7 +358,7 @@ test('Proxying() - metrics collection', async t => {
     );
 
     proxy.proxy.metrics.pipe(
-        destinationObjectStream(arr => {
+        destinationObjectStream((arr) => {
             t.equal(arr.length, 3);
             t.equal(arr[0].name, 'podium_proxy_process');
             t.equal(arr[0].type, 5);
@@ -405,7 +405,7 @@ test('Proxying() - metrics collection', async t => {
     t.end();
 });
 
-test('Proxying() - proxy to a non existing server - GET request will error - should collect error metric', async t => {
+test('Proxying() - proxy to a non existing server - GET request will error - should collect error metric', async (t) => {
     const serverAddr = 'http://localhost:9854';
 
     const proxy = new ProxyServer([
@@ -421,7 +421,7 @@ test('Proxying() - proxy to a non existing server - GET request will error - sho
     const proxyAddr = await proxy.listen();
 
     proxy.proxy.metrics.pipe(
-        destinationObjectStream(arr => {
+        destinationObjectStream((arr) => {
             t.equal(arr.length, 1);
             t.equal(arr[0].name, 'podium_proxy_process');
             t.equal(arr[0].type, 5);
