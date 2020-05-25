@@ -1,7 +1,7 @@
 'use strict';
 
 const { test } = require('tap');
-const Proxy = require('../');
+const Proxy = require('..');
 
 test('Proxy() - object tag - should be PodiumProxy', t => {
     const proxy = new Proxy();
