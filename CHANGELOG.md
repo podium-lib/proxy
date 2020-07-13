@@ -1,3 +1,15 @@
+# [5.0.0-next.1](https://github.com/podium-lib/proxy/compare/v4.2.1...v5.0.0-next.1) (2020-07-13)
+
+
+### Features
+
+* Drop node 10.x support ([bcd95a1](https://github.com/podium-lib/proxy/commit/bcd95a144d54861fa7d7e28c0298a87463902bc1))
+
+
+### BREAKING CHANGES
+
+* Only support node 12 and 14.
+
 # Changelog
 
 Notable changes to this project.
@@ -35,4 +47,3 @@ The latest version of this document is always available in [releases][releases-u
 [3.0.1]: https://github.com/podium-lib/proxy/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/podium-lib/proxy/releases/tag/v3.0.0
 [releases-url]: https://github.com/podium-lib/proxy/blob/master/CHANGELOG.md
-
