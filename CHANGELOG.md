@@ -1,3 +1,10 @@
+# [5.0.0-next.3](https://github.com/podium-lib/proxy/compare/v5.0.0-next.2...v5.0.0-next.3) (2020-07-15)
+
+
+### Bug Fixes
+
+* Use v5 versions of @podium/utils and @podium/schema ([a37ca1f](https://github.com/podium-lib/proxy/commit/a37ca1f151e7e334856b5fb09e5dfe122724280b))
+
 # [5.0.0-next.2](https://github.com/podium-lib/proxy/compare/v5.0.0-next.1...v5.0.0-next.2) (2020-07-13)
 
 
