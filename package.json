@@ -30,7 +30,7 @@
     "scripts": {
         "lint": "eslint .",
         "lint:fix": "eslint --fix .",
-        "test": "tap tests/*.js"
+        "test": "tap --no-esm --no-cov --no-ts --no-jsx tests/*.js"
     },
     "dependencies": {
         "@metrics/client": "2.5.0",
@@ -50,11 +50,12 @@
         "@semantic-release/release-notes-generator": "9.0.1",
         "semantic-release": "17.1.1",
         "@podium/test-utils": "2.2.0",
-        "eslint": "7.3.1",
+        "eslint": "7.5.0",
         "eslint-config-airbnb-base": "14.2.0",
         "eslint-config-prettier": "6.11.0",
         "eslint-plugin-import": "2.22.0",
         "eslint-plugin-prettier": "3.1.4",
+        "babel-eslint": "10.1.0",
         "prettier": "2.0.5",
         "tap": "14.10.7"
     }
