@@ -1,3 +1,17 @@
+# [5.0.0-next.4](https://github.com/podium-lib/proxy/compare/v5.0.0-next.3...v5.0.0-next.4) (2020-07-29)
+
+
+### Features
+
+* Use ES private properties instead of Symbols and defineProperty() for privacy ([#84](https://github.com/podium-lib/proxy/issues/84)) ([37fd140](https://github.com/podium-lib/proxy/commit/37fd1406975a046e0f79b50858c04bd13ca46ba0))
+
+
+### BREAKING CHANGES
+
+* Due to dropping node 10.x support we use ES private properties instead of Symbols and `.defineProperty()`.
+
+Co-authored-by: Trygve Lie <trygve.lie@finn.no>
+
 # [5.0.0-next.3](https://github.com/podium-lib/proxy/compare/v5.0.0-next.2...v5.0.0-next.3) (2020-07-15)
 
 
