@@ -38,7 +38,7 @@
         "@podium/utils": "4.3.1",
         "abslog": "2.4.0",
         "http-proxy": "1.18.1",
-        "path-to-regexp": "6.1.0",
+        "path-to-regexp": "6.2.0",
         "ttl-mem-cache": "4.1.0"
     },
     "devDependencies": {
