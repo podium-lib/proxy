@@ -1,3 +1,10 @@
+## [4.2.4](https://github.com/podium-lib/proxy/compare/v4.2.3...v4.2.4) (2020-09-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency path-to-regexp to v6.2.0 ([b47db02](https://github.com/podium-lib/proxy/commit/b47db02fb7ba35fbf71cb46f37b5731f7a2c052d))
+
 ## [4.2.3](https://github.com/podium-lib/proxy/compare/v4.2.2...v4.2.3) (2020-09-13)
 
 
