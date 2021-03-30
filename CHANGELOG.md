@@ -1,3 +1,10 @@
+## [4.2.29](https://github.com/podium-lib/proxy/compare/v4.2.28...v4.2.29) (2021-03-30)
+
+
+### Bug Fixes
+
+* Update @podium/schema to version 4.1.9 to fix ajv error ([#134](https://github.com/podium-lib/proxy/issues/134)) ([ed5c5c7](https://github.com/podium-lib/proxy/commit/ed5c5c737a88ce1425988da9df6e152c48e84474))
+
 ## [4.2.28](https://github.com/podium-lib/proxy/compare/v4.2.27...v4.2.28) (2021-03-27)
 
 
