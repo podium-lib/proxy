@@ -1,3 +1,10 @@
+## [4.2.34](https://github.com/podium-lib/proxy/compare/v4.2.33...v4.2.34) (2021-04-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.1.14 ([0e38d44](https://github.com/podium-lib/proxy/commit/0e38d443c6c0a19c76a0ae9cf0df1de6e4350392))
+
 ## [4.2.33](https://github.com/podium-lib/proxy/compare/v4.2.32...v4.2.33) (2021-04-02)
 
 
