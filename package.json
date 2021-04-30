@@ -38,25 +38,24 @@
         "@podium/utils": "5.0.0-next.2",
         "abslog": "2.4.0",
         "http-proxy": "1.18.1",
-        "path-to-regexp": "6.1.0",
+        "path-to-regexp": "6.2.0",
         "ttl-mem-cache": "4.1.0"
     },
     "devDependencies": {
+        "@podium/test-utils": "2.3.0",
         "@semantic-release/changelog": "5.0.1",
         "@semantic-release/commit-analyzer": "8.0.1",
         "@semantic-release/git": "9.0.0",
-        "@semantic-release/github": "7.0.7",
-        "@semantic-release/npm": "7.0.5",
-        "@semantic-release/release-notes-generator": "9.0.1",
-        "semantic-release": "17.1.1",
-        "@podium/test-utils": "2.2.0",
-        "eslint": "7.5.0",
-        "eslint-config-airbnb-base": "14.2.0",
-        "eslint-config-prettier": "6.11.0",
-        "eslint-plugin-import": "2.22.0",
-        "eslint-plugin-prettier": "3.1.4",
-        "babel-eslint": "10.1.0",
-        "prettier": "2.0.5",
-        "tap": "14.10.7"
+        "@semantic-release/github": "7.2.1",
+        "@semantic-release/npm": "7.1.1",
+        "@semantic-release/release-notes-generator": "9.0.2",
+        "eslint": "7.25.0",
+        "eslint-config-airbnb-base": "14.2.1",
+        "eslint-config-prettier": "8.3.0",
+        "eslint-plugin-import": "2.22.1",
+        "eslint-plugin-prettier": "3.4.0",
+        "prettier": "2.2.1",
+        "semantic-release": "17.4.2",
+        "tap": "14.11.0"
     }
 }
