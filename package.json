@@ -1,3 +1,71 @@
 {
-    "type": "commonjs"
+    "name": "@podium/proxy",
+    "version": "5.0.0-next.4",
+    "description": "Transparent http proxy. Dynamically mounts proxy targets on an existing HTTP server instance.",
+    "type": "module",
+    "license": "MIT",
+    "keywords": [
+        "micro services",
+        "micro frontend",
+        "components",
+        "podium",
+        "proxy"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:podium-lib/proxy.git"
+    },
+    "bugs": {
+        "url": "https://github.com/podium-lib/issues"
+    },
+    "homepage": "https://podium-lib.io/",
+    "files": [
+        "package.json",
+        "CHANGELOG.md",
+        "index.d.ts",
+        "README.md",
+        "LICENSE",
+        "dist",
+        "lib"
+    ],
+    "main": "./dist/proxy.js",
+    "exports": {
+        "require": "./dist/proxy.js",
+        "import": "./lib/proxy.js"
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint --fix .",
+        "test": "tap --no-check-coverage",
+        "prepare": "npm run -s build",
+        "build": "rollup -c"
+    },
+    "dependencies": {
+        "@metrics/client": "2.5.0",
+        "@podium/schemas": "5.0.0-next.4",
+        "@podium/utils": "5.0.0-next.6",
+        "abslog": "2.4.0",
+        "http-proxy": "1.18.1",
+        "path-to-regexp": "6.2.0",
+        "ttl-mem-cache": "4.1.0"
+    },
+    "devDependencies": {
+        "@podium/test-utils": "2.3.0",
+        "@semantic-release/changelog": "5.0.1",
+        "@semantic-release/commit-analyzer": "8.0.1",
+        "@semantic-release/git": "9.0.0",
+        "@semantic-release/github": "7.2.1",
+        "@semantic-release/npm": "7.1.1",
+        "@semantic-release/release-notes-generator": "9.0.2",
+        "babel-eslint": "10.1.0",
+        "eslint": "7.25.0",
+        "eslint-config-airbnb-base": "14.2.1",
+        "eslint-config-prettier": "8.3.0",
+        "eslint-plugin-import": "2.22.1",
+        "eslint-plugin-prettier": "3.4.0",
+        "prettier": "2.2.1",
+        "rollup": "2.46.0",
+        "semantic-release": "17.4.2",
+        "tap": "15.0.6"
+    }
 }

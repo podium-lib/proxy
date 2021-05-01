@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 const { test } = require('tap');
@@ -10,6 +11,19 @@ const { HttpIncoming } = require('@podium/utils');
 const http = require('http');
 
 const Proxy = require('..');
+*/
+
+import tap from 'tap';
+
+import {
+    destinationObjectStream,
+    HttpServer,
+    request,
+} from '@podium/test-utils';
+
+import { HttpIncoming } from '@podium/utils';
+import http from 'http';
+import Proxy from '../lib/proxy.js';
 
 const reqFn = (req, res) => {
     res.statusCode = 200;
@@ -103,7 +117,7 @@ class ProxyServer {
     }
 }
 
-test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to "{destination}/some/path"', async (t) => {
+tap.test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to "{destination}/some/path"', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -137,7 +151,7 @@ test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyNam
     t.end();
 });
 
-test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to "{destination}/some/where/else"', async (t) => {
+tap.test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to "{destination}/some/where/else"', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -171,7 +185,7 @@ test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyNam
     t.end();
 });
 
-test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to destinations', async (t) => {
+tap.test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to destinations', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -223,7 +237,7 @@ test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifestName
     t.end();
 });
 
-test('Proxying() - GET request with additional path values - should proxy to "{destination}/some/path/extra?foo=bar"', async (t) => {
+tap.test('Proxying() - GET request with additional path values - should proxy to "{destination}/some/path/extra?foo=bar"', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -257,7 +271,7 @@ test('Proxying() - GET request with additional path values - should proxy to "{d
     t.end();
 });
 
-test('Proxying() - GET request with query params - should proxy query params to "{destination}/some/path"', async (t) => {
+tap.test('Proxying() - GET request with query params - should proxy query params to "{destination}/some/path"', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -291,7 +305,7 @@ test('Proxying() - GET request with query params - should proxy query params to 
     t.end();
 });
 
-test('Proxying() - POST request - should proxy query params to "{destination}/some/path"', async (t) => {
+tap.test('Proxying() - POST request - should proxy query params to "{destination}/some/path"', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -329,7 +343,7 @@ test('Proxying() - POST request - should proxy query params to "{destination}/so
     t.end();
 });
 
-test('Proxying() - metrics collection', async (t) => {
+tap.test('Proxying() - metrics collection', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
@@ -405,7 +419,7 @@ test('Proxying() - metrics collection', async (t) => {
     t.end();
 });
 
-test('Proxying() - proxy to a non existing server - GET request will error - should collect error metric', async (t) => {
+tap.test('Proxying() - proxy to a non existing server - GET request will error - should collect error metric', async (t) => {
     const serverAddr = 'http://localhost:9854';
 
     const proxy = new ProxyServer([

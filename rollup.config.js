@@ -1,15 +1,13 @@
 export default {
-    input: 'lib/context.js',
+    input: 'lib/proxy.js',
     external: [
         '@podium/schemas',
         '@metrics/client',
-        'bcp47-validate',
+        'path-to-regexp',
         '@podium/utils',
-        'decamelize',
-        'lru-cache',
-        'bowser',
+        'ttl-mem-cache',
+        'http-proxy',
         'abslog',
-        'assert',
         'url',
     ],
     output: [
