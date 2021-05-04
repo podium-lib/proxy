@@ -1,3 +1,61 @@
+# [5.0.0-next.5](https://github.com/podium-lib/proxy/compare/v5.0.0-next.4...v5.0.0-next.5) (2021-05-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.0.4 ([9fdbee6](https://github.com/podium-lib/proxy/commit/9fdbee6657ce48af72ddbb1987ea8af6340b2164))
+* **deps:** update dependency @podium/schemas to v4.0.5 ([8a966c0](https://github.com/podium-lib/proxy/commit/8a966c006c61422ac1b5ebaf970c2a67da228bdf))
+* **deps:** update dependency @podium/schemas to v4.0.7 ([f6bb236](https://github.com/podium-lib/proxy/commit/f6bb236a759be3fda16b524c4f5bb514aad5014c))
+* **deps:** update dependency @podium/schemas to v4.1.0 ([6c6aa2d](https://github.com/podium-lib/proxy/commit/6c6aa2d1a56910702529fd167a1f44ad57f259e8))
+* **deps:** update dependency @podium/schemas to v4.1.1 ([6ba8a0c](https://github.com/podium-lib/proxy/commit/6ba8a0c4797593f8870505f9ea01c60e710cb89c))
+* **deps:** update dependency @podium/schemas to v4.1.10 ([6f58fa8](https://github.com/podium-lib/proxy/commit/6f58fa8eb2c4aeb8b80b6e18affe5c3210bcfd63))
+* **deps:** update dependency @podium/schemas to v4.1.11 ([8687e5d](https://github.com/podium-lib/proxy/commit/8687e5d1921b2d147626c1710ab92eb090e9142a))
+* **deps:** update dependency @podium/schemas to v4.1.13 ([de65bce](https://github.com/podium-lib/proxy/commit/de65bce0020b6ad55bfc49f21912ed2891207039))
+* **deps:** update dependency @podium/schemas to v4.1.14 ([0e38d44](https://github.com/podium-lib/proxy/commit/0e38d443c6c0a19c76a0ae9cf0df1de6e4350392))
+* **deps:** update dependency @podium/schemas to v4.1.15 ([8331469](https://github.com/podium-lib/proxy/commit/833146915644f03a88cbcc96a385946cd6870d8b))
+* **deps:** update dependency @podium/schemas to v4.1.16 ([585081e](https://github.com/podium-lib/proxy/commit/585081ec91e3bf7cc46cfeade68dfe57ae147a36))
+* **deps:** update dependency @podium/schemas to v4.1.2 ([2f5c969](https://github.com/podium-lib/proxy/commit/2f5c96995e49aa593ecf7488ca844e741b3a6175))
+* **deps:** update dependency @podium/schemas to v4.1.3 ([a2aa932](https://github.com/podium-lib/proxy/commit/a2aa93221cefa5cc50398cae828e03ce0bec2695))
+* **deps:** update dependency @podium/schemas to v4.1.4 ([0f7e994](https://github.com/podium-lib/proxy/commit/0f7e9949030a5099f35674d05258fa36e7c0d3c9))
+* **deps:** update dependency @podium/schemas to v4.1.5 ([ddfac03](https://github.com/podium-lib/proxy/commit/ddfac0336dab6683bb1ca9066e603ddc1657d9da))
+* **deps:** update dependency @podium/schemas to v4.1.6 ([0da405a](https://github.com/podium-lib/proxy/commit/0da405af2ca82d6bcb2e0da7397a5967bdce8cdb))
+* **deps:** update dependency @podium/schemas to v4.1.7 ([027450f](https://github.com/podium-lib/proxy/commit/027450f6d468956abf9b50373c1559f66b3b9fb9))
+* **deps:** update dependency @podium/schemas to v4.1.8 ([40cd206](https://github.com/podium-lib/proxy/commit/40cd206630c46e4a718d27953e512c91e63ddb0c))
+* **deps:** update dependency @podium/utils to v4.3.1 ([8a3e4b1](https://github.com/podium-lib/proxy/commit/8a3e4b10c9decd240b852e96db0d5a3aaf98c074))
+* **deps:** update dependency @podium/utils to v4.3.3 ([36b3755](https://github.com/podium-lib/proxy/commit/36b37557365e4121da2661f3398066d55e5b98d2))
+* **deps:** update dependency @podium/utils to v4.4.0 ([f245bcc](https://github.com/podium-lib/proxy/commit/f245bcc44df394584759760f52191d7c00d7f65c))
+* **deps:** update dependency @podium/utils to v4.4.1 ([896e27d](https://github.com/podium-lib/proxy/commit/896e27d069725502832bacf081d552bff26ea9f2))
+* **deps:** update dependency @podium/utils to v4.4.10 ([7198ad0](https://github.com/podium-lib/proxy/commit/7198ad0dcb026e1af19bf35a64508e9e086fbfd7))
+* **deps:** update dependency @podium/utils to v4.4.11 ([5766099](https://github.com/podium-lib/proxy/commit/5766099fe0be264768c862a0e259c311fdaebda1))
+* **deps:** update dependency @podium/utils to v4.4.13 ([d8d6f5d](https://github.com/podium-lib/proxy/commit/d8d6f5defbadcd6e0a450f2487db17daf6469776))
+* **deps:** update dependency @podium/utils to v4.4.15 ([316ea8e](https://github.com/podium-lib/proxy/commit/316ea8e6d21fa1e7d2a625afa5ef03b7940365ea))
+* **deps:** update dependency @podium/utils to v4.4.16 ([7a18be1](https://github.com/podium-lib/proxy/commit/7a18be16e4d803ef6ccd21981df5b2bf2256ab59))
+* **deps:** update dependency @podium/utils to v4.4.17 ([92b90b6](https://github.com/podium-lib/proxy/commit/92b90b69966ec7116ad6ce7a1b54fde02380cc03))
+* Update @podium/schema to version 4.1.9 to fix ajv error ([#134](https://github.com/podium-lib/proxy/issues/134)) ([ed5c5c7](https://github.com/podium-lib/proxy/commit/ed5c5c737a88ce1425988da9df6e152c48e84474))
+* **deps:** update dependency @podium/utils to v4.4.2 ([ffb3cea](https://github.com/podium-lib/proxy/commit/ffb3cea6701bc870cfee894cc0b1e5fcdd1670e0))
+* **deps:** update dependency @podium/utils to v4.4.3 ([bde55ee](https://github.com/podium-lib/proxy/commit/bde55ee6d3c8d05c64ca6e6cc60fe0cc8bb9345d))
+* **deps:** update dependency @podium/utils to v4.4.4 ([53babc1](https://github.com/podium-lib/proxy/commit/53babc155fda975566237ac76bc8263743c5e58b))
+* **deps:** update dependency @podium/utils to v4.4.5 ([d259631](https://github.com/podium-lib/proxy/commit/d259631d9f93011d863bfa28dfc269044898e702))
+* **deps:** update dependency @podium/utils to v4.4.6 ([10078cc](https://github.com/podium-lib/proxy/commit/10078cc6144d26d258001e613b3a0ed79bd9a07a))
+* **deps:** update dependency @podium/utils to v4.4.7 ([c126767](https://github.com/podium-lib/proxy/commit/c1267675bbd0cf7d5bfd154cbfda3b9be79068e3))
+* **deps:** update dependency @podium/utils to v4.4.8 ([239b995](https://github.com/podium-lib/proxy/commit/239b995bc194b12488fbd7ddb3598b27041dad2c))
+* **deps:** update dependency @podium/utils to v4.4.9 ([789614e](https://github.com/podium-lib/proxy/commit/789614ee102969dbfb74c63a23fd88ffe6472f00))
+* **deps:** update dependency path-to-regexp to v6.2.0 ([b47db02](https://github.com/podium-lib/proxy/commit/b47db02fb7ba35fbf71cb46f37b5731f7a2c052d))
+
+
+### Features
+
+* Convert to ESM ([#150](https://github.com/podium-lib/proxy/issues/150)) ([9f3c2d3](https://github.com/podium-lib/proxy/commit/9f3c2d3e3474889b73706f4e1cf5d571ed2a42ee))
+
+
+### BREAKING CHANGES
+
+* Convert from CommonJS to ESM
+
+* feat: Convert to ESM
+
+Co-authored-by: Trygve Lie <trygve.lie@finn.no>
+
 # [5.0.0-next.4](https://github.com/podium-lib/proxy/compare/v5.0.0-next.3...v5.0.0-next.4) (2020-07-29)
 
 
