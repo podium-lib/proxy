@@ -1,3 +1,10 @@
+## [4.2.57](https://github.com/podium-lib/proxy/compare/v4.2.56...v4.2.57) (2021-09-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.26 ([1867065](https://github.com/podium-lib/proxy/commit/18670658852f1d9489f692ea46787d21b4edd781))
+
 ## [4.2.56](https://github.com/podium-lib/proxy/compare/v4.2.55...v4.2.56) (2021-09-13)
 
 
