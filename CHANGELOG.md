@@ -1,3 +1,10 @@
+## [4.2.73](https://github.com/podium-lib/proxy/compare/v4.2.72...v4.2.73) (2022-03-23)
+
+
+### Bug Fixes
+
+* **deps:** update podium packages ([a2fd327](https://github.com/podium-lib/proxy/commit/a2fd327896bbfe282f311ab3363008c395caefbd))
+
 ## [4.2.72](https://github.com/podium-lib/proxy/compare/v4.2.71...v4.2.72) (2022-02-05)
 
 
