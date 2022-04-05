@@ -1,6 +1,7 @@
 'use strict';
 
 const { test } = require('tap');
+const { exec } = require('child_process');
 const {
     destinationObjectStream,
     HttpServer,
@@ -439,6 +440,60 @@ test('Proxying() - proxy to a non existing server - GET request will error - sho
     proxy.proxy.metrics.push(null);
 
     await proxy.close();
+
+    t.end();
+});
+
+test('Proxying() - trailer header - is not forwarded according to spec', async (t) => {
+    const server = new HttpServer();
+    server.request = (req, res) => {
+        t.ok(!req.headers.trailer, 'Trailer header should not be set');
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(
+            JSON.stringify({
+                method: req.method,
+                type: 'destination',
+                url: `http://${req.headers.host}${req.url}`,
+            }),
+        );
+    };
+
+    const serverAddr = await server.listen();
+
+    const proxy = new ProxyServer(
+        [
+            {
+                name: 'foo',
+                proxy: {
+                    a: `${serverAddr}/some/path`,
+                },
+                version: '1.0.0',
+                content: '/',
+            },
+        ],
+        { name: 'mylayout' },
+    );
+
+    const proxyAddr = await proxy.listen();
+
+    await new Promise((resolve, reject) => {
+        exec(
+            `curl -i -H 'Trailer: Krynos' -H 'User-Agent: Mozilla' '${proxyAddr}/layout/proxy/foo/a'`,
+            (error, stdoutput, stderror) => {
+                if (error) {
+                    reject(error);
+                    return;
+                }
+                resolve({ stdout: stdoutput, stderr: stderror });
+            },
+        );
+    });
+
+    t.ok(true);
+
+    await proxy.close();
+    await server.close();
 
     t.end();
 });
