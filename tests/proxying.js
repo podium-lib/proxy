@@ -444,21 +444,9 @@ test('Proxying() - proxy to a non existing server - GET request will error - sho
     t.end();
 });
 
-test('Proxying() - trailer header - is not forwarded according to spec', async (t) => {
+test('Proxying() - Trailer header - 400s when Transfer-Encoding is not present', async (t) => {
     const server = new HttpServer();
-    server.request = (req, res) => {
-        t.ok(!req.headers.trailer, 'Trailer header should not be set');
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.end(
-            JSON.stringify({
-                method: req.method,
-                type: 'destination',
-                url: `http://${req.headers.host}${req.url}`,
-            }),
-        );
-    };
-
+    server.request = reqFn;
     const serverAddr = await server.listen();
 
     const proxy = new ProxyServer(
@@ -477,7 +465,7 @@ test('Proxying() - trailer header - is not forwarded according to spec', async (
 
     const proxyAddr = await proxy.listen();
 
-    await new Promise((resolve, reject) => {
+    const { stdout } = await new Promise((resolve, reject) => {
         exec(
             `curl -i -H 'Trailer: Krynos' -H 'User-Agent: Mozilla' '${proxyAddr}/layout/proxy/foo/a'`,
             (error, stdoutput, stderror) => {
@@ -490,7 +478,11 @@ test('Proxying() - trailer header - is not forwarded according to spec', async (
         );
     });
 
-    t.ok(true);
+    t.match(
+        stdout,
+        '400 Bad Request',
+        'Omitting transfer-encoding header results in 400',
+    );
 
     await proxy.close();
     await server.close();
