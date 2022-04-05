@@ -444,7 +444,7 @@ test('Proxying() - proxy to a non existing server - GET request will error - sho
     t.end();
 });
 
-test('Proxying() - Trailer header - 400s when Transfer-Encoding is not present', async (t) => {
+test('Proxying() - Trailer header - 400s when Trailer header is present', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
     const serverAddr = await server.listen();
@@ -481,7 +481,7 @@ test('Proxying() - Trailer header - 400s when Transfer-Encoding is not present',
     t.match(
         stdout,
         '400 Bad Request',
-        'Omitting transfer-encoding header results in 400',
+        'Including Trailer header results in 400',
     );
 
     await proxy.close();
