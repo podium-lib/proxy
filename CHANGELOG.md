@@ -1,3 +1,10 @@
+## [4.2.74](https://github.com/podium-lib/proxy/compare/v4.2.73...v4.2.74) (2022-04-05)
+
+
+### Bug Fixes
+
+* remove trailer header if present when proxying ([9698a40](https://github.com/podium-lib/proxy/commit/9698a40df081217ce142d4de71f929baaa339cdf))
+
 ## [4.2.73](https://github.com/podium-lib/proxy/compare/v4.2.72...v4.2.73) (2022-03-23)
 
 
