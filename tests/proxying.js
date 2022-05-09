@@ -406,7 +406,7 @@ tap.test('Proxying() - metrics collection', async (t) => {
 });
 
 tap.test('Proxying() - proxy to a non existing server - GET request will error - should collect error metric', async (t) => {
-    const serverAddr = 'http://localhost:9854';
+    const serverAddr = 'http://0.0.0.0:9854';
 
     const proxy = new ProxyServer([
         {
