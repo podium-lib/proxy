@@ -80,7 +80,7 @@ class ProxyServer {
 
     listen() {
         return new Promise((resolve) => {
-            this.server = this.app.listen(0, 'localhost', () => {
+            this.server = this.app.listen(0, '0.0.0.0', () => {
                 this.address = `http://${this.server.address().address}:${
                     this.server.address().port
                 }`;
