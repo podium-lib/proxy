@@ -47,7 +47,7 @@
         "@semantic-release/changelog": "6.0.1",
         "@semantic-release/git": "10.0.1",
         "semantic-release": "19.0.2",
-        "@podium/test-utils": "2.5.0",
+        "@podium/test-utils": "2.5.1",
         "@babel/eslint-parser": "7.17.0",
         "eslint": "8.15.0",
         "eslint-config-airbnb-base": "15.0.0",
