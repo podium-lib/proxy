@@ -1,20 +1,5 @@
-/*
-'use strict';
-
-const { test } = require('tap');
-const { exec } = require('child_process');
-const {
-    destinationObjectStream,
-    HttpServer,
-    request,
-} = require('@podium/test-utils');
-const { HttpIncoming } = require('@podium/utils');
-const http = require('http');
-
-const Proxy = require('..');
-*/
-
 import tap from 'tap';
+import { exec } from 'child_process';
 
 import {
     destinationObjectStream,
@@ -458,7 +443,7 @@ tap.test('Proxying() - proxy to a non existing server - GET request will error -
     t.end();
 });
 
-test('Proxying() - Trailer header - 400s when Trailer header is present', async (t) => {
+tap.test('Proxying() - Trailer header - 400s when Trailer header is present', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
     const serverAddr = await server.listen();
