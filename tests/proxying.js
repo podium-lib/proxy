@@ -2,6 +2,7 @@
 'use strict';
 
 const { test } = require('tap');
+const { exec } = require('child_process');
 const {
     destinationObjectStream,
     HttpServer,
@@ -453,6 +454,52 @@ tap.test('Proxying() - proxy to a non existing server - GET request will error -
     proxy.proxy.metrics.push(null);
 
     await proxy.close();
+
+    t.end();
+});
+
+test('Proxying() - Trailer header - 400s when Trailer header is present', async (t) => {
+    const server = new HttpServer();
+    server.request = reqFn;
+    const serverAddr = await server.listen();
+
+    const proxy = new ProxyServer(
+        [
+            {
+                name: 'foo',
+                proxy: {
+                    a: `${serverAddr}/some/path`,
+                },
+                version: '1.0.0',
+                content: '/',
+            },
+        ],
+        { name: 'mylayout' },
+    );
+
+    const proxyAddr = await proxy.listen();
+
+    const { stdout } = await new Promise((resolve, reject) => {
+        exec(
+            `curl -i -H 'Trailer: Krynos' -H 'User-Agent: Mozilla' '${proxyAddr}/layout/proxy/foo/a'`,
+            (error, stdoutput, stderror) => {
+                if (error) {
+                    reject(error);
+                    return;
+                }
+                resolve({ stdout: stdoutput, stderr: stderror });
+            },
+        );
+    });
+
+    t.match(
+        stdout,
+        '400 Bad Request',
+        'Including Trailer header results in 400',
+    );
+
+    await proxy.close();
+    await server.close();
 
     t.end();
 });

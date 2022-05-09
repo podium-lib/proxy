@@ -1,4 +1,5 @@
 # [5.0.0-next.5](https://github.com/podium-lib/proxy/compare/v5.0.0-next.4...v5.0.0-next.5) (2021-05-04)
+## [4.2.75](https://github.com/podium-lib/proxy/compare/v4.2.74...v4.2.75) (2022-05-07)
 
 
 ### Bug Fixes
@@ -71,6 +72,253 @@ Co-authored-by: Trygve Lie <trygve.lie@finn.no>
 Co-authored-by: Trygve Lie <trygve.lie@finn.no>
 
 # [5.0.0-next.3](https://github.com/podium-lib/proxy/compare/v5.0.0-next.2...v5.0.0-next.3) (2020-07-15)
+* **deps:** update dependency path-to-regexp to v6.2.1 ([9dcda20](https://github.com/podium-lib/proxy/commit/9dcda204a18cf86ff487dacb8da94b909ba7ad9c))
+
+## [4.2.74](https://github.com/podium-lib/proxy/compare/v4.2.73...v4.2.74) (2022-04-05)
+
+
+### Bug Fixes
+
+* remove trailer header if present when proxying ([9698a40](https://github.com/podium-lib/proxy/commit/9698a40df081217ce142d4de71f929baaa339cdf))
+
+## [4.2.73](https://github.com/podium-lib/proxy/compare/v4.2.72...v4.2.73) (2022-03-23)
+
+
+### Bug Fixes
+
+* **deps:** update podium packages ([a2fd327](https://github.com/podium-lib/proxy/commit/a2fd327896bbfe282f311ab3363008c395caefbd))
+
+## [4.2.72](https://github.com/podium-lib/proxy/compare/v4.2.71...v4.2.72) (2022-02-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.35 ([ec7b5a5](https://github.com/podium-lib/proxy/commit/ec7b5a5dfcd57a0e03f96f49c123c87a68e5d03e))
+
+## [4.2.71](https://github.com/podium-lib/proxy/compare/v4.2.70...v4.2.71) (2022-02-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.1.31 ([ceec640](https://github.com/podium-lib/proxy/commit/ceec6402c540e9d28afa1ccfa8f265a74c0e768f))
+
+## [4.2.70](https://github.com/podium-lib/proxy/compare/v4.2.69...v4.2.70) (2022-01-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.34 ([619729e](https://github.com/podium-lib/proxy/commit/619729e83a243f8477a386bd3d1629bf901bfbc4))
+
+## [4.2.69](https://github.com/podium-lib/proxy/compare/v4.2.68...v4.2.69) (2022-01-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.1.30 ([9b9762f](https://github.com/podium-lib/proxy/commit/9b9762fad68e1128b70ab16717f537c0c8a63389))
+
+## [4.2.68](https://github.com/podium-lib/proxy/compare/v4.2.67...v4.2.68) (2022-01-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.33 ([5694777](https://github.com/podium-lib/proxy/commit/5694777fc25663560b1b0cc4a3ac51c391d96139))
+
+## [4.2.67](https://github.com/podium-lib/proxy/compare/v4.2.66...v4.2.67) (2021-11-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.32 ([34f3e3d](https://github.com/podium-lib/proxy/commit/34f3e3d15cc67935a0b6e4621c5dc46eb825bf55))
+
+## [4.2.66](https://github.com/podium-lib/proxy/compare/v4.2.65...v4.2.66) (2021-11-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.1.29 ([8b3aa2e](https://github.com/podium-lib/proxy/commit/8b3aa2ea18c002c245637a987d1c1d482f9f4478))
+
+## [4.2.65](https://github.com/podium-lib/proxy/compare/v4.2.64...v4.2.65) (2021-11-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.31 ([96cd22c](https://github.com/podium-lib/proxy/commit/96cd22c7569858c951feebba8d4b1541b1ec8e28))
+
+## [4.2.64](https://github.com/podium-lib/proxy/compare/v4.2.63...v4.2.64) (2021-11-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.1.28 ([18122b5](https://github.com/podium-lib/proxy/commit/18122b56fc8adb08ac9213657389f5358469fabf))
+
+## [4.2.63](https://github.com/podium-lib/proxy/compare/v4.2.62...v4.2.63) (2021-11-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.30 ([1da6d7b](https://github.com/podium-lib/proxy/commit/1da6d7b72d2cbb6d7bdfcba5d4b5e2611e5221b4))
+
+## [4.2.62](https://github.com/podium-lib/proxy/compare/v4.2.61...v4.2.62) (2021-11-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.29 ([5274f30](https://github.com/podium-lib/proxy/commit/5274f30b2750add105fcba232674a05a11fb1178))
+
+## [4.2.61](https://github.com/podium-lib/proxy/compare/v4.2.60...v4.2.61) (2021-11-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.1.27 ([83fcf95](https://github.com/podium-lib/proxy/commit/83fcf95e4c765cac52e4ab835694f23f504400cf))
+
+## [4.2.60](https://github.com/podium-lib/proxy/compare/v4.2.59...v4.2.60) (2021-11-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.28 ([7da28db](https://github.com/podium-lib/proxy/commit/7da28db288e727e38a758e40c8294d08aca9b2ab))
+
+## [4.2.59](https://github.com/podium-lib/proxy/compare/v4.2.58...v4.2.59) (2021-11-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.1.26 ([78a68b6](https://github.com/podium-lib/proxy/commit/78a68b6f5cec3b1fa70dbe8393115ea5c29adc32))
+
+## [4.2.58](https://github.com/podium-lib/proxy/compare/v4.2.57...v4.2.58) (2021-10-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.27 ([#180](https://github.com/podium-lib/proxy/issues/180)) ([a99b27a](https://github.com/podium-lib/proxy/commit/a99b27ae4ed9a5c3db8da72d982129051ef0a418))
+
+## [4.2.57](https://github.com/podium-lib/proxy/compare/v4.2.56...v4.2.57) (2021-09-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.26 ([1867065](https://github.com/podium-lib/proxy/commit/18670658852f1d9489f692ea46787d21b4edd781))
+
+## [4.2.56](https://github.com/podium-lib/proxy/compare/v4.2.55...v4.2.56) (2021-09-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.1.25 ([4bd3d10](https://github.com/podium-lib/proxy/commit/4bd3d10b37d6ef8d8758f679db1353ea3fc2a91d))
+
+## [4.2.55](https://github.com/podium-lib/proxy/compare/v4.2.54...v4.2.55) (2021-08-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.25 ([e8be328](https://github.com/podium-lib/proxy/commit/e8be328175a6d5012c5727bc6466eb920aaf65b0))
+
+## [4.2.54](https://github.com/podium-lib/proxy/compare/v4.2.53...v4.2.54) (2021-08-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.1.24 ([b6a58e2](https://github.com/podium-lib/proxy/commit/b6a58e2694cae80de2aed1a23b895ec467253614))
+
+## [4.2.53](https://github.com/podium-lib/proxy/compare/v4.2.52...v4.2.53) (2021-07-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.24 ([ee30140](https://github.com/podium-lib/proxy/commit/ee30140395eae61ab8d0ca486fa77cf66cc73040))
+
+## [4.2.52](https://github.com/podium-lib/proxy/compare/v4.2.51...v4.2.52) (2021-07-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.1.23 ([3c1402d](https://github.com/podium-lib/proxy/commit/3c1402de376e437776c326edef1f7a4ae54c703d))
+
+## [4.2.51](https://github.com/podium-lib/proxy/compare/v4.2.50...v4.2.51) (2021-07-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.23 ([d10d26c](https://github.com/podium-lib/proxy/commit/d10d26c8a0f92926eb2846d4c20f3ed8f93ef0e9))
+
+## [4.2.50](https://github.com/podium-lib/proxy/compare/v4.2.49...v4.2.50) (2021-07-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.1.22 ([512d8cc](https://github.com/podium-lib/proxy/commit/512d8cc37a3780ecee3820e29a734948010c8759))
+
+## [4.2.49](https://github.com/podium-lib/proxy/compare/v4.2.48...v4.2.49) (2021-06-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.22 ([3a1893a](https://github.com/podium-lib/proxy/commit/3a1893af3fb8ae7dd527cf818eed60d7d41cdcd4))
+
+## [4.2.48](https://github.com/podium-lib/proxy/compare/v4.2.47...v4.2.48) (2021-06-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.1.21 ([1f38ae1](https://github.com/podium-lib/proxy/commit/1f38ae1cfe9588ae1a8c15eea75ff8b03012c15c))
+
+## [4.2.47](https://github.com/podium-lib/proxy/compare/v4.2.46...v4.2.47) (2021-05-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.21 ([18e3764](https://github.com/podium-lib/proxy/commit/18e3764d133e07fa60be3e16977b9f4b88f33f3a))
+
+## [4.2.46](https://github.com/podium-lib/proxy/compare/v4.2.45...v4.2.46) (2021-05-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.1.20 ([102f457](https://github.com/podium-lib/proxy/commit/102f457836ef12d633d82f5eb783d67824f91cd3))
+
+## [4.2.45](https://github.com/podium-lib/proxy/compare/v4.2.44...v4.2.45) (2021-05-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.20 ([f795a85](https://github.com/podium-lib/proxy/commit/f795a857b77624b328f8127f39dc36061b724bec))
+
+## [4.2.44](https://github.com/podium-lib/proxy/compare/v4.2.43...v4.2.44) (2021-05-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.1.19 ([6f197e7](https://github.com/podium-lib/proxy/commit/6f197e796c39ea11b89002f4957b478d492bd458))
+
+## [4.2.43](https://github.com/podium-lib/proxy/compare/v4.2.42...v4.2.43) (2021-05-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.19 ([7401099](https://github.com/podium-lib/proxy/commit/7401099d7f547b1fa85d31111c8832587d27ac93))
+
+## [4.2.42](https://github.com/podium-lib/proxy/compare/v4.2.41...v4.2.42) (2021-05-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.1.18 ([99cdf06](https://github.com/podium-lib/proxy/commit/99cdf0630e6b3d21db890a7b780d76777b054ac0))
+
+## [4.2.41](https://github.com/podium-lib/proxy/compare/v4.2.40...v4.2.41) (2021-05-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.18 ([bfe44f2](https://github.com/podium-lib/proxy/commit/bfe44f21df74fcae60f2bda46bc2e3b58352c498))
+
+## [4.2.40](https://github.com/podium-lib/proxy/compare/v4.2.39...v4.2.40) (2021-05-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/schemas to v4.1.17 ([5295541](https://github.com/podium-lib/proxy/commit/529554128a2edc430a5b1af7a449f8164d779563))
+
 ## [4.2.39](https://github.com/podium-lib/proxy/compare/v4.2.38...v4.2.39) (2021-04-27)
 
 
@@ -146,20 +394,16 @@ Co-authored-by: Trygve Lie <trygve.lie@finn.no>
 
 ### Bug Fixes
 
-<<<<<<< HEAD
 * Use v5 versions of @podium/utils and @podium/schema ([a37ca1f](https://github.com/podium-lib/proxy/commit/a37ca1f151e7e334856b5fb09e5dfe122724280b))
 
 # [5.0.0-next.2](https://github.com/podium-lib/proxy/compare/v5.0.0-next.1...v5.0.0-next.2) (2020-07-13)
-=======
 * Update @podium/schema to version 4.1.9 to fix ajv error ([#134](https://github.com/podium-lib/proxy/issues/134)) ([ed5c5c7](https://github.com/podium-lib/proxy/commit/ed5c5c737a88ce1425988da9df6e152c48e84474))
 
 ## [4.2.28](https://github.com/podium-lib/proxy/compare/v4.2.27...v4.2.28) (2021-03-27)
->>>>>>> origin
 
 
 ### Bug Fixes
 
-<<<<<<< HEAD
 * Update @podium/utils to version 5.0.0-next.1 ([29da2c9](https://github.com/podium-lib/proxy/commit/29da2c9da76f35a772eb5e8ed874b660bf99186e))
 
 # [5.0.0-next.1](https://github.com/podium-lib/proxy/compare/v4.2.1...v5.0.0-next.1) (2020-07-13)
@@ -173,7 +417,6 @@ Co-authored-by: Trygve Lie <trygve.lie@finn.no>
 ### BREAKING CHANGES
 
 * Only support node 12 and 14.
-=======
 * **deps:** update dependency @podium/utils to v4.4.11 ([5766099](https://github.com/podium-lib/proxy/commit/5766099fe0be264768c862a0e259c311fdaebda1))
 
 ## [4.2.27](https://github.com/podium-lib/proxy/compare/v4.2.26...v4.2.27) (2021-03-27)
@@ -357,7 +600,6 @@ Co-authored-by: Trygve Lie <trygve.lie@finn.no>
 ### Bug Fixes
 
 * **deps:** update dependency @podium/schemas to v4.0.4 ([9fdbee6](https://github.com/podium-lib/proxy/commit/9fdbee6657ce48af72ddbb1987ea8af6340b2164))
->>>>>>> origin
 
 # Changelog
 
