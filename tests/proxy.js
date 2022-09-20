@@ -24,18 +24,3 @@ tap.test('.register() - invalid value given to "manifest" argument - should thro
     }, /The value for the required argument "manifest" is not defined or not valid./);
     t.end();
 });
-
-tap.test('.register() - valid value given to "manifest" argument - should set value in internal registry', (t) => {
-    const proxy = new Proxy();
-    proxy.register({
-        name: 'bar',
-        proxy: {
-            a: `/some/path`,
-        },
-        version: '1.0.0',
-        content: '/',
-    });
-    const result = proxy.dump();
-    t.equal(result[0][0], 'bar');
-    t.end();
-});
