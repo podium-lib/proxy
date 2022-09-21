@@ -1,3 +1,10 @@
+# [5.0.0-next.7](https://github.com/podium-lib/proxy/compare/v5.0.0-next.6...v5.0.0-next.7) (2022-09-21)
+
+
+### Features
+
+* Support manifest with array of proxy endpoints ([#226](https://github.com/podium-lib/proxy/issues/226)) ([330384b](https://github.com/podium-lib/proxy/commit/330384bb5179bc21c9a4d2518fa349e801855880))
+
 # [5.0.0-next.6](https://github.com/podium-lib/proxy/compare/v5.0.0-next.5...v5.0.0-next.6) (2022-05-09)
 
 
