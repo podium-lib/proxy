@@ -21,12 +21,13 @@
     "files": [
         "package.json",
         "CHANGELOG.md",
-        "index.d.ts",
+        "proxy.d.ts",
         "README.md",
         "LICENSE",
         "lib"
     ],
     "main": "./lib/proxy.js",
+    "types": "./proxy.d.ts",
     "scripts": {
         "lint": "eslint .",
         "lint:fix": "eslint --fix .",
