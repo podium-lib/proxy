@@ -1,3 +1,10 @@
+## [4.2.83](https://github.com/podium-lib/proxy/compare/v4.2.82...v4.2.83) (2023-10-09)
+
+
+### Bug Fixes
+
+* add type definition ([b1cfe83](https://github.com/podium-lib/proxy/commit/b1cfe831b1a1e4fa81cd85a4076370d4fa390103))
+
 ## [4.2.82](https://github.com/podium-lib/proxy/compare/v4.2.81...v4.2.82) (2023-09-19)
 
 
