@@ -1,3 +1,20 @@
+# [5.0.0-next.8](https://github.com/podium-lib/proxy/compare/v5.0.0-next.7...v5.0.0-next.8) (2023-11-27)
+
+
+### Bug Fixes
+
+* add type definition ([b1cfe83](https://github.com/podium-lib/proxy/commit/b1cfe831b1a1e4fa81cd85a4076370d4fa390103))
+* **deps:** update dependency @metrics/client to v2.5.1 ([5083a69](https://github.com/podium-lib/proxy/commit/5083a693bf4d46a86cf062845a1891c0286db592))
+* **deps:** update dependency @metrics/client to v2.5.2 ([d8f087b](https://github.com/podium-lib/proxy/commit/d8f087b26a8894da0ab504e13c898c46c262691c))
+* **deps:** update dependency @podium/schemas to v4.1.33 ([7cded60](https://github.com/podium-lib/proxy/commit/7cded6035a5ca20034d715f08ef160ab775adbf3))
+* **deps:** update dependency @podium/schemas to v4.1.34 ([ebef830](https://github.com/podium-lib/proxy/commit/ebef830c6fdcd93673c53a2fc340d7ff7cd4bb56))
+* **deps:** update dependency @podium/utils to v4.4.37 ([18301ac](https://github.com/podium-lib/proxy/commit/18301ac58177f115feb6a4a81054938791020140))
+* **deps:** update dependency @podium/utils to v4.4.38 ([01cbddf](https://github.com/podium-lib/proxy/commit/01cbddf5123ca29a81c6ea34c1a359ab98720bb2))
+* **deps:** update dependency @podium/utils to v4.4.39 ([eec54de](https://github.com/podium-lib/proxy/commit/eec54dedf70cc95c7c06d8fec00316258c18e4bb))
+* **deps:** update dependency @podium/utils to v4.4.41 ([35d0ca5](https://github.com/podium-lib/proxy/commit/35d0ca59572d59e6b1d53c47fb04314afe39caa0))
+* **deps:** update dependency @podium/utils to v4.5.1 ([04a497b](https://github.com/podium-lib/proxy/commit/04a497bd9b2ba1cd76b454a1fa6466cb0c30f47b))
+* **deps:** update podium packages ([06ecbcd](https://github.com/podium-lib/proxy/commit/06ecbcd40ccd1d3fa9f6d83fd15d442cd7cb00ca))
+
 ## [4.2.86](https://github.com/podium-lib/proxy/compare/v4.2.85...v4.2.86) (2023-11-20)
 
 
