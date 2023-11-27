@@ -82,10 +82,7 @@ class ProxyServer {
     listen() {
         return new Promise((resolve) => {
             this.server = this.app.listen(0, 'localhost', () => {
-                this.address = `http://${this.server.address().address}:${
-                    this.server.address().port
-                }`;
-
+                this.address = `http://localhost:${this.server.address().port}`;
                 resolve(this.address);
             });
         });
