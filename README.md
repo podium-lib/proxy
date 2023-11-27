@@ -78,7 +78,6 @@ An options object containing configuration. The following values can be provided
 -   `prefix` - {String} - Prefix used to namespace the proxy so its isolated from other routes in a HTTP server. Appended after pathname. Default: `podium-resource`.
 -   `timeout` - {Number} - Default value, in milliseconds, for how long a request should wait before the connection is terminated. Default: 6000
 -   `maxAge` - {Number} - Default value, in milliseconds, for how long manifests should be cached. Default: Infinity
--   `agent` - {HTTPAgent} - Default HTTP Agent used for all requests.
 -   `logger` - {Object} - A logger which conforms to the log4j interface. See the docs for [abstract logger](https://www.npmjs.com/package/abslog) for more information.
 
 ## API
@@ -125,7 +124,7 @@ returned.
 If the inbound request matches a proxy endpoint and a proxy request was
 successfully performed, the `.proxy` property on the returned [HttpIncoming]
 object will be `true`. If the inbound request did not yeld a proxy request, the
-`.proxy` property on the returned [HttpIncoming]  object will be `false`.
+`.proxy` property on the returned [HttpIncoming] object will be `false`.
 
 The method takes the following arguments:
 
@@ -355,8 +354,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-
-
-[@podium/layout]: https://github.com/podium-lib/layout "@podium/layout"
-[@podium/podlet]: https://github.com/podium-lib/podlet "@podium/podlet"
-[HttpIncoming]: https://github.com/podium-lib/utils/blob/master/lib/http-incoming.js "HttpIncoming"
+[@podium/layout]: https://github.com/podium-lib/layout '@podium/layout'
+[@podium/podlet]: https://github.com/podium-lib/podlet '@podium/podlet'
+[HttpIncoming]: https://github.com/podium-lib/utils/blob/master/lib/http-incoming.js 'HttpIncoming'
