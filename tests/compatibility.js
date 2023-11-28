@@ -11,6 +11,10 @@ import { HttpIncoming } from '@podium/utils';
 import http from 'http';
 import Proxy from '../lib/proxy.js';
 
+// NOTE: This file can be removed when object notation on the proxy property is 
+//       removed from the schema and the manifest only support an array for the 
+//       proxy property.
+
 const reqFn = (req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
@@ -112,9 +116,9 @@ tap.test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{prox
     const proxy = new ProxyServer([
         {
             name: 'bar',
-            proxy: [
-                { name: 'a', target: `${serverAddr}/some/path` }
-            ],
+            proxy: {
+                a: `${serverAddr}/some/path`,
+            },
             version: '1.0.0',
             content: '/',
         },
@@ -146,9 +150,9 @@ tap.test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{prox
     const proxy = new ProxyServer([
         {
             name: 'foo',
-            proxy: [
-                { name: 'b', target: `${serverAddr}/some/where/else` }
-            ],
+            proxy: {
+                b: `${serverAddr}/some/where/else`,
+            },
             version: '1.0.0',
             content: '/',
         },
@@ -180,17 +184,17 @@ tap.test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifest
     const proxy = new ProxyServer([
         {
             name: 'bar',
-            proxy: [
-                { name: 'a', target: `${serverAddr}/some/path` }
-            ],
+            proxy: {
+                a: `${serverAddr}/some/path`,
+            },
             version: '1.0.0',
             content: '/',
         },
         {
             name: 'foo',
-            proxy: [
-                { name: 'b', target: `${serverAddr}/some/where/else` }
-            ],
+            proxy: {
+                b: `${serverAddr}/some/where/else`,
+            },
             version: '1.0.0',
             content: '/',
         },
@@ -232,9 +236,9 @@ tap.test('Proxying() - GET request with additional path values - should proxy to
     const proxy = new ProxyServer([
         {
             name: 'bar',
-            proxy: [
-                { name: 'a', target: `${serverAddr}/some/path` }
-            ],
+            proxy: {
+                a: `${serverAddr}/some/path`,
+            },
             version: '1.0.0',
             content: '/',
         },
@@ -266,9 +270,9 @@ tap.test('Proxying() - GET request with query params - should proxy query params
     const proxy = new ProxyServer([
         {
             name: 'bar',
-            proxy: [
-                { name: 'a', target: `${serverAddr}/some/path` }
-            ],
+            proxy: {
+                a: `${serverAddr}/some/path`,
+            },
             version: '1.0.0',
             content: '/',
         },
@@ -300,9 +304,9 @@ tap.test('Proxying() - POST request - should proxy query params to "{destination
     const proxy = new ProxyServer([
         {
             name: 'bar',
-            proxy: [
-                { name: 'a', target: `${serverAddr}/some/path` }
-            ],
+            proxy: {
+                a: `${serverAddr}/some/path`,
+            },
             version: '1.0.0',
             content: '/',
         },
@@ -329,7 +333,6 @@ tap.test('Proxying() - POST request - should proxy query params to "{destination
     t.end();
 });
 
-
 tap.test('Proxying() - metrics collection', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
@@ -340,17 +343,17 @@ tap.test('Proxying() - metrics collection', async (t) => {
         [
             {
                 name: 'foo',
-                proxy: [
-                    { name: 'a', target: '/foo' }
-                ],
+                proxy: {
+                    a: '/foo',
+                },
                 version: '1.0.0',
                 content: '/',
             },
             {
                 name: 'bar',
-                proxy: [
-                    { name: 'a', target: `${serverAddr}/some/path` }
-                ],
+                proxy: {
+                    a: `${serverAddr}/some/path`,
+                },
                 version: '1.0.0',
                 content: '/',
             },
@@ -412,9 +415,9 @@ tap.test('Proxying() - proxy to a non existing server - GET request will error -
     const proxy = new ProxyServer([
         {
             name: 'bar',
-            proxy: [
-                { name: 'a', target: `${serverAddr}/some/path` }
-            ],
+            proxy: {
+                a: `${serverAddr}/some/path`,
+            },
             version: '1.0.0',
             content: '/',
         },
@@ -453,9 +456,9 @@ tap.test('Proxying() - Trailer header - 400s when Trailer header is present', as
         [
             {
                 name: 'foo',
-                proxy: [
-                    { name: 'a', target: `${serverAddr}/some/path` }
-                ],
+                proxy: {
+                    a: `${serverAddr}/some/path`,
+                },
                 version: '1.0.0',
                 content: '/',
             },
