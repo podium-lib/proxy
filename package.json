@@ -36,8 +36,8 @@
         "test": "tap tests/*.js --disable-coverage --allow-empty-coverage"
     },
     "dependencies": {
-        "@podium/schemas": "5.0.0-next.6",
-        "@podium/utils": "5.0.0-next.6",
+        "@podium/schemas": "5.0.0",
+        "@podium/utils": "5.0.0",
         "@metrics/client": "2.5.2",
         "abslog": "2.4.0",
         "http-proxy": "1.18.1",
