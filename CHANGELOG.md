@@ -1,3 +1,32 @@
+# [5.0.0](https://github.com/podium-lib/proxy/compare/v4.2.86...v5.0.0) (2023-11-28)
+
+
+### Bug Fixes
+
+* Update @podium/utils to version 5.0.0-next.1 ([29da2c9](https://github.com/podium-lib/proxy/commit/29da2c9da76f35a772eb5e8ed874b660bf99186e))
+* Use v5 versions of @podium/utils and @podium/schema ([a37ca1f](https://github.com/podium-lib/proxy/commit/a37ca1f151e7e334856b5fb09e5dfe122724280b))
+
+
+### Features
+
+* Convert to ESM ([#150](https://github.com/podium-lib/proxy/issues/150)) ([9f3c2d3](https://github.com/podium-lib/proxy/commit/9f3c2d3e3474889b73706f4e1cf5d571ed2a42ee))
+* Drop node 10.x support ([bcd95a1](https://github.com/podium-lib/proxy/commit/bcd95a144d54861fa7d7e28c0298a87463902bc1))
+* Support manifest with array of proxy endpoints ([#226](https://github.com/podium-lib/proxy/issues/226)) ([330384b](https://github.com/podium-lib/proxy/commit/330384bb5179bc21c9a4d2518fa349e801855880))
+* Use ES private properties instead of Symbols and defineProperty() for privacy ([#84](https://github.com/podium-lib/proxy/issues/84)) ([37fd140](https://github.com/podium-lib/proxy/commit/37fd1406975a046e0f79b50858c04bd13ca46ba0))
+
+
+### BREAKING CHANGES
+
+* Convert from CommonJS to ESM
+
+* feat: Convert to ESM
+
+Co-authored-by: Trygve Lie <trygve.lie@finn.no>
+* Due to dropping node 10.x support we use ES private properties instead of Symbols and `.defineProperty()`.
+
+Co-authored-by: Trygve Lie <trygve.lie@finn.no>
+* Only support node 12 and 14.
+
 # [5.0.0-next.8](https://github.com/podium-lib/proxy/compare/v5.0.0-next.7...v5.0.0-next.8) (2023-11-27)
 
 
