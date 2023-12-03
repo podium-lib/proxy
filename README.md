@@ -23,9 +23,9 @@ $ npm install @podium/proxy
 Attach a proxy target to an HTTP server.
 
 ```js
-const { HttpIncoming } = require('@podium/utils');
-const Proxy = require('@podium/proxy');
-const http = require('http');
+import { HttpIncoming } from '@podium/utils';
+import Proxy from '@podium/proxy';
+import http from 'http';
 
 // Set up proxy
 const proxy = new Proxy();
@@ -64,7 +64,7 @@ http://localhost:9999/podium-resource/bar/api
 Create a new Proxy instance.
 
 ```js
-const Proxy = require('@podium/proxy');
+import Proxy from '@podium/proxy';
 const proxy = new Proxy(options);
 ```
 
@@ -91,7 +91,7 @@ Registers proxy target(s) by providing a Podium manifest.
 Example:
 
 ```js
-const Proxy = require('@podium/proxy');
+import Proxy from '@podium/proxy';
 
 // Set up proxy
 const proxy = new Proxy();
@@ -133,9 +133,9 @@ The method takes the following arguments:
 An instance of an [HttpIncoming] class.
 
 ```js
-const { HttpIncoming } = require('@podium/utils');
-const Proxy = require('@podium/proxy');
-const http = require('http');
+import { HttpIncoming } from '@podium/utils';
+import Proxy from '@podium/proxy';
+import http from 'http';
 
 const proxy = new Proxy();
 
@@ -197,9 +197,9 @@ The convention for these namespaces is as follow:
 If one has the following manifest defined in an express server:
 
 ```js
-const { HttpIncoming } = require('@podium/utils');
-const Proxy = require('@podium/proxy');
-const http = require('http');
+import { HttpIncoming } from '@podium/utils';
+import Proxy from '@podium/proxy';
+import http from 'http';
 
 const proxy = new Proxy();
 
@@ -228,9 +228,9 @@ The following proxy targets will be mounted:
 If one has the following manifest and overrides the `prefix` on the constructor:
 
 ```js
-const { HttpIncoming } = require('@podium/utils');
-const Proxy = require('@podium/proxy');
-const http = require('http');
+import { HttpIncoming } from '@podium/utils';
+import Proxy from '@podium/proxy';
+import http from 'http';
 
 const proxy = new Proxy({
     prefix: '/my-proxy',
@@ -261,9 +261,9 @@ The following proxy targets will be mounted:
 If one has the following manifest defined in an express server:
 
 ```js
-const { HttpIncoming } = require('@podium/utils');
-const Proxy = require('@podium/proxy');
-const http = require('http');
+import { HttpIncoming } from '@podium/utils';
+import Proxy from '@podium/proxy';
+import http from 'http';
 
 const proxy = new Proxy();
 
@@ -294,9 +294,9 @@ The following proxy targets will be mounted:
 If one has the following manifests defined in an express server:
 
 ```js
-const { HttpIncoming } = require('@podium/utils');
-const Proxy = require('@podium/proxy');
-const http = require('http');
+import { HttpIncoming } from '@podium/utils';
+import Proxy from '@podium/proxy';
+import http from 'http';
 
 const proxy = new Proxy();
 
