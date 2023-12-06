@@ -82,4 +82,4 @@ declare namespace PodiumProxy {
     };
 }
 
-export = PodiumProxy;
+export default PodiumProxy;
