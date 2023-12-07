@@ -1,3 +1,11 @@
+## [5.0.2](https://github.com/podium-lib/proxy/compare/v5.0.1...v5.0.2) (2023-12-07)
+
+
+### Bug Fixes
+
+* Add name to .register() ([733831f](https://github.com/podium-lib/proxy/commit/733831ff2d2c22d52ef3f4b494abb7e7e98f241e))
+* **deps:** update dependency @podium/utils to v5.0.1 ([5bfab14](https://github.com/podium-lib/proxy/commit/5bfab141155cfe0443b2e7b359f7600d200ad6fa))
+
 ## [5.0.1](https://github.com/podium-lib/proxy/compare/v5.0.0...v5.0.1) (2023-12-06)
 
 
