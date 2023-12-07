@@ -25,7 +25,7 @@ const reqFn = (req, res) => {
 
 /**
  * Proxy server utility
- * Spinns up a http server and attaches the proxy module
+ * Spins up a http server and attaches the proxy module
  */
 
 class ProxyServer {
@@ -38,8 +38,9 @@ class ProxyServer {
             prefix: 'proxy',
         });
 
-        manifests.forEach((manifest) => {
-            this.proxy.register(manifest);
+        manifests.forEach((arr) => {
+            const [ name, manifest ] = arr;
+            this.proxy.register(name, manifest);
         });
 
         this.app = http.createServer((req, res) => {
@@ -103,27 +104,27 @@ class ProxyServer {
     }
 }
 
-tap.test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to "{destination}/some/path"', async (t) => {
+tap.test('Proxying() - mount proxy on "/{localLayoutPathname}/{proxyPrefixName}/{localPodletName}/{podletProxyTargetName}" - GET request - should proxy to "{destination}/some/path"', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
     const serverAddr = await server.listen();
 
     const proxy = new ProxyServer([
-        {
+        ['local-podlet-name', {
             name: 'bar',
             proxy: [
                 { name: 'a', target: `${serverAddr}/some/path` }
             ],
             version: '1.0.0',
             content: '/',
-        },
+        }],
     ]);
     const proxyAddr = await proxy.listen();
 
     const { body } = await request({
         address: proxyAddr,
-        pathname: '/layout/proxy/bar/a',
+        pathname: '/layout/proxy/local-podlet-name/a',
         json: true,
     });
 
@@ -137,27 +138,27 @@ tap.test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{prox
     t.end();
 });
 
-tap.test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to "{destination}/some/where/else"', async (t) => {
+tap.test('Proxying() - mount proxy on "/{localLayoutPathname}/{proxyPrefixName}/{localPodletName}/{podletProxyTargetName}" - GET request - should proxy to "{destination}/some/where/else"', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
     const serverAddr = await server.listen();
 
     const proxy = new ProxyServer([
-        {
+        ['local-podlet-name', {
             name: 'foo',
             proxy: [
                 { name: 'b', target: `${serverAddr}/some/where/else` }
             ],
             version: '1.0.0',
             content: '/',
-        },
+        }],
     ]);
     const proxyAddr = await proxy.listen();
 
     const { body } = await request({
         address: proxyAddr,
-        pathname: '/layout/proxy/foo/b',
+        pathname: '/layout/proxy/local-podlet-name/b',
         json: true,
     });
 
@@ -171,35 +172,35 @@ tap.test('Proxying() - mount proxy on "/{pathname}/{prefix}/{manifestName}/{prox
     t.end();
 });
 
-tap.test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifestName}/{proxyName}" - GET request - should proxy to destinations', async (t) => {
+tap.test('Proxying() - mount multiple proxies on "/{localLayoutPathname}/{proxyPrefixName}/{localPodletName}/{podletProxyTargetName}" - GET request - should proxy to destinations', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
 
     const serverAddr = await server.listen();
 
     const proxy = new ProxyServer([
-        {
+        ['local-podlet-name-bar', {
             name: 'bar',
             proxy: [
                 { name: 'a', target: `${serverAddr}/some/path` }
             ],
             version: '1.0.0',
             content: '/',
-        },
-        {
+        }],
+        ['local-podlet-name-foo', {
             name: 'foo',
             proxy: [
                 { name: 'b', target: `${serverAddr}/some/where/else` }
             ],
             version: '1.0.0',
             content: '/',
-        },
+        }],
     ]);
     const proxyAddr = await proxy.listen();
-
+    
     const resultA = await request({
         address: proxyAddr,
-        pathname: '/layout/proxy/bar/a',
+        pathname: '/layout/proxy/local-podlet-name-bar/a',
         json: true,
     });
 
@@ -209,7 +210,7 @@ tap.test('Proxying() - mount multiple proxies on "/{pathname}/{prefix}/{manifest
 
     const resultB = await request({
         address: proxyAddr,
-        pathname: '/layout/proxy/foo/b',
+        pathname: '/layout/proxy/local-podlet-name-foo/b',
         json: true,
     });
 
@@ -230,20 +231,20 @@ tap.test('Proxying() - GET request with additional path values - should proxy to
     const serverAddr = await server.listen();
 
     const proxy = new ProxyServer([
-        {
+        ['local-podlet-name', {
             name: 'bar',
             proxy: [
                 { name: 'a', target: `${serverAddr}/some/path` }
             ],
             version: '1.0.0',
             content: '/',
-        },
+        }],
     ]);
     const proxyAddr = await proxy.listen();
 
     const { body } = await request({
         address: proxyAddr,
-        pathname: '/layout/proxy/bar/a/extra?foo=bar',
+        pathname: '/layout/proxy/local-podlet-name/a/extra?foo=bar',
         json: true,
     });
 
@@ -264,20 +265,20 @@ tap.test('Proxying() - GET request with query params - should proxy query params
     const serverAddr = await server.listen();
 
     const proxy = new ProxyServer([
-        {
+        ['local-podlet-name', {
             name: 'bar',
             proxy: [
                 { name: 'a', target: `${serverAddr}/some/path` }
             ],
             version: '1.0.0',
             content: '/',
-        },
+        }],
     ]);
     const proxyAddr = await proxy.listen();
 
     const { body } = await request({
         address: proxyAddr,
-        pathname: '/layout/proxy/bar/a?foo=bar',
+        pathname: '/layout/proxy/local-podlet-name/a?foo=bar',
         json: true,
     });
 
@@ -298,21 +299,21 @@ tap.test('Proxying() - POST request - should proxy query params to "{destination
     const serverAddr = await server.listen();
 
     const proxy = new ProxyServer([
-        {
+        ['local-podlet-name', {
             name: 'bar',
             proxy: [
                 { name: 'a', target: `${serverAddr}/some/path` }
             ],
             version: '1.0.0',
             content: '/',
-        },
+        }],
     ]);
     const proxyAddr = await proxy.listen();
 
     const { body } = await request(
         {
             address: proxyAddr,
-            pathname: '/layout/proxy/bar/a',
+            pathname: '/layout/proxy/local-podlet-name/a',
             method: 'POST',
             json: true,
         },
@@ -329,7 +330,6 @@ tap.test('Proxying() - POST request - should proxy query params to "{destination
     t.end();
 });
 
-
 tap.test('Proxying() - metrics collection', async (t) => {
     const server = new HttpServer();
     server.request = reqFn;
@@ -338,22 +338,22 @@ tap.test('Proxying() - metrics collection', async (t) => {
 
     const proxy = new ProxyServer(
         [
-            {
+            ['local-podlet-name-foo', {
                 name: 'foo',
                 proxy: [
                     { name: 'a', target: '/foo' }
                 ],
                 version: '1.0.0',
                 content: '/',
-            },
-            {
+            }],
+            ['local-podlet-name-bar', {
                 name: 'bar',
                 proxy: [
                     { name: 'a', target: `${serverAddr}/some/path` }
                 ],
                 version: '1.0.0',
                 content: '/',
-            },
+            }],
         ],
         { name: 'mylayout' },
     );
@@ -395,8 +395,8 @@ tap.test('Proxying() - metrics collection', async (t) => {
 
     const proxyAddr = await proxy.listen();
 
-    await request({ address: proxyAddr, pathname: '/layout/proxy/foo/a' });
-    await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a' });
+    await request({ address: proxyAddr, pathname: '/layout/proxy/local-podlet-name-foo/a' });
+    await request({ address: proxyAddr, pathname: '/layout/proxy/local-podlet-name-bar/a' });
 
     proxy.proxy.metrics.push(null);
 
@@ -410,15 +410,15 @@ tap.test('Proxying() - proxy to a non existing server - GET request will error -
     const serverAddr = 'http://0.0.0.0:9854';
 
     const proxy = new ProxyServer([
-        {
+        ['local-podlet-name', {
             name: 'bar',
             proxy: [
                 { name: 'a', target: `${serverAddr}/some/path` }
             ],
             version: '1.0.0',
             content: '/',
-        },
-    ]);
+        }],
+    ], { name: 'mylayout' });
     const proxyAddr = await proxy.listen();
 
     proxy.proxy.metrics.pipe(
@@ -427,15 +427,15 @@ tap.test('Proxying() - proxy to a non existing server - GET request will error -
             t.equal(arr[0].name, 'podium_proxy_process');
             t.equal(arr[0].type, 5);
             t.match(arr[0].labels, [
-                { name: 'name', value: '' },
-                { name: 'podlet', value: 'bar' },
+                { name: 'name', value: 'mylayout' },
+                { name: 'podlet', value: 'local-podlet-name' },
                 { name: 'proxy', value: true },
                 { name: 'error', value: true },
             ]);
         }),
     );
 
-    await request({ address: proxyAddr, pathname: '/layout/proxy/bar/a' });
+    await request({ address: proxyAddr, pathname: '/layout/proxy/local-podlet-name/a' });
 
     proxy.proxy.metrics.push(null);
 
@@ -451,14 +451,14 @@ tap.test('Proxying() - Trailer header - 400s when Trailer header is present', as
 
     const proxy = new ProxyServer(
         [
-            {
+            ['local-podlet-name', {
                 name: 'foo',
                 proxy: [
                     { name: 'a', target: `${serverAddr}/some/path` }
                 ],
                 version: '1.0.0',
                 content: '/',
-            },
+            }],
         ],
         { name: 'mylayout' },
     );
@@ -467,7 +467,7 @@ tap.test('Proxying() - Trailer header - 400s when Trailer header is present', as
 
     const { stdout } = await new Promise((resolve, reject) => {
         exec(
-            `curl -i -H 'Trailer: Krynos' -H 'User-Agent: Mozilla' '${proxyAddr}/layout/proxy/foo/a'`,
+            `curl -i -H 'Trailer: Krynos' -H 'User-Agent: Mozilla' '${proxyAddr}/layout/proxy/local-podlet-name/a'`,
             (error, stdoutput, stderror) => {
                 if (error) {
                     reject(error);
