@@ -7,11 +7,29 @@ tap.test('Proxy() - object tag - should be PodiumProxy', (t) => {
     t.end();
 });
 
+tap.test('.register() - no value given to "name" argument - should throw', (t) => {
+    t.plan(1);
+    const proxy = new Proxy();
+    t.throws(() => {
+        proxy.register();
+    }, /The value for the required argument "name" is not defined or not valid./);
+    t.end();
+});
+
+tap.test('.register() - invalid value given to "name" argument - should throw', (t) => {
+    t.plan(1);
+    const proxy = new Proxy();
+    t.throws(() => {
+        proxy.register('æøå - tada');
+    }, /The value for the required argument "name" is not defined or not valid./);
+    t.end();
+});
+
 tap.test('.register() - no value given to "manifest" argument - should throw', (t) => {
     t.plan(1);
     const proxy = new Proxy();
     t.throws(() => {
-        proxy.register(); // eslint-disable-line no-unused-vars
+        proxy.register('local-podlet-name');
     }, /The value for the required argument "manifest" is not defined or not valid./);
     t.end();
 });
@@ -20,7 +38,7 @@ tap.test('.register() - invalid value given to "manifest" argument - should thro
     t.plan(1);
     const proxy = new Proxy();
     t.throws(() => {
-        proxy.register({ foo: 'bar', name: 'æøå - tada' }); // eslint-disable-line no-unused-vars
+        proxy.register('local-podlet-name', { foo: 'bar', name: 'æøå - tada' });
     }, /The value for the required argument "manifest" is not defined or not valid./);
     t.end();
 });

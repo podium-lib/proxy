@@ -84,7 +84,7 @@ An options object containing configuration. The following values can be provided
 
 The Proxy instance havs the following API:
 
-### .register(manifest)
+### .register(name, manifest)
 
 Registers proxy target(s) by providing a Podium manifest.
 
@@ -97,7 +97,7 @@ import Proxy from '@podium/proxy';
 const proxy = new Proxy();
 
 // Register remote target(s) on separate namespace
-proxy.register({
+proxy.register('podlet-name-in-layout', {
     name: 'bar',
     proxy: {
         api: 'http://www.external.com/some/path',
@@ -106,6 +106,11 @@ proxy.register({
     content: '/bar',
 });
 ```
+
+#### name (required)
+
+Name for the registered podlet. This will be part of the URL to distinguish the
+podlets proxy endpoints in the URL space.
 
 #### manifest (required)
 
