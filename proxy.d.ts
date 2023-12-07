@@ -8,7 +8,7 @@ declare class PodiumProxy {
 
     constructor(options?: PodiumProxy.PodiumProxyOptions);
 
-    register(proxyManifest: PodiumProxy.PodletManifest): void;
+    register(name: string, proxyManifest: PodiumProxy.PodletManifest): void;
     /**
      * @returns `undefined` if the incoming request didn't match anything registered in the proxy. Otherwise it returns the incoming request with the `.proxy` property set to true if successfully proxied.
      */
