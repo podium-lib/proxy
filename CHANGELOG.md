@@ -1,3 +1,10 @@
+## [5.0.3](https://github.com/podium-lib/proxy/compare/v5.0.2...v5.0.3) (2024-02-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v5.0.2 ([5c6c646](https://github.com/podium-lib/proxy/commit/5c6c6462de866059c783f6b08846f02c2da44752))
+
 ## [5.0.2](https://github.com/podium-lib/proxy/compare/v5.0.1...v5.0.2) (2023-12-07)
 
 
