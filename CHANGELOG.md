@@ -1,3 +1,10 @@
+## [5.0.4](https://github.com/podium-lib/proxy/compare/v5.0.3...v5.0.4) (2024-03-01)
+
+
+### Bug Fixes
+
+* **types:** add missing name argument to proxy register types ([#269](https://github.com/podium-lib/proxy/issues/269)) ([98f1bd2](https://github.com/podium-lib/proxy/commit/98f1bd21fe8b0d4c1bd6e977bb349062315861e9))
+
 ## [5.0.3](https://github.com/podium-lib/proxy/compare/v5.0.2...v5.0.3) (2024-02-01)
 
 
