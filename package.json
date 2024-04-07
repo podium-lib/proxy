@@ -41,7 +41,7 @@
         "@metrics/client": "2.5.2",
         "abslog": "2.4.0",
         "http-proxy": "1.18.1",
-        "path-to-regexp": "6.2.1"
+        "path-to-regexp": "6.2.2"
     },
     "devDependencies": {
         "@babel/eslint-parser": "7.23.10",
