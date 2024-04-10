@@ -1,3 +1,10 @@
+## [5.0.6](https://github.com/podium-lib/proxy/compare/v5.0.5...v5.0.6) (2024-04-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency abslog to v2.4.1 ([de80ebd](https://github.com/podium-lib/proxy/commit/de80ebda4623f47a2b7d2597bf79e90a88c3420e))
+
 ## [5.0.5](https://github.com/podium-lib/proxy/compare/v5.0.4...v5.0.5) (2024-04-07)
 
 
