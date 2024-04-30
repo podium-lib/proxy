@@ -39,7 +39,7 @@
         "@podium/schemas": "5.0.1",
         "@podium/utils": "5.0.4",
         "@metrics/client": "2.5.2",
-        "abslog": "2.4.2",
+        "abslog": "2.4.3",
         "http-proxy": "1.18.1",
         "path-to-regexp": "6.2.2"
     },
