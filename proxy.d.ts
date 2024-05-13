@@ -15,21 +15,6 @@ declare class PodiumProxy {
     process<T = { [key: string]: unknown }>(
         incoming: HttpIncoming<T>,
     ): Promise<HttpIncoming<T> | undefined>;
-    /**
-     * @returns An array of all loaded manifests ready to be used by `.load()`
-     */
-    dump(): PodiumProxy.PodletManifest[];
-    /**
-     * Loads an Array of manifests (provided by `.dump()`) into the proxy. If any of
-     * the items in the loaded Array contains a key which is already in the cache, the
-     * entry in the cache will be overwritten.
-     *
-     * If any of the entries in the loaded Array are not compatible with the format
-     * which `.dump()` exports, they will not be inserted into the cache.
-     *
-     * @returns An Array with the keys which were inserted into the cache.
-     */
-    load(manifests: PodiumProxy.PodletManifest[]): string[];
 }
 
 declare namespace PodiumProxy {
