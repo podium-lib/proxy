@@ -1,6 +1,6 @@
 {
     "name": "@podium/proxy",
-    "version": "5.0.13",
+    "version": "5.0.14",
     "description": "Transparent http proxy. Dynamically mounts proxy targets on an existing HTTP server instance.",
     "type": "module",
     "license": "MIT",
