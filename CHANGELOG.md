@@ -1,3 +1,10 @@
+## [5.0.16](https://github.com/podium-lib/proxy/compare/v5.0.15...v5.0.16) (2024-05-14)
+
+
+### Bug Fixes
+
+* generate type definitions from JSDoc ([#293](https://github.com/podium-lib/proxy/issues/293)) ([fd365b2](https://github.com/podium-lib/proxy/commit/fd365b2c5df70d3910fd1e41be7973a3eebb0141))
+
 ## [5.0.15](https://github.com/podium-lib/proxy/compare/v5.0.14...v5.0.15) (2024-05-14)
 
 
