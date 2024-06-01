@@ -44,7 +44,7 @@
         "path-to-regexp": "6.2.2"
     },
     "devDependencies": {
-        "@babel/eslint-parser": "7.24.5",
+        "@babel/eslint-parser": "7.24.6",
         "@podium/test-utils": "2.5.2",
         "@semantic-release/changelog": "6.0.3",
         "@semantic-release/commit-analyzer": "11.1.0",
