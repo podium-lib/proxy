@@ -1,3 +1,10 @@
+## [5.0.21](https://github.com/podium-lib/proxy/compare/v5.0.20...v5.0.21) (2024-06-20)
+
+
+### Bug Fixes
+
+* replace outdated http-proxy with our own updated fork @podium/node-http-proxy ([5bc57bf](https://github.com/podium-lib/proxy/commit/5bc57bf116a12cc5bf00bb646d5853d6d75fd748))
+
 ## [5.0.20](https://github.com/podium-lib/proxy/compare/v5.0.19...v5.0.20) (2024-06-05)
 
 
