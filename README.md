@@ -361,4 +361,4 @@ SOFTWARE.
 
 [@podium/layout]: https://github.com/podium-lib/layout '@podium/layout'
 [@podium/podlet]: https://github.com/podium-lib/podlet '@podium/podlet'
-[HttpIncoming]: https://github.com/podium-lib/utils/blob/master/lib/http-incoming.js 'HttpIncoming'
+[HttpIncoming]: https://github.com/podium-lib/utils/blob/main/lib/http-incoming.js 'HttpIncoming'
