@@ -1,67 +1,69 @@
 {
-    "name": "@podium/proxy",
-    "version": "5.0.21",
-    "description": "Transparent http proxy. Dynamically mounts proxy targets on an existing HTTP server instance.",
-    "type": "module",
-    "license": "MIT",
-    "keywords": [
-        "micro services",
-        "micro frontend",
-        "components",
-        "podium",
-        "proxy"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:podium-lib/proxy.git"
-    },
-    "bugs": {
-        "url": "https://github.com/podium-lib/issues"
-    },
-    "homepage": "https://podium-lib.io/",
-    "files": [
-        "package.json",
-        "CHANGELOG.md",
-        "README.md",
-        "LICENSE",
-        "lib",
-        "types"
-    ],
-    "main": "./lib/proxy.js",
-    "types": "./types/proxy.d.ts",
-    "scripts": {
-        "lint": "eslint .",
-        "lint:fix": "eslint --fix .",
-        "test": "tap tests/*.js --disable-coverage --allow-empty-coverage && tsc --project tsconfig.test.json",
-        "types": "tsc --declaration --emitDeclarationOnly"
-    },
-    "dependencies": {
-        "@metrics/client": "2.5.2",
-        "@podium/node-http-proxy": "^1.20.0",
-        "@podium/schemas": "5.0.5",
-        "@podium/utils": "5.0.7",
-        "abslog": "2.4.4",
-        "path-to-regexp": "6.2.2"
-    },
-    "devDependencies": {
-        "@babel/eslint-parser": "7.24.7",
-        "@podium/test-utils": "2.5.2",
-        "@semantic-release/changelog": "6.0.3",
-        "@semantic-release/commit-analyzer": "11.1.0",
-        "@semantic-release/git": "10.0.1",
-        "@semantic-release/github": "9.2.6",
-        "@semantic-release/npm": "11.0.3",
-        "@semantic-release/release-notes-generator": "12.1.0",
-        "@types/http-proxy": "1.17.14",
-        "@types/readable-stream": "^4.0.12",
-        "eslint": "8.57.0",
-        "eslint-config-airbnb-base": "15.0.0",
-        "eslint-config-prettier": "9.1.0",
-        "eslint-plugin-import": "2.29.1",
-        "eslint-plugin-prettier": "5.1.3",
-        "prettier": "3.3.2",
-        "semantic-release": "23.1.1",
-        "tap": "18.8.0",
-        "typescript": "5.5.2"
-    }
+  "name": "@podium/proxy",
+  "version": "5.0.21",
+  "description": "Transparent http proxy. Dynamically mounts proxy targets on an existing HTTP server instance.",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "micro services",
+    "micro frontend",
+    "components",
+    "podium",
+    "proxy"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:podium-lib/proxy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/podium-lib/issues"
+  },
+  "homepage": "https://podium-lib.io/",
+  "files": [
+    "package.json",
+    "CHANGELOG.md",
+    "README.md",
+    "LICENSE",
+    "lib",
+    "types"
+  ],
+  "main": "./lib/proxy.js",
+  "types": "./types/proxy.d.ts",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "run-s test:*",
+    "test:unit": "tap tests/*.js --disable-coverage --allow-empty-coverage",
+    "test:types": "tsc --project tsconfig.test.json",
+    "types": "tsc --declaration --emitDeclarationOnly"
+  },
+  "dependencies": {
+    "@metrics/client": "2.5.2",
+    "@podium/node-http-proxy": "1.20.0",
+    "@podium/schemas": "5.0.5",
+    "@podium/utils": "5.0.7",
+    "abslog": "2.4.4",
+    "path-to-regexp": "6.2.2"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "7.24.7",
+    "@podium/test-utils": "2.5.2",
+    "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/commit-analyzer": "11.1.0",
+    "@semantic-release/git": "10.0.1",
+    "@semantic-release/github": "9.2.6",
+    "@semantic-release/npm": "11.0.3",
+    "@semantic-release/release-notes-generator": "12.1.0",
+    "@types/http-proxy": "1.17.14",
+    "@types/readable-stream": "4.0.12",
+    "eslint": "9.6.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-prettier": "5.1.3",
+    "globals": "15.8.0",
+    "npm-run-all": "4.1.5",
+    "prettier": "3.3.2",
+    "semantic-release": "23.1.1",
+    "tap": "18.8.0",
+    "typescript": "5.5.2"
+  }
 }
