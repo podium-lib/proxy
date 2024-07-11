@@ -1,5 +1,4 @@
 import tap from 'tap';
-import { exec } from 'child_process';
 import {
     destinationObjectStream,
     HttpServer,
@@ -542,22 +541,19 @@ tap.test(
 
         const proxyAddr = await proxy.listen();
 
-        const { stdout } = await new Promise((resolve, reject) => {
-            exec(
-                `curl -i -H 'Trailer: Krynos' -H 'User-Agent: Mozilla' '${proxyAddr}/layout/proxy/local-podlet-name/a'`,
-                (error, stdoutput, stderror) => {
-                    if (error) {
-                        reject(error);
-                        return;
-                    }
-                    resolve({ stdout: stdoutput, stderr: stderror });
+        const response = await fetch(
+            `${proxyAddr}/layout/proxy/local-podlet-name/a`,
+            {
+                headers: {
+                    Trailer: 'Krynos',
+                    'User-Agent': 'Mozilla',
                 },
-            );
-        });
+            },
+        );
 
         t.match(
-            stdout,
-            '400 Bad Request',
+            response.status,
+            400,
             'Including Trailer header results in 400',
         );
 
