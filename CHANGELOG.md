@@ -1,3 +1,10 @@
+## [5.0.23](https://github.com/podium-lib/proxy/compare/v5.0.22...v5.0.23) (2024-07-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @metrics/client to v2.5.3 ([2a1a804](https://github.com/podium-lib/proxy/commit/2a1a80423bba2a59538c941d34fee82460bd5113))
+
 ## [5.0.22](https://github.com/podium-lib/proxy/compare/v5.0.21...v5.0.22) (2024-07-13)
 
 
