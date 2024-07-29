@@ -38,7 +38,7 @@
     "types": "tsc --declaration --emitDeclarationOnly"
   },
   "dependencies": {
-    "@metrics/client": "2.5.2",
+    "@metrics/client": "2.5.3",
     "@podium/node-http-proxy": "1.20.0",
     "@podium/schemas": "5.0.6",
     "@podium/utils": "5.0.7",
