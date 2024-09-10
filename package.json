@@ -43,7 +43,7 @@
     "@podium/schemas": "5.0.6",
     "@podium/utils": "5.2.0",
     "abslog": "2.4.4",
-    "path-to-regexp": "6.2.2"
+    "path-to-regexp": "7.2.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.24.7",
