@@ -33,7 +33,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "run-s test:*",
-    "test:unit": "tap tests/*.js --disable-coverage --allow-empty-coverage",
+    "test:unit": "tap tests/*.test.js --disable-coverage --allow-empty-coverage",
     "test:types": "tsc --project tsconfig.test.json",
     "types": "tsc --declaration --emitDeclarationOnly"
   },
