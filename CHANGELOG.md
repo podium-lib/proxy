@@ -1,3 +1,10 @@
+## [5.0.26](https://github.com/podium-lib/proxy/compare/v5.0.25...v5.0.26) (2024-09-13)
+
+
+### Bug Fixes
+
+* bump path-to-regexp from 6.2.2 to 6.3.0 ([#319](https://github.com/podium-lib/proxy/issues/319)) ([c5a4037](https://github.com/podium-lib/proxy/commit/c5a4037e9f3b774c52305d62a1246939ff584940))
+
 ## [5.0.25](https://github.com/podium-lib/proxy/compare/v5.0.24...v5.0.25) (2024-09-06)
 
 
