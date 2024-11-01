@@ -1,3 +1,10 @@
+## [5.0.29](https://github.com/podium-lib/proxy/compare/v5.0.28...v5.0.29) (2024-11-01)
+
+
+### Bug Fixes
+
+* update podium/node-http-proxy to remove deprecation warning ([#326](https://github.com/podium-lib/proxy/issues/326)) ([5fb15cd](https://github.com/podium-lib/proxy/commit/5fb15cd7a1e545fbb767078bfafa6814ca4c1a43))
+
 ## [5.0.28](https://github.com/podium-lib/proxy/compare/v5.0.27...v5.0.28) (2024-09-23)
 
 
