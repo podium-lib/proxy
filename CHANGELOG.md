@@ -1,3 +1,10 @@
+## [5.0.30](https://github.com/podium-lib/proxy/compare/v5.0.29...v5.0.30) (2024-11-05)
+
+
+### Bug Fixes
+
+* **deps:** update podium packages ([67d3984](https://github.com/podium-lib/proxy/commit/67d3984fcc11584fab9cba0e6ae517aba00dfc36))
+
 ## [5.0.29](https://github.com/podium-lib/proxy/compare/v5.0.28...v5.0.29) (2024-11-01)
 
 
