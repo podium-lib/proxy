@@ -46,15 +46,15 @@
     "path-to-regexp": "6.3.0"
   },
   "devDependencies": {
-    "@podium/eslint-config": "1.0.3",
+    "@podium/eslint-config": "1.0.5",
     "@podium/semantic-release-config": "2.0.0",
     "@podium/test-utils": "2.5.2",
     "@podium/typescript-config": "1.0.0",
     "@types/http-proxy": "1.17.15",
     "@types/readable-stream": "4.0.18",
-    "eslint": "9.16.0",
+    "eslint": "9.17.0",
     "npm-run-all2": "6.2.6",
-    "prettier": "3.4.1",
+    "prettier": "3.4.2",
     "semantic-release": "24.2.0",
     "tap": "18.8.0",
     "typescript": "5.6.2"
