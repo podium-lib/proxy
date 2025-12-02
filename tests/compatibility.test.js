@@ -365,8 +365,11 @@ tap.test(
             'payload',
         );
 
+        // @ts-ignore Body wrongly typed as string
         t.equal(body.type, 'destination');
+        // @ts-ignore Body wrongly typed as string
         t.equal(body.method, 'POST');
+        // @ts-ignore Body wrongly typed as string
         t.equal(body.url, `${serverAddr}/some/path`);
 
         await proxy.close();
