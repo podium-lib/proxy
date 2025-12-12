@@ -38,23 +38,23 @@
     "types:test": "tsc --project tsconfig.test.json"
   },
   "dependencies": {
-    "@metrics/client": "2.5.4",
+    "@metrics/client": "2.5.5",
     "@podium/node-http-proxy": "1.20.1",
-    "@podium/schemas": "5.1.0",
+    "@podium/schemas": "5.1.1",
     "@podium/utils": "5.5.0",
     "abslog": "2.4.4",
     "path-to-regexp": "6.3.0"
   },
   "devDependencies": {
     "@podium/eslint-config": "1.0.19",
-    "@podium/semantic-release-config": "2.0.7",
-    "@podium/test-utils": "3.0.18",
+    "@podium/semantic-release-config": "3.0.0",
+    "@podium/test-utils": "3.0.20",
     "@podium/typescript-config": "1.0.0",
     "@types/http-proxy": "1.17.16",
     "@types/readable-stream": "4.0.20",
     "eslint": "9.39.1",
     "npm-run-all2": "8.0.4",
-    "prettier": "3.7.3",
+    "prettier": "3.7.4",
     "semantic-release": "25.0.2",
     "tap": "21.5.0",
     "typescript": "5.9.3"
