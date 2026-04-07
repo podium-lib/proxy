@@ -1,3 +1,10 @@
+## [5.0.36](https://github.com/podium-lib/proxy/compare/v5.0.35...v5.0.36) (2026-04-07)
+
+
+### Bug Fixes
+
+* update podium dependencies ([835c19d](https://github.com/podium-lib/proxy/commit/835c19d8a6c98e567aa0e89c26cb69187a9fd03d))
+
 ## [5.0.35](https://github.com/podium-lib/proxy/compare/v5.0.34...v5.0.35) (2026-02-15)
 
 
