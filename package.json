@@ -40,7 +40,7 @@
   "dependencies": {
     "@metrics/client": "2.5.5",
     "@podium/node-http-proxy": "1.20.1",
-    "@podium/schemas": "5.2.0",
+    "@podium/schemas": "5.2.1",
     "@podium/utils": "5.6.0",
     "abslog": "2.4.4",
     "path-to-regexp": "6.3.0"
@@ -48,7 +48,7 @@
   "devDependencies": {
     "@podium/eslint-config": "2.0.2",
     "@podium/semantic-release-config": "3.0.0",
-    "@podium/test-utils": "3.0.26",
+    "@podium/test-utils": "3.0.27",
     "@podium/typescript-config": "1.0.1",
     "@types/http-proxy": "1.17.17",
     "@types/readable-stream": "4.0.23",
