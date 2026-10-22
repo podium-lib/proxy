@@ -43,7 +43,7 @@
     "@podium/schemas": "5.2.1",
     "@podium/utils": "5.6.0",
     "abslog": "2.4.4",
-    "path-to-regexp": "6.3.0"
+    "path-to-regexp": "9.0.0"
   },
   "devDependencies": {
     "@podium/eslint-config": "2.0.15",
